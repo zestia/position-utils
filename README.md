@@ -22,7 +22,7 @@ Accepts an element, and splits it up into columns and rows to create a central r
 
 ##### elementPosition(element, boundary)
 
-Returns where the element is to be positioned, taking the boundary into account. e.g. If the element is above-and-to-the-right of the boundary then it would be considered to be in the North East `NE`.
+Returns where the element is positioned, taking the boundary into account. e.g. If the element is above-and-to-the-right of the boundary then it would be considered to be in the North East `NE`.
 
 ##### positionCoords(string, element, reference, container)
 
