@@ -16,7 +16,7 @@ Accepts a string, e.g. `SE`, and returns a position `{ south: true, east: true }
 
 Accepts a position, e.g. `{ south: true, west: true }` and returns whether or not that corresponds to a known position, like South West.
 
-##### elementBoundary(element, columns, rows)
+##### positionBoundary(element, columns, rows)
 
 Accepts an element, and splits it up into columns and rows to create a central rectangle. A larger `column` value would result in a wider rectangle, and a larger `row` value would result in a taller rectangle.
 
