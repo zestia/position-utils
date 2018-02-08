@@ -1,7 +1,7 @@
 # @zestia/position-utils
 
 Rudimentary utils for determining the position of an element within another element, and positioning
-elements near other elements.
+elements near other elements. These utils do the bare minimum, as further positioning can be done with CSS translate.
 
 <hr>
 
