@@ -20,11 +20,11 @@ Accepts a position, e.g. `{ south: true, west: true }` and returns whether or no
 
 Accepts an element, and splits it up into columns and rows to create a central rectangle. A larger `column` value would result in a wider rectangle, and a larger `row` value would result in a taller rectangle.
 
-#### elementPosition(element, boundary)
+##### elementPosition(element, boundary)
 
 Returns where the element is to be positioned, taking the boundary into account. e.g. If the element is above-and-to-the-right of the boundary then it would be considered to be in the North East `NE`.
 
-#### positionCoords(string, element, reference, container)
+##### positionCoords(string, element, reference, container)
 
 Returns the coordinates required to place `element` on the outside edge of `reference`, taking into consideration the scroll position of the `container`.
 
