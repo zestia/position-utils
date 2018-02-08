@@ -54,7 +54,7 @@ describe('hasDirection', function() {
   });
 });
 
-describe('elementBoundary', function() {
+describe('positionBoundary', function() {
   var element = {
     scrollLeft: 50,
     scrollTop: 100,
@@ -67,10 +67,10 @@ describe('elementBoundary', function() {
   };
 
   it('splits the element into rows and columns and returns a boundary rect', function() {
-    assert.deepEqual(pos.elementBoundary(element, 1, 1), { left: 850, top: 700, right: 50, bottom: 100 });
-    assert.deepEqual(pos.elementBoundary(element, 2, 2), { left: 450, top: 400, right: 450, bottom: 400 });
-    assert.deepEqual(pos.elementBoundary(element, 3, 3), { left: 317, top: 300, right: 583, bottom: 500 });
-    assert.deepEqual(pos.elementBoundary(element, 4, 2), { left: 250, top: 400, right: 650, bottom: 400 });
+    assert.deepEqual(pos.positionBoundary(element, 1, 1), { left: 850, top: 700, right: 50, bottom: 100 });
+    assert.deepEqual(pos.positionBoundary(element, 2, 2), { left: 450, top: 400, right: 450, bottom: 400 });
+    assert.deepEqual(pos.positionBoundary(element, 3, 3), { left: 317, top: 300, right: 583, bottom: 500 });
+    assert.deepEqual(pos.positionBoundary(element, 4, 2), { left: 250, top: 400, right: 650, bottom: 400 });
   });
 });
 

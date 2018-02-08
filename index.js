@@ -28,7 +28,7 @@
     };
   }
 
-  function elementBoundary(element, columns, rows) {
+  function positionBoundary(element, columns, rows) {
     var rect   = element.getBoundingClientRect();
     var left   = element.scrollLeft;
     var top    = element.scrollTop;
@@ -94,7 +94,7 @@
   return {
     positionToString: positionToString,
     stringToPosition: stringToPosition,
-    elementBoundary: elementBoundary,
+    positionBoundary: positionBoundary,
     elementPosition: elementPosition,
     hasDirection: hasDirection,
     positionCoords: positionCoords
