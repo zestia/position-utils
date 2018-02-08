@@ -1,6 +1,7 @@
 # @zestia/position-utils
 
-Rudimentary utils for determining the position of an element within another element.
+Rudimentary utils for determining the position of an element within another element, and positioning
+elements near other elements.
 
 <hr>
 
