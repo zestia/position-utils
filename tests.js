@@ -29,7 +29,6 @@ describe('stringToPosition', function() {
   it('converts a position string into a position object', function() {
     assert.deepEqual(pos.stringToPosition('C'), center);
     assert.deepEqual(pos.stringToPosition('X'), center);
-    assert.deepEqual(pos.stringToPosition('SSW'), center);
     assert.deepEqual(pos.stringToPosition('N'), north);
     assert.deepEqual(pos.stringToPosition('NE'), northEast);
     assert.deepEqual(pos.stringToPosition('E'), east);
