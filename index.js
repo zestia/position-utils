@@ -13,7 +13,7 @@
   var keys = Object.keys;
 
   function positionToString(position) {
-    let string = '';
+    var string = '';
     string += position.N ? 'N' : position.S ? 'S' : '';
     string += position.E ? 'E' : position.W ? 'W' : '';
     return string;
