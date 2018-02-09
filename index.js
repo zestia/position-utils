@@ -30,16 +30,14 @@
 
   function positionBoundary(element, columns, rows) {
     var rect   = element.getBoundingClientRect();
-    var left   = element.scrollLeft;
-    var top    = element.scrollTop;
     var column = rect.width / columns;
     var row    = rect.height / rows;
 
     return {
-      left:   round(column + left),
-      top:    round(row + top),
-      right:  round(column * (columns - 1) + left),
-      bottom: round(row * (rows - 1) + top)
+      left:   round(column),
+      top:    round(row),
+      right:  round(column * (columns - 1)),
+      bottom: round(row * (rows - 1))
     };
   }
 

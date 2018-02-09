@@ -56,8 +56,6 @@ describe('hasDirection', function() {
 
 describe('positionBoundary', function() {
   var element = {
-    scrollLeft: 50,
-    scrollTop: 100,
     getBoundingClientRect() {
       return {
         width: 800,
@@ -67,10 +65,10 @@ describe('positionBoundary', function() {
   };
 
   it('splits the element into rows and columns and returns a boundary rect', function() {
-    assert.deepEqual(pos.positionBoundary(element, 1, 1), { left: 850, top: 700, right: 50, bottom: 100 });
-    assert.deepEqual(pos.positionBoundary(element, 2, 2), { left: 450, top: 400, right: 450, bottom: 400 });
-    assert.deepEqual(pos.positionBoundary(element, 3, 3), { left: 317, top: 300, right: 583, bottom: 500 });
-    assert.deepEqual(pos.positionBoundary(element, 4, 2), { left: 250, top: 400, right: 650, bottom: 400 });
+    assert.deepEqual(pos.positionBoundary(element, 1, 1), { left: 800, top: 600, right: 0, bottom: 0 });
+    assert.deepEqual(pos.positionBoundary(element, 2, 2), { left: 400, top: 300, right: 400, bottom: 300 });
+    assert.deepEqual(pos.positionBoundary(element, 3, 3), { left: 267, top: 200, right: 533, bottom: 400 });
+    assert.deepEqual(pos.positionBoundary(element, 4, 2), { left: 200, top: 300, right: 600, bottom: 300 });
   });
 });
 

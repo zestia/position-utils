@@ -1,6 +1,6 @@
 {
   "name": "@zestia/position-utils",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Basic utils for positioning elements",
   "scripts": {
     "test": "mocha tests.js"
