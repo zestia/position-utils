@@ -29,3 +29,5 @@ Returns where the element is positioned, taking the boundary into account. e.g. 
 
 Returns the coordinates required to place `element` on the outside edge of `reference`, taking into consideration the desired position defined by `string` (e.g. `SW`), and the scroll position of the `container`.
 
+<hr>
+

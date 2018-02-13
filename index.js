@@ -10,6 +10,7 @@
   'use strict';
 
   var round = Math.round;
+  var abs = Math.abs;
   var keys = Object.keys;
 
   function positionToString(position) {
@@ -44,11 +45,18 @@
   function elementPosition(element, boundary) {
     var rect = element.getBoundingClientRect();
 
+    var V = abs(rect.top - boundary.top) < abs(rect.bottom - boundary.bottom);
+    var H = abs(rect.left - boundary.left) < abs(rect.right - boundary.right);
+    var N = rect.top < boundary.top;
+    var E = rect.right > boundary.right;
+    var S = rect.bottom > boundary.bottom;
+    var W = rect.left < boundary.left;
+
     return {
-      N: rect.top < boundary.top,
-      E: rect.right > boundary.right,
-      S: rect.bottom > boundary.bottom,
-      W: rect.left < boundary.left
+      N: N && S ? !V : N,
+      E: E && W ?  H : E,
+      S: S && N ?  V : S,
+      W: W && E ? !H : W
     };
   }
 

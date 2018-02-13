@@ -73,22 +73,22 @@ describe('positionBoundary', function() {
 });
 
 describe('elementPosition', function() {
-  it('determines the position of the element based on the boundary', function() {
-    var rect;
+  var rect;
 
-    var boundary = {
-      left: 300,
-      top: 200,
-      right: 600,
-      bottom: 400
-    };
+  var boundary = {
+    left: 300,
+    top: 200,
+    right: 600,
+    bottom: 400
+  };
 
-    var element = {
-      getBoundingClientRect() {
-        return rect;
-      }
-    };
+  var element = {
+    getBoundingClientRect() {
+      return rect;
+    }
+  };
 
+  it('assumes no position', function() {
     rect = {};
     assert.deepEqual(pos.elementPosition(element, boundary), center);
 
@@ -104,6 +104,11 @@ describe('elementPosition', function() {
     rect = { left: 300 };
     assert.deepEqual(pos.elementPosition(element, boundary), center);
 
+    rect = { left: 300, top: 200, right: 600, bottom: 400 };
+    assert.deepEqual(pos.elementPosition(element, boundary), center);
+  });
+
+  it('determines the position of the element based on the boundary', function() {
     rect = { top: 199 };
     assert.deepEqual(pos.elementPosition(element, boundary), north);
 
@@ -127,6 +132,29 @@ describe('elementPosition', function() {
 
     rect = { left: 299 };
     assert.deepEqual(pos.elementPosition(element, boundary), west);
+  });
+
+  it('is biased towards the position the element is most towards', function() {
+    rect = { top: 199, bottom: 401 };
+    assert.deepEqual(pos.elementPosition(element, boundary), north);
+
+    rect = { top: 198, bottom: 401 };
+    assert.deepEqual(pos.elementPosition(element, boundary), north);
+
+    rect = { top: 199, bottom: 402 };
+    assert.deepEqual(pos.elementPosition(element, boundary), south);
+
+    rect = { left: 299, right: 601 };
+    assert.deepEqual(pos.elementPosition(element, boundary), west);
+
+    rect = { left: 298, right: 601 };
+    assert.deepEqual(pos.elementPosition(element, boundary), west);
+
+    rect = { left: 299, right: 602 };
+    assert.deepEqual(pos.elementPosition(element, boundary), east);
+
+    rect = { left: 299, top: 199, right: 601, bottom: 401 };
+    assert.deepEqual(pos.elementPosition(element, boundary), northWest);
   });
 });
 
