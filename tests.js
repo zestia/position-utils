@@ -134,7 +134,7 @@ describe('elementPosition', function() {
     assert.deepEqual(pos.elementPosition(element, boundary), west);
   });
 
-  it('is biased towards the position the element is most towards', function() {
+  it('is biased towards the position the element is most within', function() {
     rect = { top: 199, bottom: 401 };
     assert.deepEqual(pos.elementPosition(element, boundary), north);
 
