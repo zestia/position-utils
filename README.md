@@ -25,9 +25,9 @@ Accepts an element, and splits it up into columns and rows to create a central r
 
 Returns where the element is positioned, taking the boundary into account. e.g. If the element is above-and-to-the-right of the boundary then it would be considered to be in the North East `NE`.
 
-##### positionCoords(string, element, reference, container)
+##### positionCoords(string, element, reference, window)
 
-Returns the coordinates required to place `element` on the outside edge of `reference`, taking into consideration the desired position defined by `string` (e.g. `SW`), and the scroll position of the `container`.
+Returns the coordinates required to place `element` on the outside edge of `reference`, taking into consideration the desired position defined by `string` (e.g. `SW`), and the scroll position of the `window`.
 
 <hr>
 

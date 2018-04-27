@@ -179,21 +179,21 @@ describe('positionCoords', function() {
     }
   };
 
-  var container = {
-    scrollLeft: 50,
-    scrollTop: 100
+  var window = {
+    pageXOffset: 50,
+    pageYOffset: 100
   };
 
   it('returns coords to position the element on the outside edge of the reference', function() {
-    assert.deepEqual(pos.positionCoords('C', element, reference, container), []);
-    assert.deepEqual(pos.positionCoords('X', element, reference, container), []);
-    assert.deepEqual(pos.positionCoords('N',  element, reference, container), [330, 300]);
-    assert.deepEqual(pos.positionCoords('NE', element, reference, container), [410, 300]);
-    assert.deepEqual(pos.positionCoords('E',  element, reference, container), [410, 413]);
-    assert.deepEqual(pos.positionCoords('SE', element, reference, container), [410, 525]);
-    assert.deepEqual(pos.positionCoords('S',  element, reference, container), [330, 525]);
-    assert.deepEqual(pos.positionCoords('SW', element, reference, container), [250, 525]);
-    assert.deepEqual(pos.positionCoords('W',  element, reference, container), [250, 413]);
-    assert.deepEqual(pos.positionCoords('NW', element, reference, container), [250, 300]);
+    assert.deepEqual(pos.positionCoords('C', element, reference, window), []);
+    assert.deepEqual(pos.positionCoords('X', element, reference, window), []);
+    assert.deepEqual(pos.positionCoords('N',  element, reference, window), [330, 300]);
+    assert.deepEqual(pos.positionCoords('NE', element, reference, window), [410, 300]);
+    assert.deepEqual(pos.positionCoords('E',  element, reference, window), [410, 413]);
+    assert.deepEqual(pos.positionCoords('SE', element, reference, window), [410, 525]);
+    assert.deepEqual(pos.positionCoords('S',  element, reference, window), [330, 525]);
+    assert.deepEqual(pos.positionCoords('SW', element, reference, window), [250, 525]);
+    assert.deepEqual(pos.positionCoords('W',  element, reference, window), [250, 413]);
+    assert.deepEqual(pos.positionCoords('NW', element, reference, window), [250, 300]);
   });
 });

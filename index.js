@@ -66,11 +66,11 @@
     }).length > 0;
   }
 
-  function positionCoords(string, element, reference, container) {
+  function positionCoords(string, element, reference, window) {
     var elRect     = element.getBoundingClientRect();
     var refRect    = reference.getBoundingClientRect();
-    var refLeft    = refRect.left + container.scrollLeft;
-    var refTop     = refRect.top + container.scrollTop;
+    var refLeft    = refRect.left + window.pageXOffset;
+    var refTop     = refRect.top + window.pageYOffset;
     var refHeight  = refRect.height;
     var refWidth   = refRect.width;
     var elHeight   = elRect.height;
