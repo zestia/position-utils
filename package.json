@@ -1,6 +1,6 @@
 {
   "name": "@zestia/position-utils",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "Basic utils for positioning elements",
   "scripts": {
     "test": "mocha tests.js"
@@ -14,9 +14,10 @@
   },
   "author": "Zestia",
   "license": "MIT",
-  "devDependencies": {},
-  "dependencies": {
-    "mocha": "^5.0.0"
+  "dependencies": {},
+  "devDependencies": {
+    "@zestia/prettier-config": "0.0.1",
+    "mocha": "5.0.0"
   },
   "bugs": {
     "url": "https://github.com/zestia/position-utils/issues"

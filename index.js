@@ -6,38 +6,22 @@
   } else {
     root.positionUtils = factory();
   }
-}(this, function() {
+})(this, function() {
   'use strict';
 
   var round = Math.round;
-  var abs = Math.abs;
-  var keys = Object.keys;
-
-  function positionToString(position) {
-    var string = '';
-    string += position.N ? 'N' : position.S ? 'S' : '';
-    string += position.E ? 'E' : position.W ? 'W' : '';
-    return string;
-  }
-
-  function stringToPosition(string) {
-    return {
-      N: /^N/.test(string),
-      E: /E$/.test(string),
-      S: /^S/.test(string),
-      W: /W$/.test(string)
-    };
-  }
 
   function positionBoundary(element, columns, rows) {
-    var rect   = element.getBoundingClientRect();
-    var column = rect.width / columns;
-    var row    = rect.height / rows;
+    var rect = element.getBoundingClientRect();
+    var width = rect.right - rect.left;
+    var height = rect.bottom - rect.top;
+    var column = width / columns;
+    var row = height / rows;
 
     return {
-      left:   round(column),
-      top:    round(row),
-      right:  round(column * (columns - 1)),
+      left: round(column),
+      top: round(row),
+      right: round(column * (columns - 1)),
       bottom: round(row * (rows - 1))
     };
   }
@@ -45,64 +29,102 @@
   function elementPosition(element, boundary) {
     var rect = element.getBoundingClientRect();
 
-    var V = abs(rect.top - boundary.top) < abs(rect.bottom - boundary.bottom);
-    var H = abs(rect.left - boundary.left) < abs(rect.right - boundary.right);
-    var N = rect.top < boundary.top;
-    var E = rect.right > boundary.right;
-    var S = rect.bottom > boundary.bottom;
-    var W = rect.left < boundary.left;
+    var x = rect.left + (rect.right - rect.left) / 2;
+    var y = rect.top + (rect.bottom - rect.top) / 2;
 
-    return {
-      N: N && S ? !V : N,
-      E: E && W ?  H : E,
-      S: S && N ?  V : S,
-      W: W && E ? !H : W
-    };
+    var position = [];
+    var middle;
+    var center;
+
+    if (y < boundary.top) {
+      position.push('top');
+    } else if (y > boundary.bottom) {
+      position.push('bottom');
+    } else {
+      middle = true;
+    }
+
+    if (x < boundary.left) {
+      position.push('left');
+    } else if (x > boundary.right) {
+      position.push('right');
+    } else {
+      center = true;
+    }
+
+    if (middle) {
+      position.push('middle');
+    }
+
+    if (center) {
+      position.push('center');
+    }
+
+    return position.join(' ');
   }
 
-  function hasDirection(position) {
-    return keys(position).filter(function(direction) {
-      return !!position[direction];
-    }).length > 0;
-  }
+  function positionCoords(position, element, reference, window) {
+    var elRect = element.getBoundingClientRect();
+    var refRect = reference.getBoundingClientRect();
+    var refLeft = refRect.left + window.pageXOffset;
+    var refTop = refRect.top + window.pageYOffset;
+    var refHeight = refRect.bottom - refRect.top;
+    var refWidth = refRect.right - refRect.left;
+    var elHeight = elRect.bottom - elRect.top;
+    var elWidth = elRect.right - elRect.left;
+    var middle = refTop + refHeight / 2 - elHeight / 2;
+    var center = refLeft + refWidth / 2 - elWidth / 2;
+    var top = refTop - elHeight;
+    var left = refLeft - elWidth;
+    var bottom = refTop + refHeight;
+    var right = refLeft + refWidth;
+    var coords = [];
 
-  function positionCoords(string, element, reference, window) {
-    var elRect     = element.getBoundingClientRect();
-    var refRect    = reference.getBoundingClientRect();
-    var refLeft    = refRect.left + window.pageXOffset;
-    var refTop     = refRect.top + window.pageYOffset;
-    var refHeight  = refRect.height;
-    var refWidth   = refRect.width;
-    var elHeight   = elRect.height;
-    var elWidth    = elRect.width;
-    var vertical   = refTop + refHeight / 2 - elHeight / 2;
-    var horizontal = refLeft + refWidth / 2 - elWidth / 2;
-    var top        = refTop - elHeight;
-    var left       = refLeft - elWidth;
-    var bottom     = refTop + refHeight;
-    var right      = refLeft + refWidth;
-    var coords     = [];
-
-    switch (string) {
-      case 'N':  coords = [horizontal, top];    break;
-      case 'NE': coords = [right, top];         break;
-      case 'E':  coords = [right, vertical];    break;
-      case 'SE': coords = [right, bottom];      break;
-      case 'S':  coords = [horizontal, bottom]; break;
-      case 'SW': coords = [left, bottom];       break;
-      case 'W':  coords = [left, vertical];     break;
-      case 'NW': coords = [left, top];          break;
+    switch (position) {
+      case 'top left':
+        coords = [left + elWidth, top];
+        break;
+      case 'top center':
+        coords = [center, top];
+        break;
+      case 'top right':
+        coords = [right - elWidth, top];
+        break;
+      case 'right middle':
+        coords = [right, middle];
+        break;
+      case 'right top':
+        coords = [right, top + elHeight];
+        break;
+      case 'right bottom':
+        coords = [right, bottom - elHeight];
+        break;
+      case 'bottom right':
+        coords = [right - elWidth, bottom];
+        break;
+      case 'bottom center':
+        coords = [center, bottom];
+        break;
+      case 'bottom left':
+        coords = [left + elWidth, bottom];
+        break;
+      case 'left middle':
+        coords = [left, middle];
+        break;
+      case 'left top':
+        coords = [left, top + elHeight];
+        break;
+      case 'left bottom':
+        coords = [left, bottom - elHeight];
+        break;
     }
 
     return coords.map(round);
   }
 
   return {
-    positionToString: positionToString,
-    stringToPosition: stringToPosition,
     positionBoundary: positionBoundary,
     elementPosition: elementPosition,
-    hasDirection: hasDirection,
     positionCoords: positionCoords
   };
-}));
+});

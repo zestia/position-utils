@@ -1,74 +1,44 @@
 var assert = require('assert');
 var pos = require('./index');
-
-var center    = { N: false, E: false, S: false, W: false };
-var north     = { N: true,  E: false, S: false, W: false };
-var northEast = { N: true,  E: true,  S: false, W: false };
-var east      = { N: false, E: true,  S: false, W: false };
-var southEast = { N: false, E: true,  S: true,  W: false };
-var south     = { N: false, E: false, S: true,  W: false };
-var southWest = { N: false, E: false, S: true,  W: true };
-var west      = { N: false, E: false, S: false, W: true };
-var northWest = { N: true,  E: false, S: false, W: true };
-
-describe('positionToString', function() {
-  it('converts a position object into a position string', function() {
-    assert.equal(pos.positionToString(center), '');
-    assert.equal(pos.positionToString(north), 'N');
-    assert.equal(pos.positionToString(northEast), 'NE');
-    assert.equal(pos.positionToString(east), 'E');
-    assert.equal(pos.positionToString(southEast), 'SE');
-    assert.equal(pos.positionToString(south), 'S');
-    assert.equal(pos.positionToString(southWest), 'SW');
-    assert.equal(pos.positionToString(west), 'W');
-    assert.equal(pos.positionToString(northWest), 'NW');
-  });
-});
-
-describe('stringToPosition', function() {
-  it('converts a position string into a position object', function() {
-    assert.deepEqual(pos.stringToPosition('C'), center);
-    assert.deepEqual(pos.stringToPosition('X'), center);
-    assert.deepEqual(pos.stringToPosition('N'), north);
-    assert.deepEqual(pos.stringToPosition('NE'), northEast);
-    assert.deepEqual(pos.stringToPosition('E'), east);
-    assert.deepEqual(pos.stringToPosition('SE'), southEast);
-    assert.deepEqual(pos.stringToPosition('S'), south);
-    assert.deepEqual(pos.stringToPosition('SW'), southWest);
-    assert.deepEqual(pos.stringToPosition('W'), west);
-    assert.deepEqual(pos.stringToPosition('NW'), northWest);
-  });
-});
-
-describe('hasDirection', function() {
-  it('returns whether or not the position has a direction', function() {
-    assert.equal(pos.hasDirection(center), false);
-    assert.equal(pos.hasDirection(north), true);
-    assert.equal(pos.hasDirection(northEast), true);
-    assert.equal(pos.hasDirection(east), true);
-    assert.equal(pos.hasDirection(southEast), true);
-    assert.equal(pos.hasDirection(south), true);
-    assert.equal(pos.hasDirection(southWest), true);
-    assert.equal(pos.hasDirection(west), true);
-    assert.equal(pos.hasDirection(northWest), true);
-  });
-});
+var positionBoundary = pos.positionBoundary;
+var elementPosition = pos.elementPosition;
+var positionCoords = pos.positionCoords;
 
 describe('positionBoundary', function() {
   var element = {
     getBoundingClientRect() {
       return {
-        width: 800,
-        height: 600
+        top: 100,
+        left: 200,
+        bottom: 700,
+        right: 1000
       };
     }
   };
 
   it('splits the element into rows and columns and returns a boundary rect', function() {
-    assert.deepEqual(pos.positionBoundary(element, 1, 1), { left: 800, top: 600, right: 0, bottom: 0 });
-    assert.deepEqual(pos.positionBoundary(element, 2, 2), { left: 400, top: 300, right: 400, bottom: 300 });
-    assert.deepEqual(pos.positionBoundary(element, 3, 3), { left: 267, top: 200, right: 533, bottom: 400 });
-    assert.deepEqual(pos.positionBoundary(element, 4, 2), { left: 200, top: 300, right: 600, bottom: 300 });
+    assert.deepEqual(positionBoundary(element, 1, 1), { left: 800, top: 600, right: 0, bottom: 0 });
+
+    assert.deepEqual(positionBoundary(element, 2, 2), {
+      left: 400,
+      top: 300,
+      right: 400,
+      bottom: 300
+    });
+
+    assert.deepEqual(positionBoundary(element, 3, 3), {
+      left: 267,
+      top: 200,
+      right: 533,
+      bottom: 400
+    });
+    
+    assert.deepEqual(positionBoundary(element, 4, 2), {
+      left: 200,
+      top: 300,
+      right: 600,
+      bottom: 300
+    });
   });
 });
 
@@ -88,73 +58,54 @@ describe('elementPosition', function() {
     }
   };
 
-  it('assumes no position', function() {
-    rect = {};
-    assert.deepEqual(pos.elementPosition(element, boundary), center);
-
-    rect = { top: 200 };
-    assert.deepEqual(pos.elementPosition(element, boundary), center);
-
-    rect = { right: 600 };
-    assert.deepEqual(pos.elementPosition(element, boundary), center);
-
-    rect = { bottom: 400 };
-    assert.deepEqual(pos.elementPosition(element, boundary), center);
-
-    rect = { left: 300 };
-    assert.deepEqual(pos.elementPosition(element, boundary), center);
-
-    rect = { left: 300, top: 200, right: 600, bottom: 400 };
-    assert.deepEqual(pos.elementPosition(element, boundary), center);
-  });
-
   it('determines the position of the element based on the boundary', function() {
-    rect = { top: 199 };
-    assert.deepEqual(pos.elementPosition(element, boundary), north);
+    rect = { top: 179, bottom: 219, left: 269, right: 329 };
+    assert.equal(elementPosition(element, boundary), 'top left');
 
-    rect = { top: 199, right: 601 };
-    assert.deepEqual(pos.elementPosition(element, boundary), northEast);
+    rect = { top: 179, bottom: 219, left: 270, right: 330 };
+    assert.equal(elementPosition(element, boundary), 'top center');
 
-    rect = { top: 199, left: 299 };
-    assert.deepEqual(pos.elementPosition(element, boundary), northWest);
+    rect = { top: 180, bottom: 220, left: 270, right: 330 };
+    assert.equal(elementPosition(element, boundary), 'middle center');
 
-    rect = { right: 601 };
-    assert.deepEqual(pos.elementPosition(element, boundary), east);
+    rect = { top: 180, bottom: 220, left: 269, right: 329 };
+    assert.equal(elementPosition(element, boundary), 'left middle');
 
-    rect = { bottom: 401 };
-    assert.deepEqual(pos.elementPosition(element, boundary), south);
+    rect = { top: 179, bottom: 219, left: 570, right: 630 };
+    assert.equal(elementPosition(element, boundary), 'top center');
 
-    rect = { bottom: 401, right: 601 };
-    assert.deepEqual(pos.elementPosition(element, boundary), southEast);
+    rect = { top: 179, bottom: 219, left: 571, right: 631 };
+    assert.equal(elementPosition(element, boundary), 'top right');
 
-    rect = { bottom: 401, left: 299 };
-    assert.deepEqual(pos.elementPosition(element, boundary), southWest);
+    rect = { top: 180, bottom: 220, left: 571, right: 631 };
+    assert.equal(elementPosition(element, boundary), 'right middle');
 
-    rect = { left: 299 };
-    assert.deepEqual(pos.elementPosition(element, boundary), west);
-  });
+    rect = { top: 180, bottom: 220, left: 569, right: 629 };
+    assert.equal(elementPosition(element, boundary), 'middle center');
 
-  it('is biased towards the position the element is most within', function() {
-    rect = { top: 199, bottom: 401 };
-    assert.deepEqual(pos.elementPosition(element, boundary), north);
+    rect = { top: 380, bottom: 420, left: 570, right: 630 };
+    assert.equal(elementPosition(element, boundary), 'middle center');
 
-    rect = { top: 198, bottom: 401 };
-    assert.deepEqual(pos.elementPosition(element, boundary), north);
+    rect = { top: 380, bottom: 420, left: 571, right: 631 };
+    assert.equal(elementPosition(element, boundary), 'right middle');
 
-    rect = { top: 199, bottom: 402 };
-    assert.deepEqual(pos.elementPosition(element, boundary), south);
+    rect = { top: 381, bottom: 421, left: 571, right: 631 };
+    assert.equal(elementPosition(element, boundary), 'bottom right');
 
-    rect = { left: 299, right: 601 };
-    assert.deepEqual(pos.elementPosition(element, boundary), west);
+    rect = { top: 381, bottom: 421, left: 569, right: 629 };
+    assert.equal(elementPosition(element, boundary), 'bottom center');
 
-    rect = { left: 298, right: 601 };
-    assert.deepEqual(pos.elementPosition(element, boundary), west);
+    rect = { top: 380, bottom: 420, left: 269, right: 329 };
+    assert.equal(elementPosition(element, boundary), 'left middle');
 
-    rect = { left: 299, right: 602 };
-    assert.deepEqual(pos.elementPosition(element, boundary), east);
+    rect = { top: 380, bottom: 420, left: 270, right: 330 };
+    assert.equal(elementPosition(element, boundary), 'middle center');
 
-    rect = { left: 299, top: 199, right: 601, bottom: 401 };
-    assert.deepEqual(pos.elementPosition(element, boundary), northWest);
+    rect = { top: 381, bottom: 421, left: 270, right: 330 };
+    assert.equal(elementPosition(element, boundary), 'bottom center');
+
+    rect = { top: 381, bottom: 421, left: 269, right: 329 };
+    assert.equal(elementPosition(element, boundary), 'bottom left');
   });
 });
 
@@ -162,8 +113,10 @@ describe('positionCoords', function() {
   var element = {
     getBoundingClientRect() {
       return {
-        width: 100,
-        height: 200
+        top: 0,
+        left: 0,
+        right: 100,
+        bottom: 200
       };
     }
   };
@@ -173,8 +126,8 @@ describe('positionCoords', function() {
       return {
         left: 300,
         top: 400,
-        width: 60,
-        height: 25
+        right: 360,
+        bottom: 425
       };
     }
   };
@@ -185,15 +138,17 @@ describe('positionCoords', function() {
   };
 
   it('returns coords to position the element on the outside edge of the reference', function() {
-    assert.deepEqual(pos.positionCoords('C', element, reference, window), []);
-    assert.deepEqual(pos.positionCoords('X', element, reference, window), []);
-    assert.deepEqual(pos.positionCoords('N',  element, reference, window), [330, 300]);
-    assert.deepEqual(pos.positionCoords('NE', element, reference, window), [410, 300]);
-    assert.deepEqual(pos.positionCoords('E',  element, reference, window), [410, 413]);
-    assert.deepEqual(pos.positionCoords('SE', element, reference, window), [410, 525]);
-    assert.deepEqual(pos.positionCoords('S',  element, reference, window), [330, 525]);
-    assert.deepEqual(pos.positionCoords('SW', element, reference, window), [250, 525]);
-    assert.deepEqual(pos.positionCoords('W',  element, reference, window), [250, 413]);
-    assert.deepEqual(pos.positionCoords('NW', element, reference, window), [250, 300]);
+    assert.deepEqual(positionCoords('top left', element, reference, window), [350, 300]);
+    assert.deepEqual(positionCoords('top center', element, reference, window), [330, 300]);
+    assert.deepEqual(positionCoords('top right', element, reference, window), [310, 300]);
+    assert.deepEqual(positionCoords('right middle', element, reference, window), [410, 413]);
+    assert.deepEqual(positionCoords('right top', element, reference, window), [410, 500]);
+    assert.deepEqual(positionCoords('right bottom', element, reference, window), [410, 325]);
+    assert.deepEqual(positionCoords('bottom right', element, reference, window), [310, 525]);
+    assert.deepEqual(positionCoords('bottom center', element, reference, window), [330, 525]);
+    assert.deepEqual(positionCoords('bottom left', element, reference, window), [350, 525]);
+    assert.deepEqual(positionCoords('left middle', element, reference, window), [250, 413]);
+    assert.deepEqual(positionCoords('left top', element, reference, window), [250, 500]);
+    assert.deepEqual(positionCoords('left bottom', element, reference, window), [250, 325]);
   });
 });
