@@ -3,6 +3,7 @@ var pos = require('./index');
 var positionBoundary = pos.positionBoundary;
 var elementPosition = pos.elementPosition;
 var positionCoords = pos.positionCoords;
+var autoPosition = pos.autoPosition;
 
 describe('positionBoundary', function() {
   var element = {
@@ -32,7 +33,7 @@ describe('positionBoundary', function() {
       right: 533,
       bottom: 400
     });
-    
+
     assert.deepEqual(positionBoundary(element, 4, 2), {
       left: 200,
       top: 300,
@@ -150,5 +151,19 @@ describe('positionCoords', function() {
     assert.deepEqual(positionCoords('left middle', element, reference, window), [250, 413]);
     assert.deepEqual(positionCoords('left top', element, reference, window), [250, 500]);
     assert.deepEqual(positionCoords('left bottom', element, reference, window), [250, 325]);
+  });
+});
+
+describe('autoPosition', function() {
+  it('returns the opposite position', function() {
+    assert.equal(autoPosition('middle center'), 'bottom center');
+    assert.equal(autoPosition('top center'), 'bottom center');
+    assert.equal(autoPosition('top left'), 'bottom left');
+    assert.equal(autoPosition('top right'), 'bottom right');
+    assert.equal(autoPosition('bottom center'), 'top center');
+    assert.equal(autoPosition('bottom left'), 'top left');
+    assert.equal(autoPosition('bottom right'), 'top right');
+    assert.equal(autoPosition('left middle'), 'right middle');
+    assert.equal(autoPosition('right middle'), 'left middle');
   });
 });
