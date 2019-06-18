@@ -16,8 +16,8 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "@zestia/prettier-config": "0.0.1",
-    "mocha": "5.0.0"
+    "@zestia/prettier-config": "0.0.3",
+    "mocha": "6.1.4"
   },
   "bugs": {
     "url": "https://github.com/zestia/position-utils/issues"
