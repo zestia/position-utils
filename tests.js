@@ -155,7 +155,7 @@ describe('positionCoords', function() {
 });
 
 describe('autoPosition', function() {
-  it('returns the opposite position', function() {
+  it('returns a suitable opposite position', function() {
     assert.equal(autoPosition('middle center'), 'bottom center');
     assert.equal(autoPosition('top center'), 'bottom center');
     assert.equal(autoPosition('top left'), 'bottom left');

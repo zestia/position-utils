@@ -17,5 +17,8 @@ Returns where the element is positioned, taking the boundary into account. e.g. 
 
 Returns the coordinates required to place `element` on the outside edge of `reference`, taking into consideration the desired position defined by `string` (e.g. `top left`), and the scroll position of the `window`.
 
-<hr>
+##### autoPositon(string)
 
+Accepts a position string, like 'bottom left' and returns the most appropriate position to keep the element in the window. So in this case, it would be 'top left'.
+
+<hr>
