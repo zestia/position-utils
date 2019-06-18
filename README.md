@@ -19,6 +19,6 @@ Returns the coordinates required to place `element` on the outside edge of `refe
 
 ##### autoPositon(string)
 
-Accepts a position string, like 'bottom left' and returns the most appropriate position to keep the element in the window. So in this case, it would be 'top left'.
+Accepts a position string, like `bottom left` and returns the most appropriate position to keep the element in the window. So in this case, it would be `top left`.
 
 <hr>
