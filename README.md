@@ -51,5 +51,5 @@ const elPosition = elementPosition(myElement, docBoundary);
 
 // Compute the coordinates to position popupElement on
 // the bottom left edge of myElement
-const [left, top] = positionCoords('bottom left', popupElement, mYlement);
+const [left, top] = positionCoords('bottom left', popupElement, myElement);
 ```
