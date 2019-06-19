@@ -67,50 +67,50 @@
     var scrollEl = element.ownerDocument.scrollingElement;
     var refLeft = refRect.left + scrollEl.scrollLeft;
     var refTop = refRect.top + scrollEl.scrollTop;
-    var pointMiddle = refTop + refRect.height / 2 - elRect.height / 2;
-    var pointCenter = refLeft + refRect.width / 2 - elRect.width / 2;
-    var pointTop = refTop - elRect.height;
-    var pointLeft = refLeft - elRect.width;
-    var pointBottom = refTop + refRect.height;
-    var pointRight = refLeft + refRect.width;
+    var middle = refTop + refRect.height / 2 - elRect.height / 2;
+    var center = refLeft + refRect.width / 2 - elRect.width / 2;
+    var top = refTop - elRect.height;
+    var left = refLeft - elRect.width;
+    var bottom = refTop + refRect.height;
+    var right = refLeft + refRect.width;
     var coords = [];
 
     switch (position) {
       case 'top left':
-        coords = [pointLeft + elRect.width, pointTop];
+        coords = [left + elRect.width, top];
         break;
       case 'top center':
-        coords = [pointCenter, pointTop];
+        coords = [center, top];
         break;
       case 'top right':
-        coords = [pointRight - elRect.width, pointTop];
+        coords = [right - elRect.width, top];
         break;
       case 'right middle':
-        coords = [pointRight, pointMiddle];
+        coords = [right, middle];
         break;
       case 'right top':
-        coords = [pointRight, pointTop + elRect.height];
+        coords = [right, top + elRect.height];
         break;
       case 'right bottom':
-        coords = [pointRight, pointBottom - elRect.height];
+        coords = [right, bottom - elRect.height];
         break;
       case 'bottom right':
-        coords = [pointRight - elRect.width, pointBottom];
+        coords = [right - elRect.width, bottom];
         break;
       case 'bottom center':
-        coords = [pointCenter, pointBottom];
+        coords = [center, bottom];
         break;
       case 'bottom left':
-        coords = [pointLeft + elRect.width, pointBottom];
+        coords = [left + elRect.width, bottom];
         break;
       case 'left middle':
-        coords = [pointLeft, pointMiddle];
+        coords = [left, middle];
         break;
       case 'left top':
-        coords = [pointLeft, pointTop + elRect.height];
+        coords = [left, top + elRect.height];
         break;
       case 'left bottom':
-        coords = [pointLeft, pointBottom - elRect.height];
+        coords = [left, bottom - elRect.height];
         break;
     }
 
