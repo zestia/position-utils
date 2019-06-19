@@ -13,10 +13,8 @@
 
   function positionBoundary(element, columns, rows) {
     var rect = element.getBoundingClientRect();
-    var width = rect.right - rect.left;
-    var height = rect.bottom - rect.top;
-    var column = width / columns;
-    var row = height / rows;
+    var column = rect.width / columns;
+    var row = rect.height / rows;
 
     return {
       left: round(column),
@@ -29,8 +27,8 @@
   function elementPosition(element, boundary) {
     var rect = element.getBoundingClientRect();
 
-    var x = rect.left + (rect.right - rect.left) / 2;
-    var y = rect.top + (rect.bottom - rect.top) / 2;
+    var x = rect.left + rect.width / 2;
+    var y = rect.top + rect.height / 2;
 
     var position = [];
     var middle;
@@ -63,59 +61,56 @@
     return position.join(' ');
   }
 
-  function positionCoords(position, element, reference, window) {
+  function positionCoords(position, element, reference) {
     var elRect = element.getBoundingClientRect();
     var refRect = reference.getBoundingClientRect();
-    var refLeft = refRect.left + window.pageXOffset;
-    var refTop = refRect.top + window.pageYOffset;
-    var refHeight = refRect.bottom - refRect.top;
-    var refWidth = refRect.right - refRect.left;
-    var elHeight = elRect.bottom - elRect.top;
-    var elWidth = elRect.right - elRect.left;
-    var middle = refTop + refHeight / 2 - elHeight / 2;
-    var center = refLeft + refWidth / 2 - elWidth / 2;
-    var top = refTop - elHeight;
-    var left = refLeft - elWidth;
-    var bottom = refTop + refHeight;
-    var right = refLeft + refWidth;
+    var scrollEl = element.ownerDocument.scrollingElement;
+    var refLeft = refRect.left + scrollEl.scrollLeft;
+    var refTop = refRect.top + scrollEl.scrollTop;
+    var pointMiddle = refTop + refRect.height / 2 - elRect.height / 2;
+    var pointCenter = refLeft + refRect.width / 2 - elRect.width / 2;
+    var pointTop = refTop - elRect.height;
+    var pointLeft = refLeft - elRect.width;
+    var pointBottom = refTop + refRect.height;
+    var pointRight = refLeft + refRect.width;
     var coords = [];
 
     switch (position) {
       case 'top left':
-        coords = [left + elWidth, top];
+        coords = [pointLeft + elRect.width, pointTop];
         break;
       case 'top center':
-        coords = [center, top];
+        coords = [pointCenter, pointTop];
         break;
       case 'top right':
-        coords = [right - elWidth, top];
+        coords = [pointRight - elRect.width, pointTop];
         break;
       case 'right middle':
-        coords = [right, middle];
+        coords = [pointRight, pointMiddle];
         break;
       case 'right top':
-        coords = [right, top + elHeight];
+        coords = [pointRight, pointTop + elRect.height];
         break;
       case 'right bottom':
-        coords = [right, bottom - elHeight];
+        coords = [pointRight, pointBottom - elRect.height];
         break;
       case 'bottom right':
-        coords = [right - elWidth, bottom];
+        coords = [pointRight - elRect.width, pointBottom];
         break;
       case 'bottom center':
-        coords = [center, bottom];
+        coords = [pointCenter, pointBottom];
         break;
       case 'bottom left':
-        coords = [left + elWidth, bottom];
+        coords = [pointLeft + elRect.width, pointBottom];
         break;
       case 'left middle':
-        coords = [left, middle];
+        coords = [pointLeft, pointMiddle];
         break;
       case 'left top':
-        coords = [left, top + elHeight];
+        coords = [pointLeft, pointTop + elRect.height];
         break;
       case 'left bottom':
-        coords = [left, bottom - elHeight];
+        coords = [pointLeft, pointBottom - elRect.height];
         break;
     }
 
