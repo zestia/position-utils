@@ -24,7 +24,8 @@
     };
   }
 
-  function elementPosition(element, boundary) {
+  function elementPosition(element, container, columns, rows) {
+    var boundary = positionBoundary(container, columns, rows);
     var rect = element.getBoundingClientRect();
 
     var x = rect.left + rect.width / 2;
@@ -118,7 +119,6 @@
   }
 
   return {
-    positionBoundary: positionBoundary,
     elementPosition: elementPosition,
     positionCoords: positionCoords
   };

@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.2.0
+
+- Make `positionBoundary` private
+
 ## 1.1.1
 
 - Floors calcualtions instead of round
