@@ -46,7 +46,8 @@ const elPosition = elementPosition(myElement, docBoundary);
 
 // Now we know where the myElement is positioned, we can
 // decide how we might want to position another element
-// near it. In this case, myElement is in the top left of the document, so it makes sense to put our popup beneath it...
+// near it. In this case, myElement is in the top left of the document,
+// so it makes sense to put our popup beneath it...
 
 // Compute the coordinates to position popupElement on
 // the bottom left edge of myElement
