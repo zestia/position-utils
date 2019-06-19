@@ -23,20 +23,20 @@ Returns the coordinates required to place `element` on the outside edge of `refe
 // 2. The container element
 // 3. Another element, to be positioned near the first element
 
-const myElement = document.querySelector('.my-element');
-const docElement = document.documentElement;
-const popupElement = document.querySelector('.popup');
+const element = document.querySelector('.my-element');
+const container = document.documentElement;
+const popup = document.querySelector('.popup');
 
-// Find the position of myElement, inside docElement when it is split into
+// Find the position of element, inside container when it is split into
 // a grid, creating a bounding box e.g.
 // 1000 x 1000 = { top: 333, left: 333, bottom: 666, right: 666 }
 
-const elPosition = elementPosition(myElement, docElement, 3, 3);
+const elPosition = elementPosition(element, container, 3, 3);
 
-// In this example, based on the bounding box, myElement was considered
-// to be in the 'top left' of docElement. So, it make sense to position
+// In this example, based on the bounding box, element was considered
+// to be in the 'top left' of container. So, it make sense to position
 // our popup element beneath it...
 
-// Compute the coordinates to position popupElement on the bottom left edge of myElement
-const [left, top] = positionCoords('bottom left', popupElement, myElement);
+// Compute the coordinates to position popup on the bottom left edge of element
+const [left, top] = positionCoords('bottom left', popup, element);
 ```
