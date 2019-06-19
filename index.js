@@ -9,7 +9,7 @@
 })(this, function() {
   'use strict';
 
-  var round = Math.round;
+  var floor = Math.floor;
 
   function positionBoundary(element, columns, rows) {
     var rect = element.getBoundingClientRect();
@@ -17,10 +17,10 @@
     var row = rect.height / rows;
 
     return {
-      left: round(column),
-      top: round(row),
-      right: round(column * (columns - 1)),
-      bottom: round(row * (rows - 1))
+      left: floor(column),
+      top: floor(row),
+      right: floor(column * (columns - 1)),
+      bottom: floor(row * (rows - 1))
     };
   }
 
@@ -114,7 +114,7 @@
         break;
     }
 
-    return coords.map(round);
+    return coords.map(floor);
   }
 
   return {

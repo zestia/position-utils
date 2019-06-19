@@ -30,7 +30,7 @@ describe('positionBoundary', function() {
     });
 
     assert.deepEqual(positionBoundary(element, 3, 3), {
-      left: 267,
+      left: 266,
       top: 200,
       right: 533,
       bottom: 400
@@ -143,13 +143,13 @@ describe('positionCoords', function() {
     assert.deepEqual(positionCoords('top left', element, reference), [350, 300]);
     assert.deepEqual(positionCoords('top center', element, reference), [330, 300]);
     assert.deepEqual(positionCoords('top right', element, reference), [310, 300]);
-    assert.deepEqual(positionCoords('right middle', element, reference), [410, 413]);
+    assert.deepEqual(positionCoords('right middle', element, reference), [410, 412]);
     assert.deepEqual(positionCoords('right top', element, reference), [410, 500]);
     assert.deepEqual(positionCoords('right bottom', element, reference), [410, 325]);
     assert.deepEqual(positionCoords('bottom right', element, reference), [310, 525]);
     assert.deepEqual(positionCoords('bottom center', element, reference), [330, 525]);
     assert.deepEqual(positionCoords('bottom left', element, reference), [350, 525]);
-    assert.deepEqual(positionCoords('left middle', element, reference), [250, 413]);
+    assert.deepEqual(positionCoords('left middle', element, reference), [250, 412]);
     assert.deepEqual(positionCoords('left top', element, reference), [250, 500]);
     assert.deepEqual(positionCoords('left bottom', element, reference), [250, 325]);
   });

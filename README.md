@@ -36,7 +36,7 @@ const popupElement = document.querySelector('.popup');
 // considered near an edge).
 
 const docBoundary = positionBoundary(docElement, 3, 3);
-// --> { top: 0, left: 0, right: 800; bottom: 600  }
+// -> 1000 x 1000 = { top: 333, left: 333, bottom: 666, right: 666 }
 
 // Use the boundary rectange to compute where myElement
 // is considered to be positioned inside docElement
