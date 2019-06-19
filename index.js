@@ -64,7 +64,7 @@
   function positionCoords(position, element, reference) {
     var elRect = element.getBoundingClientRect();
     var refRect = reference.getBoundingClientRect();
-    var scrollEl = element.ownerDocument.scrollingElement;
+    var scrollEl = element.ownerDocument.scrollingElement || document.documentElement; // Remove document global when IE11 support is dropped
     var refLeft = refRect.left + scrollEl.scrollLeft;
     var refTop = refRect.top + scrollEl.scrollTop;
     var middle = refTop + refRect.height / 2 - elRect.height / 2;
