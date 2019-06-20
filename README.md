@@ -7,7 +7,7 @@ elements near other elements. These utils do the bare minimum, as further positi
 
 ##### elementPosition(element, container, columns, rows)
 
-Returns where `element` is considered to be position inside `container`, based on a bounding box created by splitting the `container` into `columns` and `rows`.
+Returns where `element` is considered to be positioned inside `container`, based on a bounding box created by splitting the `container` into `columns` and `rows`.
 
 <img src="assets/element-position.png">
 
