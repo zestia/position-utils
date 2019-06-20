@@ -1,18 +1,16 @@
-var assert = require('assert');
-var pos = require('./index');
-var elementPosition = pos.elementPosition;
-var positionCoords = pos.positionCoords;
+const test = require('ava');
+const { elementPosition, positionCoords } = require('./index');
 
-describe('elementPosition', function() {
-  var rect;
+test('elementPosition', t => {
+  let rect;
 
-  var element = {
+  const element = {
     getBoundingClientRect() {
       return rect;
     }
   };
 
-  var container = {
+  const container = {
     getBoundingClientRect() {
       return {
         width: 180,
@@ -21,38 +19,36 @@ describe('elementPosition', function() {
     }
   };
 
-  it('determines the position of the element in the container based on the bounding box', function() {
-    rect = { top: 14, left: 29, width: 60, height: 30 };
-    assert.equal(elementPosition(element, container, 3, 3), 'top left');
+  rect = { top: 14, left: 29, width: 60, height: 30 };
+  t.is(elementPosition(element, container, 3, 3), 'top left');
 
-    rect = { top: 14, left: 60, width: 60, height: 30 };
-    assert.equal(elementPosition(element, container, 3, 3), 'top center');
+  rect = { top: 14, left: 60, width: 60, height: 30 };
+  t.is(elementPosition(element, container, 3, 3), 'top center');
 
-    rect = { top: 14, left: 91, width: 60, height: 30 };
-    assert.equal(elementPosition(element, container, 3, 3), 'top right');
+  rect = { top: 14, left: 91, width: 60, height: 30 };
+  t.is(elementPosition(element, container, 3, 3), 'top right');
 
-    rect = { top: 30, left: 29, width: 60, height: 30 };
-    assert.equal(elementPosition(element, container, 3, 3), 'middle left');
+  rect = { top: 30, left: 29, width: 60, height: 30 };
+  t.is(elementPosition(element, container, 3, 3), 'middle left');
 
-    rect = { top: 30, left: 60, width: 60, height: 30 };
-    assert.equal(elementPosition(element, container, 3, 3), 'middle center');
+  rect = { top: 30, left: 60, width: 60, height: 30 };
+  t.is(elementPosition(element, container, 3, 3), 'middle center');
 
-    rect = { top: 30, left: 91, width: 60, height: 30 };
-    assert.equal(elementPosition(element, container, 3, 3), 'middle right');
+  rect = { top: 30, left: 91, width: 60, height: 30 };
+  t.is(elementPosition(element, container, 3, 3), 'middle right');
 
-    rect = { top: 46, left: 29, width: 60, height: 30 };
-    assert.equal(elementPosition(element, container, 3, 3), 'bottom left');
+  rect = { top: 46, left: 29, width: 60, height: 30 };
+  t.is(elementPosition(element, container, 3, 3), 'bottom left');
 
-    rect = { top: 46, left: 60, width: 60, height: 30 };
-    assert.equal(elementPosition(element, container, 3, 3), 'bottom center');
+  rect = { top: 46, left: 60, width: 60, height: 30 };
+  t.is(elementPosition(element, container, 3, 3), 'bottom center');
 
-    rect = { top: 46, left: 91, width: 60, height: 30 };
-    assert.equal(elementPosition(element, container, 3, 3), 'bottom right');
-  });
+  rect = { top: 46, left: 91, width: 60, height: 30 };
+  t.is(elementPosition(element, container, 3, 3), 'bottom right');
 });
 
-describe('positionCoords', function() {
-  var element = {
+test('positionCoords', t => {
+  const element = {
     getBoundingClientRect() {
       return {
         width: 20,
@@ -67,7 +63,7 @@ describe('positionCoords', function() {
     }
   };
 
-  var reference = {
+  const reference = {
     getBoundingClientRect() {
       return {
         top: 20,
@@ -78,18 +74,16 @@ describe('positionCoords', function() {
     }
   };
 
-  it('returns coords to position the element on the outside edge of the reference', function() {
-    assert.deepEqual(positionCoords('top left', element, reference), [60, 15]);
-    assert.deepEqual(positionCoords('top center', element, reference), [80, 15]);
-    assert.deepEqual(positionCoords('top right', element, reference), [100, 15]);
-    assert.deepEqual(positionCoords('right middle', element, reference), [120, 35]);
-    assert.deepEqual(positionCoords('right top', element, reference), [120, 25]);
-    assert.deepEqual(positionCoords('right bottom', element, reference), [120, 45]);
-    assert.deepEqual(positionCoords('bottom right', element, reference), [100, 55]);
-    assert.deepEqual(positionCoords('bottom center', element, reference), [80, 55]);
-    assert.deepEqual(positionCoords('bottom left', element, reference), [60, 55]);
-    assert.deepEqual(positionCoords('left middle', element, reference), [40, 35]);
-    assert.deepEqual(positionCoords('left top', element, reference), [40, 25]);
-    assert.deepEqual(positionCoords('left bottom', element, reference), [40, 45]);
-  });
+  t.deepEqual(positionCoords('top left', element, reference), [60, 15]);
+  t.deepEqual(positionCoords('top center', element, reference), [80, 15]);
+  t.deepEqual(positionCoords('top right', element, reference), [100, 15]);
+  t.deepEqual(positionCoords('right middle', element, reference), [120, 35]);
+  t.deepEqual(positionCoords('right top', element, reference), [120, 25]);
+  t.deepEqual(positionCoords('right bottom', element, reference), [120, 45]);
+  t.deepEqual(positionCoords('bottom right', element, reference), [100, 55]);
+  t.deepEqual(positionCoords('bottom center', element, reference), [80, 55]);
+  t.deepEqual(positionCoords('bottom left', element, reference), [60, 55]);
+  t.deepEqual(positionCoords('left middle', element, reference), [40, 35]);
+  t.deepEqual(positionCoords('left top', element, reference), [40, 25]);
+  t.deepEqual(positionCoords('left bottom', element, reference), [40, 45]);
 });
