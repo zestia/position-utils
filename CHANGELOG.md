@@ -1,10 +1,10 @@
 # Changelog
 
-# 2.2.0
+## 2.2.0
 
 - Lower node version requirements
 
-# 2.1.0
+## 2.1.0
 
 - Switch to AVA for testing
 
