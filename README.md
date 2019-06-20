@@ -35,7 +35,7 @@ const popup = document.querySelector('.popup');
 // a grid, creating a bounding box e.g.
 // 1000 x 1000 = { top: 333, left: 333, bottom: 666, right: 666 }
 
-const elPosition = elementPosition(element, container, 3, 3);
+const position = elementPosition(element, container, 3, 3);
 
 // In this example, based on the bounding box, element was considered
 // to be in the 'top left' of container. So, it make sense to position
