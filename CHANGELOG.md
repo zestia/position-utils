@@ -1,5 +1,13 @@
 # Changelog
 
+# 2.2.0
+
+- Lower node version requirements
+
+# 2.1.0
+
+- Switch to AVA for testing
+
 ## 2.0.0
 
 - Change `<x> middle` to `middle <x>` for `elementPosition` to be consistant with `top <x>` and `bottom <x>`
