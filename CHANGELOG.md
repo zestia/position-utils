@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0
+
+- Change `<x> middle` to `middle <x>` for `elementPosition` to be consistant with `top <x>` and `bottom <x>`
+
 ## 1.2.0
 
 - Make `positionBoundary` private

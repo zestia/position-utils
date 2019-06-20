@@ -32,13 +32,13 @@ describe('elementPosition', function() {
     assert.equal(elementPosition(element, container, 3, 3), 'top right');
 
     rect = { top: 30, left: 29, width: 60, height: 30 };
-    assert.equal(elementPosition(element, container, 3, 3), 'left middle');
+    assert.equal(elementPosition(element, container, 3, 3), 'middle left');
 
     rect = { top: 30, left: 60, width: 60, height: 30 };
     assert.equal(elementPosition(element, container, 3, 3), 'middle center');
 
     rect = { top: 30, left: 91, width: 60, height: 30 };
-    assert.equal(elementPosition(element, container, 3, 3), 'right middle');
+    assert.equal(elementPosition(element, container, 3, 3), 'middle right');
 
     rect = { top: 46, left: 29, width: 60, height: 30 };
     assert.equal(elementPosition(element, container, 3, 3), 'bottom left');

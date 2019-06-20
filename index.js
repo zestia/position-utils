@@ -32,15 +32,13 @@
     var y = rect.top + rect.height / 2;
 
     var position = [];
-    var middle;
-    var center;
 
     if (y < boundary.top) {
       position.push('top');
     } else if (y > boundary.bottom) {
       position.push('bottom');
     } else {
-      middle = true;
+      position.push('middle');
     }
 
     if (x < boundary.left) {
@@ -48,14 +46,6 @@
     } else if (x > boundary.right) {
       position.push('right');
     } else {
-      center = true;
-    }
-
-    if (middle) {
-      position.push('middle');
-    }
-
-    if (center) {
       position.push('center');
     }
 
