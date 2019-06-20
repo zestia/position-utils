@@ -7,13 +7,13 @@ elements near other elements. These utils do the bare minimum, as further positi
 
 ##### elementPosition(element, container, columns, rows)
 
-Returns where `element` is considered to be positioned inside `container`, based on a bounding box created by splitting the `container` into `columns` and `rows`.
+Returns where `element` is considered to be positioned inside `container`, based on a bounding box created by splitting the `container` into `columns` and `rows`. Here are some examples:
 
 <img src="assets/element-position.png" width="860" height="201">
 
 ##### positionCoords(string, element, reference)
 
-Returns the coordinates required to place `element` on the outside edge of `reference`, taking into consideration the desired position defined by `string` (e.g. `top left`).
+Returns the coordinates required to place `element` on the outside edge of `reference`, taking into consideration the desired position defined by `string` (e.g. `top left`). Here are the possible positions:
 
 <img src="assets/position-coords.png" width="288" height="288">
 
