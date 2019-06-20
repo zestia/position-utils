@@ -77,13 +77,13 @@ test('positionCoords', t => {
   t.deepEqual(positionCoords('top left', element, reference), [60, 15]);
   t.deepEqual(positionCoords('top center', element, reference), [80, 15]);
   t.deepEqual(positionCoords('top right', element, reference), [100, 15]);
-  t.deepEqual(positionCoords('right middle', element, reference), [120, 35]);
   t.deepEqual(positionCoords('right top', element, reference), [120, 25]);
+  t.deepEqual(positionCoords('right middle', element, reference), [120, 35]);
   t.deepEqual(positionCoords('right bottom', element, reference), [120, 45]);
-  t.deepEqual(positionCoords('bottom right', element, reference), [100, 55]);
-  t.deepEqual(positionCoords('bottom center', element, reference), [80, 55]);
   t.deepEqual(positionCoords('bottom left', element, reference), [60, 55]);
-  t.deepEqual(positionCoords('left middle', element, reference), [40, 35]);
+  t.deepEqual(positionCoords('bottom center', element, reference), [80, 55]);
+  t.deepEqual(positionCoords('bottom right', element, reference), [100, 55]);
   t.deepEqual(positionCoords('left top', element, reference), [40, 25]);
+  t.deepEqual(positionCoords('left middle', element, reference), [40, 35]);
   t.deepEqual(positionCoords('left bottom', element, reference), [40, 45]);
 });

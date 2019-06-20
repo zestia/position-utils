@@ -78,29 +78,29 @@
       case 'top right':
         coords = [right - elRect.width, top];
         break;
-      case 'right middle':
-        coords = [right, middle];
-        break;
       case 'right top':
         coords = [right, top + elRect.height];
+        break;
+      case 'right middle':
+        coords = [right, middle];
         break;
       case 'right bottom':
         coords = [right, bottom - elRect.height];
         break;
-      case 'bottom right':
-        coords = [right - elRect.width, bottom];
+      case 'bottom left':
+        coords = [left + elRect.width, bottom];
         break;
       case 'bottom center':
         coords = [center, bottom];
         break;
-      case 'bottom left':
-        coords = [left + elRect.width, bottom];
-        break;
-      case 'left middle':
-        coords = [left, middle];
+      case 'bottom right':
+        coords = [right - elRect.width, bottom];
         break;
       case 'left top':
         coords = [left, top + elRect.height];
+        break;
+      case 'left middle':
+        coords = [left, middle];
         break;
       case 'left bottom':
         coords = [left, bottom - elRect.height];
