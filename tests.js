@@ -1,5 +1,5 @@
 const test = require('ava');
-const { position: elementPosition, coords } = require('./index');
+const { position, coords } = require('./index');
 
 function node(rect, scrollLeft = 0, scrollTop = 0) {
   return {
@@ -10,46 +10,46 @@ function node(rect, scrollLeft = 0, scrollTop = 0) {
   };
 }
 
-test('elementPosition', t => {
+test('position', t => {
   const container = node({ width: 180, height: 90 });
 
   let element;
 
   element = node({ top: 13, left: 29, width: 60, height: 30 });
 
-  t.is(elementPosition(element, container, 3, 3), 'top left');
+  t.is(position(element, container, 3, 3), 'top left');
 
   element = node({ top: 14, left: 60, width: 60, height: 30 });
 
-  t.is(elementPosition(element, container, 3, 3), 'top center');
+  t.is(position(element, container, 3, 3), 'top center');
 
   element = node({ top: 14, left: 91, width: 60, height: 30 });
 
-  t.is(elementPosition(element, container, 3, 3), 'top right');
+  t.is(position(element, container, 3, 3), 'top right');
 
   element = node({ top: 30, left: 29, width: 60, height: 30 });
 
-  t.is(elementPosition(element, container, 3, 3), 'middle left');
+  t.is(position(element, container, 3, 3), 'middle left');
 
   element = node({ top: 30, left: 60, width: 60, height: 30 });
 
-  t.is(elementPosition(element, container, 3, 3), 'middle center');
+  t.is(position(element, container, 3, 3), 'middle center');
 
   element = node({ top: 30, left: 91, width: 60, height: 30 });
 
-  t.is(elementPosition(element, container, 3, 3), 'middle right');
+  t.is(position(element, container, 3, 3), 'middle right');
 
   element = node({ top: 46, left: 29, width: 60, height: 30 });
 
-  t.is(elementPosition(element, container, 3, 3), 'bottom left');
+  t.is(position(element, container, 3, 3), 'bottom left');
 
   element = node({ top: 46, left: 60, width: 60, height: 30 });
 
-  t.is(elementPosition(element, container, 3, 3), 'bottom center');
+  t.is(position(element, container, 3, 3), 'bottom center');
 
   element = node({ top: 46, left: 91, width: 60, height: 30 });
 
-  t.is(elementPosition(element, container, 3, 3), 'bottom right');
+  t.is(position(element, container, 3, 3), 'bottom right');
 });
 
 test('coords', t => {
