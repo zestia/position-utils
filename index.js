@@ -132,7 +132,7 @@
     return position.join(' ');
   }
 
-  function flipPosition(position, elRect, contRect) {
+  function autoPosition(position, elRect, contRect) {
     var parts = position.split(' ');
     var primary = parts[0];
     var secondary = parts[1];
@@ -169,9 +169,9 @@
 
     if (container) {
       var contRect = container.getBoundingClientRect();
-      var flippedPosition = flipPosition(position, rect, contRect);
+      var newPosition = autoPosition(position, rect, contRect);
 
-      return positionCoords(flippedPosition, element, reference);
+      return positionCoords(newPosition, element, reference);
     }
 
     return {
