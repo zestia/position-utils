@@ -11,8 +11,8 @@ Returns where `element` is considered to be positioned inside `container`, based
 
 <img src="assets/position.png" width="860" height="201">
 
-#### `coords(position, element, reference)`
+#### `coords(position, element, reference[, container])`
 
-Returns the coordinates required to place `element` on the outside edge of `reference`, taking into consideration the desired `position` (e.g. `top left`).
+Returns the coordinates required to place `element` on the outside edge of `reference`, taking into consideration the desired `position` (e.g. `top left`). If `container` is provided, then `position` may be ignored in favour of a flipped position to keep `element` visible inside `container`.
 
 <img src="assets/coords.png" width="288" height="288">
