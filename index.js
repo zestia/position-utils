@@ -132,11 +132,52 @@
     return position.join(' ');
   }
 
+  function flipPosition(position, elRect, contRect) {
+    var parts = position.split(' ');
+    var primary = parts[0];
+    var secondary = parts[1];
+    var overflowsTop = elRect.top < contRect.top;
+    var overflowsBottom = elRect.bottom > contRect.bottom;
+    var overflowsLeft = elRect.left < contRect.left;
+    var overflowsRight = elRect.right > contRect.right;
+
+    if (primary === 'top' && overflowsTop) {
+      primary = 'bottom';
+    } else if (primary === 'bottom' && overflowsBottom) {
+      primary = 'top';
+    } else if (primary === 'left' && overflowsLeft) {
+      primary = 'right';
+    } else if (primary === 'right' && overflowsRight) {
+      primary = 'left';
+    }
+
+    if (secondary === 'top' && overflowsBottom) {
+      secondary = 'bottom';
+    } else if (secondary === 'bottom' && overflowsTop) {
+      secondary = 'top';
+    } else if (secondary === 'left' && overflowsRight) {
+      secondary = 'right';
+    } else if (secondary === 'right' && overflowsLeft) {
+      secondary = 'left';
+    }
+
+    return [primary, secondary].join(' ');
+  }
+
   function positionCoords(position, element, reference, container) {
     var rect = positionRect(position, element, reference);
+
+    if (container) {
+      var contRect = container.getBoundingClientRect();
+      var flippedPosition = flipPosition(position, rect, contRect);
+
+      return positionCoords(flippedPosition, element, reference);
+    }
+
     return {
       left: rect.left,
-      top: rect.top
+      top: rect.top,
+      position: position
     };
   }
 
