@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.0
+
+- Change return value of `positionCoords` to be an object instead of an array
+  If the desired position cannot be acheived, then the result will include the flipped position.
+- Rename `positionCoords` to `coords`
+- Rename `elementPosition` to `position`
+
 ## 2.2.0
 
 - Lower node version requirements
