@@ -11,8 +11,8 @@ Returns where `element` is considered to be positioned inside `container`, based
 
 <img src="assets/position.png" width="860" height="201">
 
-#### `coords(position, element, reference[, container, flip])`
+#### `coords(position, element, reference)`
 
-Returns the coordinates required to place `element` on the outside edge of `reference`, taking into consideration the desired `position` (e.g. `top left`). If `container` is provided and `element` does not fit inside `container` then the desired position will be flipped. If `flip` is provided, that callback will be used instead of the internal flipping logic. Here are the possible positions:
+Returns the coordinates required to place `element` on the outside edge of `reference`, taking into consideration the desired `position` (e.g. `top left`).
 
 <img src="assets/coords.png" width="288" height="288">

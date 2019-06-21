@@ -31,44 +31,6 @@
     return [x, y];
   }
 
-  function containsRect(aRect, bRect) {
-    return (
-      aRect.left >= bRect.left &&
-      aRect.right <= bRect.right &&
-      aRect.top >= bRect.top &&
-      aRect.bottom <= bRect.bottom
-    );
-  }
-
-  function flipPosition(position) {
-    switch (position) {
-      case 'top left':
-        return 'bottom left';
-      case 'top center':
-        return 'bottom center';
-      case 'top right':
-        return 'bottom right';
-      case 'right top':
-        return 'left top';
-      case 'right middle':
-        return 'left middle';
-      case 'right bottom':
-        return 'left bottom';
-      case 'bottom left':
-        return 'top left';
-      case 'bottom center':
-        return 'top center';
-      case 'bottom right':
-        return 'top right';
-      case 'left top':
-        return 'right top';
-      case 'left middle':
-        return 'right middle';
-      case 'left bottom':
-        return 'right bottom';
-    }
-  }
-
   function positionRect(position, element, reference) {
     var elRect = element.getBoundingClientRect();
     var refRect = reference.getBoundingClientRect();
@@ -170,21 +132,9 @@
     return position.join(' ');
   }
 
-  function positionCoords(position, element, reference, container, customFlip) {
+  function positionCoords(position, element, reference, container) {
     var rect = positionRect(position, element, reference);
-
-    if (container) {
-      var conRect = container.getBoundingClientRect();
-      var contains = containsRect(rect, conRect);
-
-      if (!contains) {
-        var flip = customFlip || flipPosition;
-        return positionCoords(flip(position), element, reference);
-      }
-    }
-
     return {
-      position,
       left: rect.left,
       top: rect.top
     };
