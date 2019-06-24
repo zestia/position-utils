@@ -528,4 +528,106 @@ test('coords with container parameter', t => {
     },
     'right middle, overflowing top right'
   );
+
+  reference = node({
+    top: 51,
+    left: 41,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    coords('right middle', element, reference, container),
+    {
+      left: 1,
+      top: 41,
+      position: 'left middle'
+    },
+    'right middle, overflowing bottom right'
+  );
+
+  reference = node({
+    top: 20,
+    left: 41,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    coords('right bottom', element, reference, container),
+    {
+      left: 1,
+      top: 0,
+      position: 'left bottom'
+    },
+    'right bottom, overflowing right'
+  );
+
+  reference = node({
+    top: 19,
+    left: 40,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    coords('right bottom', element, reference, container),
+    {
+      left: 60,
+      top: 19,
+      position: 'right top'
+    },
+    'right bottom, overflowing top'
+  );
+
+  reference = node({
+    top: 19,
+    left: 41,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    coords('right bottom', element, reference, container),
+    {
+      left: 1,
+      top: 19,
+      position: 'left top'
+    },
+    'right bottom, overflowing top right'
+  );
+
+  reference = node({
+    top: 31,
+    left: 0,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    coords('bottom left', element, reference, container),
+    {
+      left: 0,
+      top: 1,
+      position: 'top left'
+    },
+    'bottom left, overflowing bottom'
+  );
+
+  reference = node({
+    top: 30,
+    left: 61,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    coords('bottom left', element, reference, container),
+    {
+      left: 41,
+      top: 40,
+      position: 'bottom right'
+    },
+    'bottom left, overflowing right'
+  );
 });
