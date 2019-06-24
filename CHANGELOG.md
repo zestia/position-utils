@@ -1,5 +1,9 @@
 # Changelog
 
+# 4.0.0
+
+- Add `container` parameter to `position` and introduce auto flipping if `element` overflows `container`
+
 ## 3.0.0
 
 - Change return value of `positionCoords` to be an object instead of an array
