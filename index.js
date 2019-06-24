@@ -32,23 +32,20 @@
   }
 
   function positionRect(position, element, reference) {
-    var elRect = element.getBoundingClientRect();
+    var rect = element.getBoundingClientRect();
     var refRect = reference.getBoundingClientRect();
-    var scrollEl = element.ownerDocument.scrollingElement || document.documentElement; // Remove document global when IE11 support is dropped
-    var refLeft = refRect.left + scrollEl.scrollLeft;
-    var refTop = refRect.top + scrollEl.scrollTop;
-    var middle = refTop + refRect.height / 2 - elRect.height / 2;
-    var center = refLeft + refRect.width / 2 - elRect.width / 2;
-    var top = refTop - elRect.height;
-    var left = refLeft - elRect.width;
-    var bottom = refTop + refRect.height;
-    var right = refLeft + refRect.width;
+    var middle = refRect.top + refRect.height / 2 - rect.height / 2;
+    var center = refRect.left + refRect.width / 2 - rect.width / 2;
+    var top = refRect.top - rect.height;
+    var left = refRect.left - rect.width;
+    var bottom = refRect.top + refRect.height;
+    var right = refRect.left + refRect.width;
     var x;
     var y;
 
     switch (position) {
       case 'top left':
-        x = left + elRect.width;
+        x = left + rect.width;
         y = top;
         break;
       case 'top center':
@@ -56,12 +53,12 @@
         y = top;
         break;
       case 'top right':
-        x = right - elRect.width;
+        x = right - rect.width;
         y = top;
         break;
       case 'right top':
         x = right;
-        y = top + elRect.height;
+        y = top + rect.height;
         break;
       case 'right middle':
         x = right;
@@ -69,10 +66,10 @@
         break;
       case 'right bottom':
         x = right;
-        y = bottom - elRect.height;
+        y = bottom - rect.height;
         break;
       case 'bottom left':
-        x = left + elRect.width;
+        x = left + rect.width;
         y = bottom;
         break;
       case 'bottom center':
@@ -80,12 +77,12 @@
         y = bottom;
         break;
       case 'bottom right':
-        x = right - elRect.width;
+        x = right - rect.width;
         y = bottom;
         break;
       case 'left top':
         x = left;
-        y = top + elRect.height;
+        y = top + rect.height;
         break;
       case 'left middle':
         x = left;
@@ -93,15 +90,15 @@
         break;
       case 'left bottom':
         x = left;
-        y = bottom - elRect.height;
+        y = bottom - rect.height;
         break;
     }
 
     return {
       top: y,
       left: x,
-      right: x + elRect.width,
-      bottom: y + elRect.height
+      right: x + rect.width,
+      bottom: y + rect.height
     };
   }
 
@@ -132,14 +129,18 @@
     return position.join(' ');
   }
 
-  function autoPosition(position, elRect, contRect) {
+  function adjustPosition(position, rect, container) {
+    var contRect = container.getBoundingClientRect();
     var parts = position.split(' ');
     var primary = parts[0];
     var secondary = parts[1];
-    var overflowsTop = elRect.top < contRect.top;
-    var overflowsBottom = elRect.bottom > contRect.bottom;
-    var overflowsLeft = elRect.left < contRect.left;
-    var overflowsRight = elRect.right > contRect.right;
+    var overflowsTop = rect.top < contRect.top;
+    var overflowsBottom = rect.bottom > contRect.bottom;
+    var overflowsLeft = rect.left < contRect.left;
+    var overflowsRight = rect.right > contRect.right;
+
+    console.log('container', JSON.stringify(contRect));
+    console.log(overflowsTop, overflowsBottom, overflowsLeft, overflowsRight);
 
     if (primary === 'top' && overflowsTop) {
       primary = 'bottom';
@@ -164,19 +165,32 @@
     return [primary, secondary].join(' ');
   }
 
-  function positionCoords(position, element, reference, container) {
+  function positionCoords(position, element, reference, container, adjust) {
     var rect = positionRect(position, element, reference);
 
-    if (container) {
-      var contRect = container.getBoundingClientRect();
-      var newPosition = autoPosition(position, rect, contRect);
+    console.log('position', position);
+    console.log('rect', JSON.stringify(rect));
 
-      return positionCoords(newPosition, element, reference);
+    if (adjust) {
+      position = adjustPosition(position, rect, container);
+      rect = positionRect(position, element, reference);
+      console.log('adjusted position', position);
+      console.log('adjusted rect', JSON.stringify(rect));
     }
 
+    var left = rect.left;
+    var top = rect.top;
+
+    if (container) {
+      left += container.scrollLeft;
+      top += container.scrollTop;
+    }
+
+    console.log('');
+
     return {
-      left: rect.left,
-      top: rect.top,
+      left: left,
+      top: top,
       position: position
     };
   }

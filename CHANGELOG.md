@@ -1,6 +1,10 @@
 # Changelog
 
-# 4.0.0
+## 4.0.1
+
+- Include scroll position of `container` in auto position calcualtion
+
+## 4.0.0
 
 - Add `container` parameter to `position` and introduce auto flipping if `element` overflows `container`
 
