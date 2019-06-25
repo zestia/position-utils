@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../index.js"></script>
+
+    <style>
+      html {
+        min-height: 100%;
+      }
+
+      .space {
+        height: 500px;
+      }
+
+      .element {
+        border: 1px solid green;
+        width: 240px;
+        height: 120px;
+        position: absolute;
+      }
+
+      .reference {
+        border: 1px solid blue;
+        width: 30px;
+        height: 20px;
+      }
+
+      .container {
+        border: 1px solid red;
+        width: 600px;
+        height: 400px;
+        overflow: scroll;
+      }
+    </style>
+  </head>
+  <body class="doc">
+    <div class="space"></div>
+    <div class="space"></div>
+    <div class="space"></div>
+
+    <!--
+    <div class="container">
+      <div class="space"></div>
+
+      <div class="space"></div>
+    </div>
+    -->
+
+    <div class="reference"></div>
+    <div class="element"></div>
+
+    <script>
+      var element = document.querySelector('.element');
+      var reference = document.querySelector('.reference');
+      var container = document.querySelector('.container');
+      var coords = window.positionUtils.coords;
+
+      var elCoords = coords('bottom left', element, reference, document.documentElement, true);
+
+      element.style.top = elCoords.top + 'px';
+      element.style.left = elCoords.left + 'px';
+    </script>
+  </body>
+</html>

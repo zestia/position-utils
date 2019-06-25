@@ -11,8 +11,33 @@
 })(this, function() {
   'use strict';
 
-  function boundaryRect(element, columns, rows) {
+  function getRect(element) {
     var rect = element.getBoundingClientRect();
+    var top = rect.top || 0;
+    var left = rect.left || 0;
+    var right = rect.right || 0;
+    var bottom = rect.bottom || 0;
+    var width = rect.width || 0;
+    var height = rect.height || 0;
+
+    return {
+      top: top,
+      left: left,
+      right: left + width,
+      bottom: top + height,
+      width: width,
+      height: height
+    };
+  }
+
+  function getRectMiddle(rect) {
+    var x = rect.left + rect.width / 2;
+    var y = rect.top + rect.height / 2;
+
+    return [x, y];
+  }
+
+  function getBoundaryRect(rect, columns, rows) {
     var column = rect.width / columns;
     var row = rect.height / rows;
 
@@ -24,22 +49,39 @@
     };
   }
 
-  function middleOfRect(rect) {
-    var x = rect.left + rect.width / 2;
-    var y = rect.top + rect.height / 2;
+  function getRectPosition(rect, containerRect, columns, rows) {
+    var boundaryRect = getBoundaryRect(containerRect, columns, rows);
+    var point = getRectMiddle(rect);
+    var x = point[0];
+    var y = point[1];
+    var position = [];
 
-    return [x, y];
+    if (y < boundaryRect.top) {
+      position.push('top');
+    } else if (y > boundaryRect.bottom) {
+      position.push('bottom');
+    } else {
+      position.push('middle');
+    }
+
+    if (x < boundaryRect.left) {
+      position.push('left');
+    } else if (x > boundaryRect.right) {
+      position.push('right');
+    } else {
+      position.push('center');
+    }
+
+    return position.join(' ');
   }
 
-  function positionRect(position, element, reference) {
-    var rect = element.getBoundingClientRect();
-    var refRect = reference.getBoundingClientRect();
-    var middle = refRect.top + refRect.height / 2 - rect.height / 2;
-    var center = refRect.left + refRect.width / 2 - rect.width / 2;
-    var top = refRect.top - rect.height;
-    var left = refRect.left - rect.width;
-    var bottom = refRect.top + refRect.height;
-    var right = refRect.left + refRect.width;
+  function getPositionRect(position, rect, referenceRect) {
+    var middle = referenceRect.top + referenceRect.height / 2 - rect.height / 2;
+    var center = referenceRect.left + referenceRect.width / 2 - rect.width / 2;
+    var top = referenceRect.top - rect.height;
+    var left = referenceRect.left - rect.width;
+    var bottom = referenceRect.top + referenceRect.height;
+    var right = referenceRect.left + referenceRect.width;
     var x;
     var y;
 
@@ -94,53 +136,40 @@
         break;
     }
 
-    return {
+    var r = {
       top: y,
       left: x,
       right: x + rect.width,
-      bottom: y + rect.height
+      bottom: y + rect.height,
+      width: rect.width,
+      height: rect.height
     };
+
+    return r;
   }
 
-  function elementPosition(element, container, columns, rows) {
-    var boundary = boundaryRect(container, columns, rows);
-    var rect = element.getBoundingClientRect();
-    var point = middleOfRect(rect);
-    var x = point[0];
-    var y = point[1];
-    var position = [];
-
-    if (y < boundary.top) {
-      position.push('top');
-    } else if (y > boundary.bottom) {
-      position.push('bottom');
-    } else {
-      position.push('middle');
-    }
-
-    if (x < boundary.left) {
-      position.push('left');
-    } else if (x > boundary.right) {
-      position.push('right');
-    } else {
-      position.push('center');
-    }
-
-    return position.join(' ');
-  }
-
-  function adjustPosition(position, rect, container) {
-    var contRect = container.getBoundingClientRect();
+  function getAdjustedPosition(position, rect, containerRect) {
     var parts = position.split(' ');
     var primary = parts[0];
     var secondary = parts[1];
-    var overflowsTop = rect.top < contRect.top;
-    var overflowsBottom = rect.bottom > contRect.bottom;
-    var overflowsLeft = rect.left < contRect.left;
-    var overflowsRight = rect.right > contRect.right;
+    var overflowsTop = rect.top < containerRect.top;
+    var overflowsBottom = rect.bottom > containerRect.bottom;
+    var overflowsLeft = rect.left < containerRect.left;
+    var overflowsRight = rect.right > containerRect.right;
 
-    console.log('container', JSON.stringify(contRect));
-    console.log(overflowsTop, overflowsBottom, overflowsLeft, overflowsRight);
+    console.log('does rect', rect, 'exceed');
+    console.log('container?', containerRect);
+    console.log(
+      'overflowsTop',
+      overflowsTop,
+      'overflowsBottom',
+      overflowsBottom,
+      'overflowsLeft',
+      overflowsLeft,
+      'overflowsRight',
+      overflowsRight,
+      '\n'
+    );
 
     if (primary === 'top' && overflowsTop) {
       primary = 'bottom';
@@ -165,38 +194,42 @@
     return [primary, secondary].join(' ');
   }
 
-  function positionCoords(position, element, reference, container, adjust) {
-    var rect = positionRect(position, element, reference);
+  function position(element, container, columns, rows) {
+    var elementRect = getRect(element);
+    var containerRect = getRect(container);
 
-    console.log('position', position);
-    console.log('rect', JSON.stringify(rect));
+    return getRectPosition(elementRect, containerRect, columns, rows);
+  }
+
+  function coords(position, element, reference, container, adjust) {
+    console.log('for', position);
+
+    var elementRect = getRect(element);
+    var referenceRect = getRect(reference);
+    var containerRect = getRect(container);
+    var resultRect = getPositionRect(position, elementRect, referenceRect);
+    var scrollLeft = containerRect.left * -1;
+    var scrollTop = containerRect.top * -1;
 
     if (adjust) {
-      position = adjustPosition(position, rect, container);
-      rect = positionRect(position, element, reference);
-      console.log('adjusted position', position);
-      console.log('adjusted rect', JSON.stringify(rect));
+      var adjustedPosition = getAdjustedPosition(position, resultRect, containerRect);
+
+      if (position !== adjustedPosition) {
+        resultRect = getPositionRect(adjustedPosition, elementRect, referenceRect);
+
+        console.log('adjust', adjustedPosition);
+      }
     }
-
-    var left = rect.left;
-    var top = rect.top;
-
-    if (container) {
-      left += container.scrollLeft;
-      top += container.scrollTop;
-    }
-
-    console.log('');
 
     return {
-      left: left,
-      top: top,
+      left: resultRect.left + scrollLeft,
+      top: resultRect.top + scrollTop,
       position: position
     };
   }
 
   return {
-    position: elementPosition,
-    coords: positionCoords
+    position: position,
+    coords: coords
   };
 });
