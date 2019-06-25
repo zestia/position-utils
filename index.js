@@ -180,9 +180,6 @@
     var boundaryRect = getBoundaryRect(viewportRect, columns, rows);
     var position = getPositionForBoundary(elementRect, boundaryRect);
 
-    console.log(elementRect);
-    console.log(boundaryRect);
-
     return position;
   }
 
@@ -203,8 +200,8 @@
     }
 
     return {
-      left: resultRect.left + scrollLeft,
-      top: resultRect.top + scrollTop,
+      left: resultRect.left,
+      top: resultRect.top,
       position: position
     };
   }
