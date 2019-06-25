@@ -11,26 +11,7 @@
 })(this, function() {
   'use strict';
 
-  function getRect(element) {
-    var rect = element.getBoundingClientRect();
-    var top = rect.top || 0;
-    var left = rect.left || 0;
-    var right = rect.right || 0;
-    var bottom = rect.bottom || 0;
-    var width = rect.width || 0;
-    var height = rect.height || 0;
-
-    return {
-      top: top,
-      left: left,
-      right: left + width,
-      bottom: top + height,
-      width: width,
-      height: height
-    };
-  }
-
-  function getRectMiddle(rect) {
+  function getMiddleOfRect(rect) {
     var x = rect.left + rect.width / 2;
     var y = rect.top + rect.height / 2;
 
@@ -40,18 +21,25 @@
   function getBoundaryRect(rect, columns, rows) {
     var column = rect.width / columns;
     var row = rect.height / rows;
+    var left = column;
+    var top = row;
+    var right = column * (columns - 1);
+    var bottom = row * (rows - 1);
+    var width = right - left;
+    var height = bottom - top;
 
     return {
-      left: column,
-      top: row,
-      right: column * (columns - 1),
-      bottom: row * (rows - 1)
+      left: left,
+      top: top,
+      right: right,
+      bottom: bottom,
+      width: width,
+      height: height
     };
   }
 
-  function getRectPosition(rect, containerRect, columns, rows) {
-    var boundaryRect = getBoundaryRect(containerRect, columns, rows);
-    var point = getRectMiddle(rect);
+  function getPositionForBoundary(rect, boundaryRect) {
+    var point = getMiddleOfRect(rect);
     var x = point[0];
     var y = point[1];
     var position = [];
@@ -75,7 +63,7 @@
     return position.join(' ');
   }
 
-  function getPositionRect(position, rect, referenceRect) {
+  function getPositionForRect(position, rect, referenceRect) {
     var middle = referenceRect.top + referenceRect.height / 2 - rect.height / 2;
     var center = referenceRect.left + referenceRect.width / 2 - rect.width / 2;
     var top = referenceRect.top - rect.height;
@@ -136,7 +124,7 @@
         break;
     }
 
-    var r = {
+    return {
       top: y,
       left: x,
       right: x + rect.width,
@@ -144,11 +132,9 @@
       width: rect.width,
       height: rect.height
     };
-
-    return r;
   }
 
-  function getAdjustedPosition(position, rect, containerRect) {
+  function getAdjustedPositionForRect(position, rect, containerRect) {
     var parts = position.split(' ');
     var primary = parts[0];
     var secondary = parts[1];
@@ -156,20 +142,6 @@
     var overflowsBottom = rect.bottom > containerRect.bottom;
     var overflowsLeft = rect.left < containerRect.left;
     var overflowsRight = rect.right > containerRect.right;
-
-    console.log('does rect', rect, 'exceed');
-    console.log('container?', containerRect);
-    console.log(
-      'overflowsTop',
-      overflowsTop,
-      'overflowsBottom',
-      overflowsBottom,
-      'overflowsLeft',
-      overflowsLeft,
-      'overflowsRight',
-      overflowsRight,
-      '\n'
-    );
 
     if (primary === 'top' && overflowsTop) {
       primary = 'bottom';
@@ -194,30 +166,39 @@
     return [primary, secondary].join(' ');
   }
 
-  function position(element, container, columns, rows) {
-    var elementRect = getRect(element);
-    var containerRect = getRect(container);
+  function getPositionInViewport(element, columns, rows) {
+    var elementRect = element.getBoundingClientRect();
+    var viewport = element.ownerDocument.documentElement;
 
-    return getRectPosition(elementRect, containerRect, columns, rows);
+    var viewportRect = {
+      top: 0,
+      left: 0,
+      height: viewport.clientHeight,
+      width: viewport.clientWidth
+    };
+
+    var boundaryRect = getBoundaryRect(viewportRect, columns, rows);
+    var position = getPositionForBoundary(elementRect, boundaryRect);
+
+    console.log(elementRect);
+    console.log(boundaryRect);
+
+    return position;
   }
 
-  function coords(position, element, reference, container, adjust) {
-    console.log('for', position);
-
-    var elementRect = getRect(element);
-    var referenceRect = getRect(reference);
-    var containerRect = getRect(container);
-    var resultRect = getPositionRect(position, elementRect, referenceRect);
+  function getPositionCoords(position, element, reference, container, adjust) {
+    var elementRect = element.getBoundingClientRect();
+    var referenceRect = reference.getBoundingClientRect();
+    var containerRect = container.getBoundingClientRect();
+    var resultRect = getPositionForRect(position, elementRect, referenceRect);
     var scrollLeft = containerRect.left * -1;
     var scrollTop = containerRect.top * -1;
 
     if (adjust) {
-      var adjustedPosition = getAdjustedPosition(position, resultRect, containerRect);
+      var adjustedPosition = getAdjustedPositionForRect(position, resultRect, containerRect);
 
       if (position !== adjustedPosition) {
-        resultRect = getPositionRect(adjustedPosition, elementRect, referenceRect);
-
-        console.log('adjust', adjustedPosition);
+        resultRect = getPositionForRect(adjustedPosition, elementRect, referenceRect);
       }
     }
 
@@ -229,7 +210,9 @@
   }
 
   return {
-    position: position,
-    coords: coords
+    getPositionInViewport: getPositionInViewport,
+    getPositionCoords: getPositionCoords,
+    position: getPositionInViewport,
+    coords: getPositionCoords
   };
 });

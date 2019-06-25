@@ -34,31 +34,33 @@
     </style>
   </head>
   <body class="doc">
-    <div class="space"></div>
-    <div class="space"></div>
-    <div class="space"></div>
-
     <!--
-    <div class="container">
-      <div class="space"></div>
-
-      <div class="space"></div>
-    </div>
+    <div class="container"></div>
     -->
 
     <div class="reference"></div>
     <div class="element"></div>
 
+    <div class="space"></div>
+    <div class="space"></div>
+    <div class="space"></div>
+
     <script>
       var element = document.querySelector('.element');
       var reference = document.querySelector('.reference');
       var container = document.querySelector('.container');
-      var coords = window.positionUtils.coords;
+      var getPositionCoords = window.positionUtils.getPositionCoords;
 
-      var elCoords = coords('bottom left', element, reference, document.documentElement, true);
+      var coords = getPositionCoords(
+        'bottom left',
+        element,
+        reference,
+        document.documentElement,
+        true
+      );
 
-      element.style.top = elCoords.top + 'px';
-      element.style.left = elCoords.left + 'px';
+      element.style.top = coords.top + 'px';
+      element.style.left = coords.left + 'px';
     </script>
   </body>
 </html>
