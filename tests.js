@@ -735,22 +735,98 @@ test('coords with adjust parameter', t => {
     'bottom left, overflowing right'
   );
 
-  // reference = node({
-  //   top: 25,
-  //   bottom: 35,
-  //   left: 51,
-  //   right: 71,
-  //   width: 20,
-  //   height: 10
-  // });
-  //
-  // t.deepEqual(
-  //   getPositionCoords('bottom left', element, reference, container, true),
-  //   {
-  //     left: 41,
-  //     top: 40,
-  //     position: 'bottom right'
-  //   },
-  //   'bottom left, overflowing right'
-  // );
+  reference = node({
+    top: 26,
+    bottom: 36,
+    left: 51,
+    right: 71,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('bottom left', element, reference, container, true),
+    {
+      left: 41,
+      top: 1,
+      position: 'top right'
+    },
+    'bottom left overflowing bottom right'
+  );
+
+  reference = node({
+    top: 26,
+    bottom: 36,
+    left: 0,
+    right: 20,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('bottom center', element, reference, container, true),
+    {
+      left: 0,
+      top: 1,
+      position: 'top center'
+    },
+    'bottom center, overflowing bottom'
+  );
+
+  reference = node({
+    top: 25,
+    bottom: 35,
+    left: -1,
+    right: 20,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('bottom center', element, reference, container, true),
+    {
+      left: -1,
+      top: 40,
+      position: 'bottom center'
+    },
+    'bottom center, overflowing left'
+  );
+
+  reference = node({
+    top: 25,
+    bottom: 35,
+    left: 61,
+    right: 81,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('bottom center', element, reference, container, true),
+    {
+      left: 61,
+      top: 40,
+      position: 'bottom center'
+    },
+    'bottom center, overflowing right'
+  );
+
+  reference = node({
+    top: 26,
+    bottom: 36,
+    left: -1,
+    right: 19,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('bottom center', element, reference, container, true),
+    {
+      left: -1,
+      top: 1,
+      position: 'top center'
+    },
+    'bottom center, overflowing bottom left'
+  );
 });
