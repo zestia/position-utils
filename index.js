@@ -143,6 +143,8 @@
     var overflowsLeft = rect.left < containerRect.left;
     var overflowsRight = rect.right > containerRect.right;
 
+    console.log(overflowsTop, overflowsBottom, overflowsLeft, overflowsRight);
+
     if (primary === 'top' && overflowsTop) {
       primary = 'bottom';
     } else if (primary === 'bottom' && overflowsBottom) {
@@ -191,17 +193,22 @@
     var scrollLeft = containerRect.left * -1;
     var scrollTop = containerRect.top * -1;
 
+    console.log('element rect', elementRect);
+    console.log('reference rect', referenceRect);
+    console.log('container rect', containerRect);
+
     if (adjust) {
       var adjustedPosition = getAdjustedPositionForRect(position, resultRect, containerRect);
 
       if (position !== adjustedPosition) {
         resultRect = getPositionForRect(adjustedPosition, elementRect, referenceRect);
+        position = adjustedPosition;
       }
     }
 
     return {
-      left: resultRect.left,
-      top: resultRect.top,
+      left: resultRect.left + scrollLeft,
+      top: resultRect.top + scrollTop,
       position: position
     };
   }
