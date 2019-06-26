@@ -143,7 +143,33 @@
     var overflowsLeft = rect.left < containerRect.left;
     var overflowsRight = rect.right > containerRect.right;
 
-    console.log(overflowsTop, overflowsBottom, overflowsLeft, overflowsRight);
+    console.log(
+      'top',
+      overflowsTop,
+      containerRect.top - rect.top,
+      ', bottom',
+      containerRect.bottom - rect.bottom,
+      overflowsBottom,
+      ', left',
+      containerRect.left - rect.left,
+      overflowsLeft,
+      ', right',
+      overflowsRight,
+      containerRect.right - rect.right
+    );
+
+    if (overflowsTop && containerRect.top - rect.top !== 1) {
+      console.error('ERROR top', containerRect.top - rect.top);
+    }
+    if (overflowsLeft && containerRect.left - rect.left !== 1) {
+      console.error('ERROR left', containerRect.left - rect.left);
+    }
+    if (overflowsRight && containerRect.right - rect.right !== -1) {
+      console.error('ERROR right', containerRect.right - rect.right);
+    }
+    if (overflowsBottom && containerRect.bottom - rect.bottom !== -1) {
+      console.error('ERROR bottom', containerRect.bottom - rect.bottom);
+    }
 
     if (primary === 'top' && overflowsTop) {
       primary = 'bottom';
@@ -193,9 +219,11 @@
     var scrollLeft = containerRect.left * -1;
     var scrollTop = containerRect.top * -1;
 
+    console.log('for', position);
     console.log('element rect', elementRect);
     console.log('reference rect', referenceRect);
     console.log('container rect', containerRect);
+    console.log('result rect', resultRect);
 
     if (adjust) {
       var adjustedPosition = getAdjustedPositionForRect(position, resultRect, containerRect);
@@ -203,8 +231,12 @@
       if (position !== adjustedPosition) {
         resultRect = getPositionForRect(adjustedPosition, elementRect, referenceRect);
         position = adjustedPosition;
+
+        console.log('adjusted rect', resultRect);
       }
     }
+
+    console.log('');
 
     return {
       left: resultRect.left + scrollLeft,
