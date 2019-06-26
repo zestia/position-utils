@@ -1,162 +1,145 @@
 const test = require('ava');
-const { getPositionInViewport, getPositionCoords } = require('./index');
+const { getPosition, getCoords } = require('./index');
 
-function node(rect, documentElement) {
-  return {
-    getBoundingClientRect() {
-      return rect;
-    },
+class Node {
+  constructor(rect) {
+    this.rect = rect;
+  }
 
-    ownerDocument: {
-      documentElement
-    }
-  };
+  getBoundingClientRect() {
+    return this.rect;
+  }
 }
 
-test('getPositionInViewport', t => {
-  const doc = node({
+class Window {
+  constructor(options) {
+    Object.assign(this, options);
+  }
+}
+
+class Document {
+  constructor(rect) {
+    this.documentElement = new Node(rect);
+  }
+}
+
+global.Window = Window;
+global.Document = Document;
+
+test('getPosition', t => {
+  const container = new Node({
     top: -10,
     bottom: 330,
     left: -20,
     right: 580,
-    width: 600,
-    height: 350
+    width: 300,
+    height: 150
   });
-
-  doc.clientWidth = 300;
-  doc.clientHeight = 150;
 
   let element;
 
-  element = node(
-    {
-      top: 37,
-      left: 79,
-      bottom: 62,
-      right: 119,
-      width: 40,
-      height: 25
-    },
-    doc
-  );
+  element = new Node({
+    top: 37,
+    left: 79,
+    bottom: 62,
+    right: 119,
+    width: 40,
+    height: 25
+  });
 
-  t.is(getPositionInViewport(element, 3, 3), 'top left', 'top left');
+  t.is(getPosition(element, container, 3, 3), 'top left', 'top left');
 
-  element = node(
-    {
-      top: 37,
-      left: 80,
-      bottom: 62,
-      right: 120,
-      width: 40,
-      height: 25
-    },
-    doc
-  );
+  element = new Node({
+    top: 37,
+    left: 80,
+    bottom: 62,
+    right: 120,
+    width: 40,
+    height: 25
+  });
 
-  t.is(getPositionInViewport(element, 3, 3), 'top center', 'top center');
+  t.is(getPosition(element, container, 3, 3), 'top center', 'top center');
 
-  element = node(
-    {
-      top: 37,
-      left: 181,
-      bottom: 62,
-      right: 221,
-      width: 40,
-      height: 25
-    },
-    doc
-  );
+  element = new Node({
+    top: 37,
+    left: 181,
+    bottom: 62,
+    right: 221,
+    width: 40,
+    height: 25
+  });
 
-  t.is(getPositionInViewport(element, 3, 3), 'top right', 'top right');
+  t.is(getPosition(element, container, 3, 3), 'top right', 'top right');
 
-  element = node(
-    {
-      top: 38,
-      left: 79,
-      bottom: 63,
-      right: 119,
-      width: 40,
-      height: 25
-    },
-    doc
-  );
+  element = new Node({
+    top: 38,
+    left: 79,
+    bottom: 63,
+    right: 119,
+    width: 40,
+    height: 25
+  });
 
-  t.is(getPositionInViewport(element, 3, 3), 'middle left');
+  t.is(getPosition(element, container, 3, 3), 'middle left');
 
-  element = node(
-    {
-      top: 38,
-      left: 80,
-      bottom: 63,
-      right: 120,
-      width: 40,
-      height: 25
-    },
-    doc
-  );
+  element = new Node({
+    top: 38,
+    left: 80,
+    bottom: 63,
+    right: 120,
+    width: 40,
+    height: 25
+  });
 
-  t.is(getPositionInViewport(element, 3, 3), 'middle center', 'middle center');
+  t.is(getPosition(element, container, 3, 3), 'middle center', 'middle center');
 
-  element = node(
-    {
-      top: 38,
-      left: 181,
-      bottom: 63,
-      right: 221,
-      width: 40,
-      height: 25
-    },
-    doc
-  );
+  element = new Node({
+    top: 38,
+    left: 181,
+    bottom: 63,
+    right: 221,
+    width: 40,
+    height: 25
+  });
 
-  t.is(getPositionInViewport(element, 3, 3), 'middle right', 'middle right');
+  t.is(getPosition(element, container, 3, 3), 'middle right', 'middle right');
 
-  element = node(
-    {
-      top: 88,
-      left: 79,
-      bottom: 113,
-      right: 119,
-      width: 40,
-      height: 25
-    },
-    doc
-  );
+  element = new Node({
+    top: 88,
+    left: 79,
+    bottom: 113,
+    right: 119,
+    width: 40,
+    height: 25
+  });
 
-  t.is(getPositionInViewport(element, 3, 3), 'bottom left', 'bottom left');
+  t.is(getPosition(element, container, 3, 3), 'bottom left', 'bottom left');
 
-  element = node(
-    {
-      top: 88,
-      left: 80,
-      bottom: 113,
-      right: 120,
-      width: 40,
-      height: 25
-    },
-    doc
-  );
+  element = new Node({
+    top: 88,
+    left: 80,
+    bottom: 113,
+    right: 120,
+    width: 40,
+    height: 25
+  });
 
-  t.is(getPositionInViewport(element, 3, 3), 'bottom center', 'bottom center');
+  t.is(getPosition(element, container, 3, 3), 'bottom center', 'bottom center');
 
-  element = node(
-    {
-      top: 88,
-      left: 181,
-      bottom: 113,
-      right: 221,
-      width: 40,
-      height: 25
-    },
-    doc
-  );
+  element = new Node({
+    top: 88,
+    left: 181,
+    bottom: 113,
+    right: 221,
+    width: 40,
+    height: 25
+  });
 
-  t.is(getPositionInViewport(element, 3, 3), 'bottom right', 'bottom right');
+  t.is(getPosition(element, container, 3, 3), 'bottom right', 'bottom right');
 });
 
-test('getPositionCoords', t => {
-  const container = node({
+test('getCoords', t => {
+  const container = new Node({
     top: -5,
     bottom: 65,
     left: -10,
@@ -165,7 +148,7 @@ test('getPositionCoords', t => {
     height: 70
   });
 
-  const reference = node({
+  const reference = new Node({
     top: 25,
     bottom: 35,
     left: 30,
@@ -174,13 +157,13 @@ test('getPositionCoords', t => {
     height: 10
   });
 
-  const element = node({
+  const element = new Node({
     width: 40,
     height: 30
   });
 
   t.deepEqual(
-    getPositionCoords('top left', element, reference, container),
+    getCoords('top left', element, reference, container),
     {
       left: 40,
       top: 0,
@@ -190,7 +173,7 @@ test('getPositionCoords', t => {
   );
 
   t.deepEqual(
-    getPositionCoords('top center', element, reference, container),
+    getCoords('top center', element, reference, container),
     {
       left: 30,
       top: 0,
@@ -200,7 +183,7 @@ test('getPositionCoords', t => {
   );
 
   t.deepEqual(
-    getPositionCoords('top right', element, reference, container),
+    getCoords('top right', element, reference, container),
     {
       left: 20,
       top: 0,
@@ -210,7 +193,7 @@ test('getPositionCoords', t => {
   );
 
   t.deepEqual(
-    getPositionCoords('right top', element, reference, container),
+    getCoords('right top', element, reference, container),
     {
       left: 60,
       top: 30,
@@ -220,7 +203,7 @@ test('getPositionCoords', t => {
   );
 
   t.deepEqual(
-    getPositionCoords('right middle', element, reference, container),
+    getCoords('right middle', element, reference, container),
     {
       left: 60,
       top: 20,
@@ -230,7 +213,7 @@ test('getPositionCoords', t => {
   );
 
   t.deepEqual(
-    getPositionCoords('right bottom', element, reference, container),
+    getCoords('right bottom', element, reference, container),
     {
       left: 60,
       top: 10,
@@ -240,7 +223,7 @@ test('getPositionCoords', t => {
   );
 
   t.deepEqual(
-    getPositionCoords('bottom left', element, reference, container),
+    getCoords('bottom left', element, reference, container),
     {
       left: 40,
       top: 40,
@@ -250,7 +233,7 @@ test('getPositionCoords', t => {
   );
 
   t.deepEqual(
-    getPositionCoords('bottom center', element, reference, container),
+    getCoords('bottom center', element, reference, container),
     {
       left: 30,
       top: 40,
@@ -260,7 +243,7 @@ test('getPositionCoords', t => {
   );
 
   t.deepEqual(
-    getPositionCoords('bottom right', element, reference, container),
+    getCoords('bottom right', element, reference, container),
     {
       left: 20,
       top: 40,
@@ -270,7 +253,7 @@ test('getPositionCoords', t => {
   );
 
   t.deepEqual(
-    getPositionCoords('left top', element, reference, container),
+    getCoords('left top', element, reference, container),
     {
       left: 0,
       top: 30,
@@ -280,7 +263,7 @@ test('getPositionCoords', t => {
   );
 
   t.deepEqual(
-    getPositionCoords('left middle', element, reference, container),
+    getCoords('left middle', element, reference, container),
     {
       left: 0,
       top: 20,
@@ -290,7 +273,7 @@ test('getPositionCoords', t => {
   );
 
   t.deepEqual(
-    getPositionCoords('left bottom', element, reference, container),
+    getCoords('left bottom', element, reference, container),
     {
       left: 0,
       top: 10,
@@ -300,8 +283,8 @@ test('getPositionCoords', t => {
   );
 });
 
-test('coords with adjust parameter', t => {
-  const container = node({
+test('getCoords with container as boundary', t => {
+  const container = new Document({
     top: -5,
     bottom: 65,
     left: -10,
@@ -310,14 +293,16 @@ test('coords with adjust parameter', t => {
     height: 70
   });
 
-  const element = node({
+  const bounds = container;
+
+  const element = new Node({
     width: 40,
     height: 30
   });
 
   let reference;
 
-  reference = node({
+  reference = new Node({
     top: 24,
     bottom: 34,
     left: -10,
@@ -327,7 +312,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('top left', element, reference, container, true),
+    getCoords('top left', element, reference, container, bounds),
     {
       left: 0,
       top: 39,
@@ -336,7 +321,7 @@ test('coords with adjust parameter', t => {
     'top left, overflowing top'
   );
 
-  reference = node({
+  reference = new Node({
     top: 25,
     bottom: 35,
     left: 51,
@@ -346,7 +331,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('top left', element, reference, container, true),
+    getCoords('top left', element, reference, container, bounds),
     {
       left: 41,
       top: 0,
@@ -355,7 +340,7 @@ test('coords with adjust parameter', t => {
     'top left, overflowing right'
   );
 
-  reference = node({
+  reference = new Node({
     top: 24,
     bottom: 34,
     left: 51,
@@ -365,7 +350,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('top left', element, reference, container, true),
+    getCoords('top left', element, reference, container, bounds),
     {
       left: 41,
       top: 39,
@@ -374,7 +359,7 @@ test('coords with adjust parameter', t => {
     'top left, overflowing top right'
   );
 
-  reference = node({
+  reference = new Node({
     top: 24,
     bottom: 34,
     left: 0,
@@ -384,7 +369,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('top center', element, reference, container, true),
+    getCoords('top center', element, reference, container, bounds),
     {
       left: 0,
       top: 39,
@@ -393,7 +378,7 @@ test('coords with adjust parameter', t => {
     'top center, overflowing top'
   );
 
-  reference = node({
+  reference = new Node({
     top: 25,
     bottom: 35,
     left: -1,
@@ -403,7 +388,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('top center', element, reference, container, true),
+    getCoords('top center', element, reference, container, bounds),
     {
       left: -1,
       top: 0,
@@ -412,7 +397,7 @@ test('coords with adjust parameter', t => {
     'top center, overflowing left'
   );
 
-  reference = node({
+  reference = new Node({
     top: 25,
     bottom: 35,
     left: 51,
@@ -422,7 +407,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('top center', element, reference, container, true),
+    getCoords('top center', element, reference, container, bounds),
     {
       left: 51,
       top: 0,
@@ -431,7 +416,7 @@ test('coords with adjust parameter', t => {
     'top center, overflowing right'
   );
 
-  reference = node({
+  reference = new Node({
     top: 24,
     bottom: 34,
     left: -1,
@@ -441,7 +426,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('top center', element, reference, container, true),
+    getCoords('top center', element, reference, container, bounds),
     {
       left: -1,
       top: 39,
@@ -450,7 +435,7 @@ test('coords with adjust parameter', t => {
     'top center, overflowing top left'
   );
 
-  reference = node({
+  reference = new Node({
     top: 24,
     bottom: 34,
     left: 61,
@@ -460,7 +445,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('top center', element, reference, container, true),
+    getCoords('top center', element, reference, container, bounds),
     {
       left: 61,
       top: 39,
@@ -469,7 +454,7 @@ test('coords with adjust parameter', t => {
     'top center, overflowing top right'
   );
 
-  reference = node({
+  reference = new Node({
     top: 24,
     bottom: 34,
     left: 10,
@@ -479,7 +464,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('top right', element, reference, container, true),
+    getCoords('top right', element, reference, container, bounds),
     {
       left: 0,
       top: 39,
@@ -488,7 +473,7 @@ test('coords with adjust parameter', t => {
     'top right, overflowing top'
   );
 
-  reference = node({
+  reference = new Node({
     top: 25,
     bottom: 35,
     left: 9,
@@ -498,7 +483,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('top right', element, reference, container, true),
+    getCoords('top right', element, reference, container, bounds),
     {
       left: 19,
       top: 0,
@@ -507,7 +492,7 @@ test('coords with adjust parameter', t => {
     'top right, overflowing left'
   );
 
-  reference = node({
+  reference = new Node({
     top: 24,
     bottom: 34,
     left: 9,
@@ -517,7 +502,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('top right', element, reference, container, true),
+    getCoords('top right', element, reference, container, bounds),
     {
       left: 19,
       top: 39,
@@ -526,7 +511,7 @@ test('coords with adjust parameter', t => {
     'top right, overflowing top left'
   );
 
-  reference = node({
+  reference = new Node({
     top: -5,
     bottom: 5,
     left: 31,
@@ -536,7 +521,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('right top', element, reference, container, true),
+    getCoords('right top', element, reference, container, bounds),
     {
       left: 1,
       top: 0,
@@ -545,7 +530,7 @@ test('coords with adjust parameter', t => {
     'right top, overflowing right'
   );
 
-  reference = node({
+  reference = new Node({
     top: 36,
     bottom: 46,
     left: 30,
@@ -555,7 +540,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('right top', element, reference, container, true),
+    getCoords('right top', element, reference, container, bounds),
     {
       left: 60,
       top: 21,
@@ -564,7 +549,7 @@ test('coords with adjust parameter', t => {
     'right top, overflowing bottom'
   );
 
-  reference = node({
+  reference = new Node({
     top: 36,
     bottom: 46,
     left: 31,
@@ -574,7 +559,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('right top', element, reference, container, true),
+    getCoords('right top', element, reference, container, bounds),
     {
       left: 1,
       top: 21,
@@ -583,7 +568,7 @@ test('coords with adjust parameter', t => {
     'right top, overflowing bottom right'
   );
 
-  reference = node({
+  reference = new Node({
     top: 5,
     bottom: 15,
     left: 31,
@@ -593,7 +578,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('right middle', element, reference, container, true),
+    getCoords('right middle', element, reference, container, bounds),
     {
       left: 1,
       top: 0,
@@ -602,7 +587,7 @@ test('coords with adjust parameter', t => {
     'right middle, overflowing right'
   );
 
-  reference = node({
+  reference = new Node({
     top: 4,
     bottom: 14,
     left: 31,
@@ -612,7 +597,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('right middle', element, reference, container, true),
+    getCoords('right middle', element, reference, container, bounds),
     {
       left: 1,
       top: -1,
@@ -621,7 +606,7 @@ test('coords with adjust parameter', t => {
     'right middle, overflowing top right'
   );
 
-  reference = node({
+  reference = new Node({
     top: 46,
     bottom: 56,
     left: 31,
@@ -631,7 +616,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('right middle', element, reference, container, true),
+    getCoords('right middle', element, reference, container, bounds),
     {
       left: 1,
       top: 41,
@@ -640,7 +625,7 @@ test('coords with adjust parameter', t => {
     'right middle, overflowing bottom right'
   );
 
-  reference = node({
+  reference = new Node({
     top: 15,
     bottom: 25,
     left: 31,
@@ -650,7 +635,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('right bottom', element, reference, container, true),
+    getCoords('right bottom', element, reference, container, bounds),
     {
       left: 1,
       top: 0,
@@ -659,7 +644,7 @@ test('coords with adjust parameter', t => {
     'right bottom, overflowing right'
   );
 
-  reference = node({
+  reference = new Node({
     top: 14,
     bottom: 24,
     left: 30,
@@ -669,7 +654,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('right bottom', element, reference, container, true),
+    getCoords('right bottom', element, reference, container, bounds),
     {
       left: 60,
       top: 19,
@@ -678,7 +663,7 @@ test('coords with adjust parameter', t => {
     'right bottom, overflowing top'
   );
 
-  reference = node({
+  reference = new Node({
     top: 14,
     bottom: 24,
     left: 31,
@@ -688,7 +673,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('right bottom', element, reference, container, true),
+    getCoords('right bottom', element, reference, container, bounds),
     {
       left: 1,
       top: 19,
@@ -697,7 +682,7 @@ test('coords with adjust parameter', t => {
     'right bottom, overflowing top right'
   );
 
-  reference = node({
+  reference = new Node({
     top: 26,
     bottom: 36,
     left: -10,
@@ -707,7 +692,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('bottom left', element, reference, container, true),
+    getCoords('bottom left', element, reference, container, bounds),
     {
       left: 0,
       top: 1,
@@ -716,7 +701,7 @@ test('coords with adjust parameter', t => {
     'bottom left, overflowing bottom'
   );
 
-  reference = node({
+  reference = new Node({
     top: 25,
     bottom: 35,
     left: 51,
@@ -726,7 +711,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('bottom left', element, reference, container, true),
+    getCoords('bottom left', element, reference, container, bounds),
     {
       left: 41,
       top: 40,
@@ -735,7 +720,7 @@ test('coords with adjust parameter', t => {
     'bottom left, overflowing right'
   );
 
-  reference = node({
+  reference = new Node({
     top: 26,
     bottom: 36,
     left: 51,
@@ -745,7 +730,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('bottom left', element, reference, container, true),
+    getCoords('bottom left', element, reference, container, bounds),
     {
       left: 41,
       top: 1,
@@ -754,7 +739,7 @@ test('coords with adjust parameter', t => {
     'bottom left overflowing bottom right'
   );
 
-  reference = node({
+  reference = new Node({
     top: 26,
     bottom: 36,
     left: 0,
@@ -764,7 +749,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('bottom center', element, reference, container, true),
+    getCoords('bottom center', element, reference, container, bounds),
     {
       left: 0,
       top: 1,
@@ -773,7 +758,7 @@ test('coords with adjust parameter', t => {
     'bottom center, overflowing bottom'
   );
 
-  reference = node({
+  reference = new Node({
     top: 25,
     bottom: 35,
     left: -1,
@@ -783,7 +768,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('bottom center', element, reference, container, true),
+    getCoords('bottom center', element, reference, container, bounds),
     {
       left: -1,
       top: 40,
@@ -792,7 +777,7 @@ test('coords with adjust parameter', t => {
     'bottom center, overflowing left'
   );
 
-  reference = node({
+  reference = new Node({
     top: 25,
     bottom: 35,
     left: 61,
@@ -802,7 +787,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('bottom center', element, reference, container, true),
+    getCoords('bottom center', element, reference, container, bounds),
     {
       left: 61,
       top: 40,
@@ -811,7 +796,7 @@ test('coords with adjust parameter', t => {
     'bottom center, overflowing right'
   );
 
-  reference = node({
+  reference = new Node({
     top: 26,
     bottom: 36,
     left: -1,
@@ -821,7 +806,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('bottom center', element, reference, container, true),
+    getCoords('bottom center', element, reference, container, bounds),
     {
       left: -1,
       top: 1,
@@ -830,7 +815,7 @@ test('coords with adjust parameter', t => {
     'bottom center, overflowing bottom left'
   );
 
-  reference = node({
+  reference = new Node({
     top: 26,
     bottom: 36,
     left: 61,
@@ -840,7 +825,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('bottom center', element, reference, container, true),
+    getCoords('bottom center', element, reference, container, bounds),
     {
       left: 61,
       top: 1,
@@ -849,7 +834,7 @@ test('coords with adjust parameter', t => {
     'bottom center, overflowing bottom right'
   );
 
-  reference = node({
+  reference = new Node({
     top: -5,
     bottom: 5,
     left: 29,
@@ -859,7 +844,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('left top', element, reference, container, true),
+    getCoords('left top', element, reference, container, bounds),
     {
       left: 59,
       top: 0,
@@ -868,7 +853,7 @@ test('coords with adjust parameter', t => {
     'left top, overflowing left'
   );
 
-  reference = node({
+  reference = new Node({
     top: 36,
     bottom: 46,
     left: 30,
@@ -878,7 +863,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('left top', element, reference, container, true),
+    getCoords('left top', element, reference, container, bounds),
     {
       left: 0,
       top: 21,
@@ -887,7 +872,7 @@ test('coords with adjust parameter', t => {
     'left top, overflowing bottom'
   );
 
-  reference = node({
+  reference = new Node({
     top: 36,
     bottom: 46,
     left: 29,
@@ -897,7 +882,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('left top', element, reference, container, true),
+    getCoords('left top', element, reference, container, bounds),
     {
       left: 59,
       top: 21,
@@ -906,7 +891,7 @@ test('coords with adjust parameter', t => {
     'left top, overflowing bottom left'
   );
 
-  reference = node({
+  reference = new Node({
     top: 5,
     bottom: 15,
     left: 29,
@@ -916,7 +901,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('left middle', element, reference, container, true),
+    getCoords('left middle', element, reference, container, bounds),
     {
       left: 59,
       top: 0,
@@ -925,7 +910,7 @@ test('coords with adjust parameter', t => {
     'left middle, overflowing left'
   );
 
-  reference = node({
+  reference = new Node({
     top: 4,
     bottom: 14,
     left: 29,
@@ -935,7 +920,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('left middle', element, reference, container, true),
+    getCoords('left middle', element, reference, container, bounds),
     {
       left: 59,
       top: -1,
@@ -944,7 +929,7 @@ test('coords with adjust parameter', t => {
     'left middle, overflowing top left'
   );
 
-  reference = node({
+  reference = new Node({
     top: 46,
     bottom: 56,
     left: 29,
@@ -954,7 +939,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('left middle', element, reference, container, true),
+    getCoords('left middle', element, reference, container, bounds),
     {
       left: 59,
       top: 41,
@@ -963,7 +948,7 @@ test('coords with adjust parameter', t => {
     'left middle, overflowing bottom left'
   );
 
-  reference = node({
+  reference = new Node({
     top: 15,
     bottom: 25,
     left: 29,
@@ -973,7 +958,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('left bottom', element, reference, container, true),
+    getCoords('left bottom', element, reference, container, bounds),
     {
       left: 59,
       top: 0,
@@ -982,7 +967,7 @@ test('coords with adjust parameter', t => {
     'left bottom, overflowing left'
   );
 
-  reference = node({
+  reference = new Node({
     top: 14,
     bottom: 24,
     left: 30,
@@ -992,7 +977,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('left bottom', element, reference, container, true),
+    getCoords('left bottom', element, reference, container, bounds),
     {
       left: 0,
       top: 19,
@@ -1001,7 +986,7 @@ test('coords with adjust parameter', t => {
     'left bottom, overflowing top'
   );
 
-  reference = node({
+  reference = new Node({
     top: 14,
     bottom: 24,
     left: 29,
@@ -1011,7 +996,7 @@ test('coords with adjust parameter', t => {
   });
 
   t.deepEqual(
-    getPositionCoords('left bottom', element, reference, container, true),
+    getCoords('left bottom', element, reference, container, bounds),
     {
       left: 59,
       top: 19,

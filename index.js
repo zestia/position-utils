@@ -1,12 +1,12 @@
 /* eslint-disable */
 
-(function(root, factory) {
+(function(global, factory) {
   if (typeof define === 'function' && define.amd) {
     define('@zestia/position-utils', factory);
   } else if (typeof module === 'object' && module.exports) {
     module.exports = factory();
   } else {
-    root.positionUtils = factory();
+    global.positionUtils = factory();
   }
 })(this, function() {
   'use strict';
@@ -134,14 +134,14 @@
     };
   }
 
-  function getAdjustedPositionForRect(position, rect, containerRect) {
+  function getAdjustedPositionForRect(position, rect, boundsRect) {
     var parts = position.split(' ');
     var primary = parts[0];
     var secondary = parts[1];
-    var overflowsTop = rect.top < containerRect.top;
-    var overflowsBottom = rect.bottom > containerRect.bottom;
-    var overflowsLeft = rect.left < containerRect.left;
-    var overflowsRight = rect.right > containerRect.right;
+    var overflowsTop = rect.top < boundsRect.top;
+    var overflowsBottom = rect.bottom > boundsRect.bottom;
+    var overflowsLeft = rect.left < boundsRect.left;
+    var overflowsRight = rect.right > boundsRect.right;
 
     if (primary === 'top' && overflowsTop) {
       primary = 'bottom';
@@ -166,33 +166,41 @@
     return [primary, secondary].join(' ');
   }
 
-  function getPositionInViewport(element, columns, rows) {
+  function getPosition(element, container, columns, rows) {
     var elementRect = element.getBoundingClientRect();
-    var viewport = element.ownerDocument.documentElement;
-
-    var viewportRect = {
-      top: 0,
-      left: 0,
-      height: viewport.clientHeight,
-      width: viewport.clientWidth
-    };
-
-    var boundaryRect = getBoundaryRect(viewportRect, columns, rows);
-    var position = getPositionForBoundary(elementRect, boundaryRect);
-
-    return position;
+    var containerRect = getNormalisedRect(container);
+    var boundaryRect = getBoundaryRect(containerRect, columns, rows);
+    return getPositionForBoundary(elementRect, boundaryRect);
   }
 
-  function getPositionCoords(position, element, reference, container, adjust) {
+  function getNormalisedRect(object) {
+    if (object instanceof Window) {
+      return {
+        top: 0,
+        left: 0,
+        right: object.innerWidth,
+        bottom: object.innerHeight,
+        height: object.innerHeight,
+        width: object.innerWidth
+      };
+    } else if (object instanceof Document) {
+      return object.documentElement.getBoundingClientRect();
+    } else {
+      return object.getBoundingClientRect();
+    }
+  }
+
+  function getCoords(position, element, reference, container, bounds) {
     var elementRect = element.getBoundingClientRect();
     var referenceRect = reference.getBoundingClientRect();
-    var containerRect = container.getBoundingClientRect();
+    var containerRect = getNormalisedRect(container);
     var resultRect = getPositionForRect(position, elementRect, referenceRect);
     var scrollLeft = containerRect.left * -1;
     var scrollTop = containerRect.top * -1;
 
-    if (adjust) {
-      var adjustedPosition = getAdjustedPositionForRect(position, resultRect, containerRect);
+    if (bounds) {
+      var boundsRect = getNormalisedRect(bounds);
+      var adjustedPosition = getAdjustedPositionForRect(position, resultRect, boundsRect);
 
       if (position !== adjustedPosition) {
         resultRect = getPositionForRect(adjustedPosition, elementRect, referenceRect);
@@ -208,7 +216,7 @@
   }
 
   return {
-    getPositionInViewport: getPositionInViewport,
-    getPositionCoords: getPositionCoords
+    getPosition: getPosition,
+    getCoords: getCoords
   };
 });
