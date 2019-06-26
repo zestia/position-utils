@@ -29,7 +29,7 @@ global.Document = Document;
 
 test('getPosition', t => {
   const doc = new Document({ top: -10, left: -20 });
-  const container = new Node({ width: 300, height: 150 }, doc);
+  const container = new Window({ innerWidth: 300, innerHeight: 150 });
 
   let element;
 

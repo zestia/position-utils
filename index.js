@@ -175,7 +175,9 @@
         top: 0,
         left: 0,
         right: object.innerWidth,
-        bottom: object.innerHeight
+        bottom: object.innerHeight,
+        width: object.innerWidth,
+        height: object.innerHeight
       };
     } else if (object instanceof Document) {
       return object.documentElement.getBoundingClientRect();
