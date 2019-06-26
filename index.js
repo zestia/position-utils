@@ -206,24 +206,14 @@
     var scrollLeft = containerRect.left * -1;
     var scrollTop = containerRect.top * -1;
 
-    console.log('for', position);
-    console.log('element rect', elementRect);
-    console.log('reference rect', referenceRect);
-    console.log('container rect', containerRect);
-    console.log('result rect', resultRect);
-
     if (adjust) {
       var adjustedPosition = getAdjustedPositionForRect(position, resultRect, containerRect);
 
       if (position !== adjustedPosition) {
         resultRect = getPositionForRect(adjustedPosition, elementRect, referenceRect);
         position = adjustedPosition;
-
-        console.log('adjusted rect', resultRect);
       }
     }
-
-    console.log('');
 
     return {
       left: resultRect.left + scrollLeft,
@@ -234,8 +224,6 @@
 
   return {
     getPositionInViewport: getPositionInViewport,
-    getPositionCoords: getPositionCoords,
-    position: getPositionInViewport,
-    coords: getPositionCoords
+    getPositionCoords: getPositionCoords
   };
 });

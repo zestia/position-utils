@@ -17,51 +17,51 @@
       }
 
       .element {
-        background: red;
-        opacity: 0.5;
-        width: 40px;
-        height: 30px;
+        border: 1px solid green;
+        width: 240px;
+        height: 120px;
         position: absolute;
       }
 
       .reference {
-        background: blue;
-        opacity: 0.5;
-        width: 20px;
-        height: 10px;
+        border: 1px solid blue;
+        width: 30px;
+        height: 20px;
+        margin-top: 10px;
       }
 
       .container {
-        background: green;
-        opacity: 0.8;
+        border: 1px solid red;
         width: 100px;
         height: 70px;
-      }
-
-      .space {
-        width: 110vw;
-        height: 110vh;
-        background: grey;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="reference"></div>
-      <div class="element"></div>
-    </div>
+    <!--
+    <div class="container"></div>
+    -->
 
+    <div class="reference"></div>
+    <div class="element"></div>
+
+    <div class="space"></div>
+    <div class="space"></div>
     <div class="space"></div>
 
     <script>
-      window.scrollTo(10, 5);
-
       var element = document.querySelector('.element');
       var reference = document.querySelector('.reference');
       var container = document.querySelector('.container');
       var getPositionCoords = window.positionUtils.getPositionCoords;
 
-      var coords = getPositionCoords('top left', element, reference, container, true);
+      var coords = getPositionCoords(
+        'top left',
+        element,
+        reference,
+        document.documentElement,
+        true
+      );
 
       element.style.top = coords.top + 'px';
       element.style.left = coords.left + 'px';

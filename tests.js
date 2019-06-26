@@ -13,292 +13,292 @@ function node(rect, documentElement) {
   };
 }
 
-// test('getPositionInViewport', t => {
-//   const doc = node({
-//     top: -10,
-//     bottom: 330,
-//     left: -20,
-//     right: 580,
-//     width: 600,
-//     height: 350
-//   });
-//
-//   doc.clientWidth = 300;
-//   doc.clientHeight = 150;
-//
-//   let element;
-//
-//   element = node(
-//     {
-//       top: 37,
-//       left: 79,
-//       bottom: 62,
-//       right: 119,
-//       width: 40,
-//       height: 25
-//     },
-//     doc
-//   );
-//
-//   t.is(getPositionInViewport(element, 3, 3), 'top left', 'top left');
-//
-//   element = node(
-//     {
-//       top: 37,
-//       left: 80,
-//       bottom: 62,
-//       right: 120,
-//       width: 40,
-//       height: 25
-//     },
-//     doc
-//   );
-//
-//   t.is(getPositionInViewport(element, 3, 3), 'top center', 'top center');
-//
-//   element = node(
-//     {
-//       top: 37,
-//       left: 181,
-//       bottom: 62,
-//       right: 221,
-//       width: 40,
-//       height: 25
-//     },
-//     doc
-//   );
-//
-//   t.is(getPositionInViewport(element, 3, 3), 'top right', 'top right');
-//
-//   element = node(
-//     {
-//       top: 38,
-//       left: 79,
-//       bottom: 63,
-//       right: 119,
-//       width: 40,
-//       height: 25
-//     },
-//     doc
-//   );
-//
-//   t.is(getPositionInViewport(element, 3, 3), 'middle left');
-//
-//   element = node(
-//     {
-//       top: 38,
-//       left: 80,
-//       bottom: 63,
-//       right: 120,
-//       width: 40,
-//       height: 25
-//     },
-//     doc
-//   );
-//
-//   t.is(getPositionInViewport(element, 3, 3), 'middle center', 'middle center');
-//
-//   element = node(
-//     {
-//       top: 38,
-//       left: 181,
-//       bottom: 63,
-//       right: 221,
-//       width: 40,
-//       height: 25
-//     },
-//     doc
-//   );
-//
-//   t.is(getPositionInViewport(element, 3, 3), 'middle right', 'middle right');
-//
-//   element = node(
-//     {
-//       top: 88,
-//       left: 79,
-//       bottom: 113,
-//       right: 119,
-//       width: 40,
-//       height: 25
-//     },
-//     doc
-//   );
-//
-//   t.is(getPositionInViewport(element, 3, 3), 'bottom left', 'bottom left');
-//
-//   element = node(
-//     {
-//       top: 88,
-//       left: 80,
-//       bottom: 113,
-//       right: 120,
-//       width: 40,
-//       height: 25
-//     },
-//     doc
-//   );
-//
-//   t.is(getPositionInViewport(element, 3, 3), 'bottom center', 'bottom center');
-//
-//   element = node(
-//     {
-//       top: 88,
-//       left: 181,
-//       bottom: 113,
-//       right: 221,
-//       width: 40,
-//       height: 25
-//     },
-//     doc
-//   );
-//
-//   t.is(getPositionInViewport(element, 3, 3), 'bottom right', 'bottom right');
-// });
-//
-// test('getPositionCoords', t => {
-//   const container = node({
-//     top: -5,
-//     bottom: 65,
-//     left: -10,
-//     right: 90,
-//     width: 100,
-//     height: 70
-//   });
-//
-//   const reference = node({
-//     top: 25,
-//     bottom: 35,
-//     left: 30,
-//     right: 50,
-//     width: 20,
-//     height: 10
-//   });
-//
-//   const element = node({
-//     width: 40,
-//     height: 30
-//   });
-//
-//   t.deepEqual(
-//     getPositionCoords('top left', element, reference, container),
-//     {
-//       left: 40,
-//       top: 0,
-//       position: 'top left'
-//     },
-//     'top left'
-//   );
-//
-//   t.deepEqual(
-//     getPositionCoords('top center', element, reference, container),
-//     {
-//       left: 30,
-//       top: 0,
-//       position: 'top center'
-//     },
-//     'top center'
-//   );
-//
-//   t.deepEqual(
-//     getPositionCoords('top right', element, reference, container),
-//     {
-//       left: 20,
-//       top: 0,
-//       position: 'top right'
-//     },
-//     'top right'
-//   );
-//
-//   t.deepEqual(
-//     getPositionCoords('right top', element, reference, container),
-//     {
-//       left: 60,
-//       top: 30,
-//       position: 'right top'
-//     },
-//     'right top'
-//   );
-//
-//   t.deepEqual(
-//     getPositionCoords('right middle', element, reference, container),
-//     {
-//       left: 60,
-//       top: 20,
-//       position: 'right middle'
-//     },
-//     'right middle'
-//   );
-//
-//   t.deepEqual(
-//     getPositionCoords('right bottom', element, reference, container),
-//     {
-//       left: 60,
-//       top: 10,
-//       position: 'right bottom'
-//     },
-//     'right bottom'
-//   );
-//
-//   t.deepEqual(
-//     getPositionCoords('bottom left', element, reference, container),
-//     {
-//       left: 40,
-//       top: 40,
-//       position: 'bottom left'
-//     },
-//     'bottom left'
-//   );
-//
-//   t.deepEqual(
-//     getPositionCoords('bottom center', element, reference, container),
-//     {
-//       left: 30,
-//       top: 40,
-//       position: 'bottom center'
-//     },
-//     'bottom center'
-//   );
-//
-//   t.deepEqual(
-//     getPositionCoords('bottom right', element, reference, container),
-//     {
-//       left: 20,
-//       top: 40,
-//       position: 'bottom right'
-//     },
-//     'bottom right'
-//   );
-//
-//   t.deepEqual(
-//     getPositionCoords('left top', element, reference, container),
-//     {
-//       left: 0,
-//       top: 30,
-//       position: 'left top'
-//     },
-//     'left top'
-//   );
-//
-//   t.deepEqual(
-//     getPositionCoords('left middle', element, reference, container),
-//     {
-//       left: 0,
-//       top: 20,
-//       position: 'left middle'
-//     },
-//     'left middle'
-//   );
-//
-//   t.deepEqual(
-//     getPositionCoords('left bottom', element, reference, container),
-//     {
-//       left: 0,
-//       top: 10,
-//       position: 'left bottom'
-//     },
-//     'left bottom'
-//   );
-// });
+test('getPositionInViewport', t => {
+  const doc = node({
+    top: -10,
+    bottom: 330,
+    left: -20,
+    right: 580,
+    width: 600,
+    height: 350
+  });
+
+  doc.clientWidth = 300;
+  doc.clientHeight = 150;
+
+  let element;
+
+  element = node(
+    {
+      top: 37,
+      left: 79,
+      bottom: 62,
+      right: 119,
+      width: 40,
+      height: 25
+    },
+    doc
+  );
+
+  t.is(getPositionInViewport(element, 3, 3), 'top left', 'top left');
+
+  element = node(
+    {
+      top: 37,
+      left: 80,
+      bottom: 62,
+      right: 120,
+      width: 40,
+      height: 25
+    },
+    doc
+  );
+
+  t.is(getPositionInViewport(element, 3, 3), 'top center', 'top center');
+
+  element = node(
+    {
+      top: 37,
+      left: 181,
+      bottom: 62,
+      right: 221,
+      width: 40,
+      height: 25
+    },
+    doc
+  );
+
+  t.is(getPositionInViewport(element, 3, 3), 'top right', 'top right');
+
+  element = node(
+    {
+      top: 38,
+      left: 79,
+      bottom: 63,
+      right: 119,
+      width: 40,
+      height: 25
+    },
+    doc
+  );
+
+  t.is(getPositionInViewport(element, 3, 3), 'middle left');
+
+  element = node(
+    {
+      top: 38,
+      left: 80,
+      bottom: 63,
+      right: 120,
+      width: 40,
+      height: 25
+    },
+    doc
+  );
+
+  t.is(getPositionInViewport(element, 3, 3), 'middle center', 'middle center');
+
+  element = node(
+    {
+      top: 38,
+      left: 181,
+      bottom: 63,
+      right: 221,
+      width: 40,
+      height: 25
+    },
+    doc
+  );
+
+  t.is(getPositionInViewport(element, 3, 3), 'middle right', 'middle right');
+
+  element = node(
+    {
+      top: 88,
+      left: 79,
+      bottom: 113,
+      right: 119,
+      width: 40,
+      height: 25
+    },
+    doc
+  );
+
+  t.is(getPositionInViewport(element, 3, 3), 'bottom left', 'bottom left');
+
+  element = node(
+    {
+      top: 88,
+      left: 80,
+      bottom: 113,
+      right: 120,
+      width: 40,
+      height: 25
+    },
+    doc
+  );
+
+  t.is(getPositionInViewport(element, 3, 3), 'bottom center', 'bottom center');
+
+  element = node(
+    {
+      top: 88,
+      left: 181,
+      bottom: 113,
+      right: 221,
+      width: 40,
+      height: 25
+    },
+    doc
+  );
+
+  t.is(getPositionInViewport(element, 3, 3), 'bottom right', 'bottom right');
+});
+
+test('getPositionCoords', t => {
+  const container = node({
+    top: -5,
+    bottom: 65,
+    left: -10,
+    right: 90,
+    width: 100,
+    height: 70
+  });
+
+  const reference = node({
+    top: 25,
+    bottom: 35,
+    left: 30,
+    right: 50,
+    width: 20,
+    height: 10
+  });
+
+  const element = node({
+    width: 40,
+    height: 30
+  });
+
+  t.deepEqual(
+    getPositionCoords('top left', element, reference, container),
+    {
+      left: 40,
+      top: 0,
+      position: 'top left'
+    },
+    'top left'
+  );
+
+  t.deepEqual(
+    getPositionCoords('top center', element, reference, container),
+    {
+      left: 30,
+      top: 0,
+      position: 'top center'
+    },
+    'top center'
+  );
+
+  t.deepEqual(
+    getPositionCoords('top right', element, reference, container),
+    {
+      left: 20,
+      top: 0,
+      position: 'top right'
+    },
+    'top right'
+  );
+
+  t.deepEqual(
+    getPositionCoords('right top', element, reference, container),
+    {
+      left: 60,
+      top: 30,
+      position: 'right top'
+    },
+    'right top'
+  );
+
+  t.deepEqual(
+    getPositionCoords('right middle', element, reference, container),
+    {
+      left: 60,
+      top: 20,
+      position: 'right middle'
+    },
+    'right middle'
+  );
+
+  t.deepEqual(
+    getPositionCoords('right bottom', element, reference, container),
+    {
+      left: 60,
+      top: 10,
+      position: 'right bottom'
+    },
+    'right bottom'
+  );
+
+  t.deepEqual(
+    getPositionCoords('bottom left', element, reference, container),
+    {
+      left: 40,
+      top: 40,
+      position: 'bottom left'
+    },
+    'bottom left'
+  );
+
+  t.deepEqual(
+    getPositionCoords('bottom center', element, reference, container),
+    {
+      left: 30,
+      top: 40,
+      position: 'bottom center'
+    },
+    'bottom center'
+  );
+
+  t.deepEqual(
+    getPositionCoords('bottom right', element, reference, container),
+    {
+      left: 20,
+      top: 40,
+      position: 'bottom right'
+    },
+    'bottom right'
+  );
+
+  t.deepEqual(
+    getPositionCoords('left top', element, reference, container),
+    {
+      left: 0,
+      top: 30,
+      position: 'left top'
+    },
+    'left top'
+  );
+
+  t.deepEqual(
+    getPositionCoords('left middle', element, reference, container),
+    {
+      left: 0,
+      top: 20,
+      position: 'left middle'
+    },
+    'left middle'
+  );
+
+  t.deepEqual(
+    getPositionCoords('left bottom', element, reference, container),
+    {
+      left: 0,
+      top: 10,
+      position: 'left bottom'
+    },
+    'left bottom'
+  );
+});
 
 test('coords with adjust parameter', t => {
   const container = node({
@@ -528,7 +528,7 @@ test('coords with adjust parameter', t => {
 
   reference = node({
     top: -5,
-    bottom: 15,
+    bottom: 5,
     left: 31,
     right: 51,
     width: 20,
@@ -828,5 +828,195 @@ test('coords with adjust parameter', t => {
       position: 'top center'
     },
     'bottom center, overflowing bottom left'
+  );
+
+  reference = node({
+    top: 26,
+    bottom: 36,
+    left: 61,
+    right: 81,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('bottom center', element, reference, container, true),
+    {
+      left: 61,
+      top: 1,
+      position: 'top center'
+    },
+    'bottom center, overflowing bottom right'
+  );
+
+  reference = node({
+    top: -5,
+    bottom: 5,
+    left: 29,
+    right: 49,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('left top', element, reference, container, true),
+    {
+      left: 59,
+      top: 0,
+      position: 'right top'
+    },
+    'left top, overflowing left'
+  );
+
+  reference = node({
+    top: 36,
+    bottom: 46,
+    left: 30,
+    right: 50,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('left top', element, reference, container, true),
+    {
+      left: 0,
+      top: 21,
+      position: 'left bottom'
+    },
+    'left top, overflowing bottom'
+  );
+
+  reference = node({
+    top: 36,
+    bottom: 46,
+    left: 29,
+    right: 49,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('left top', element, reference, container, true),
+    {
+      left: 59,
+      top: 21,
+      position: 'right bottom'
+    },
+    'left top, overflowing bottom left'
+  );
+
+  reference = node({
+    top: 5,
+    bottom: 15,
+    left: 29,
+    right: 49,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('left middle', element, reference, container, true),
+    {
+      left: 59,
+      top: 0,
+      position: 'right middle'
+    },
+    'left middle, overflowing left'
+  );
+
+  reference = node({
+    top: 4,
+    bottom: 14,
+    left: 29,
+    right: 49,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('left middle', element, reference, container, true),
+    {
+      left: 59,
+      top: -1,
+      position: 'right middle'
+    },
+    'left middle, overflowing top left'
+  );
+
+  reference = node({
+    top: 46,
+    bottom: 56,
+    left: 29,
+    right: 49,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('left middle', element, reference, container, true),
+    {
+      left: 59,
+      top: 41,
+      position: 'right middle'
+    },
+    'left middle, overflowing bottom left'
+  );
+
+  reference = node({
+    top: 15,
+    bottom: 25,
+    left: 29,
+    right: 49,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('left bottom', element, reference, container, true),
+    {
+      left: 59,
+      top: 0,
+      position: 'right bottom'
+    },
+    'left bottom, overflowing left'
+  );
+
+  reference = node({
+    top: 14,
+    bottom: 24,
+    left: 30,
+    right: 50,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('left bottom', element, reference, container, true),
+    {
+      left: 0,
+      top: 19,
+      position: 'left top'
+    },
+    'left bottom, overflowing top'
+  );
+
+  reference = node({
+    top: 14,
+    bottom: 24,
+    left: 29,
+    right: 49,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('left bottom', element, reference, container, true),
+    {
+      left: 59,
+      top: 19,
+      position: 'right top'
+    },
+    'left bottom, overflowing top left'
   );
 });
