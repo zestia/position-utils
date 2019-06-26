@@ -9,7 +9,7 @@ elements near other elements. These utils do the bare minimum, as further positi
 
 Returns where `element` is considered to be positioned inside `container`, based on a bounding box created by splitting the `container` into `columns` and `rows`. Here are some examples:
 
-<img src="assets/position.png" width="860" height="201">
+<img src="assets/position.png" width="860">
 
 #### `getCoords(position, element, reference[, container])`
 
