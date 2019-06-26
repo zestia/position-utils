@@ -32,9 +32,7 @@
       left: left,
       top: top,
       right: right,
-      bottom: bottom,
-      width: width,
-      height: height
+      bottom: bottom
     };
   }
 
@@ -128,20 +126,18 @@
       top: y,
       left: x,
       right: x + rect.width,
-      bottom: y + rect.height,
-      width: rect.width,
-      height: rect.height
+      bottom: y + rect.height
     };
   }
 
-  function getAdjustedPositionForRect(position, rect, boundsRect) {
+  function getAdjustedPositionForRect(position, rect, boundaryRect) {
     var parts = position.split(' ');
     var primary = parts[0];
     var secondary = parts[1];
-    var overflowsTop = rect.top < boundsRect.top;
-    var overflowsBottom = rect.bottom > boundsRect.bottom;
-    var overflowsLeft = rect.left < boundsRect.left;
-    var overflowsRight = rect.right > boundsRect.right;
+    var overflowsTop = rect.top < boundaryRect.top;
+    var overflowsBottom = rect.bottom > boundaryRect.bottom;
+    var overflowsLeft = rect.left < boundaryRect.left;
+    var overflowsRight = rect.right > boundaryRect.right;
 
     if (primary === 'top' && overflowsTop) {
       primary = 'bottom';
@@ -179,9 +175,7 @@
         top: 0,
         left: 0,
         right: object.innerWidth,
-        bottom: object.innerHeight,
-        height: object.innerHeight,
-        width: object.innerWidth
+        bottom: object.innerHeight
       };
     } else if (object instanceof Document) {
       return object.documentElement.getBoundingClientRect();
@@ -190,17 +184,17 @@
     }
   }
 
-  function getCoords(position, element, reference, container, bounds) {
+  function getCoords(position, element, reference, container) {
     var elementRect = element.getBoundingClientRect();
     var referenceRect = reference.getBoundingClientRect();
-    var containerRect = getNormalisedRect(container);
+    var documentRect = getNormalisedRect(reference.ownerDocument);
     var resultRect = getPositionForRect(position, elementRect, referenceRect);
-    var scrollLeft = containerRect.left * -1;
-    var scrollTop = containerRect.top * -1;
+    var scrollLeft = documentRect.left * -1;
+    var scrollTop = documentRect.top * -1;
 
-    if (bounds) {
-      var boundsRect = getNormalisedRect(bounds);
-      var adjustedPosition = getAdjustedPositionForRect(position, resultRect, boundsRect);
+    if (container) {
+      var boundaryRect = getNormalisedRect(container);
+      var adjustedPosition = getAdjustedPositionForRect(position, resultRect, boundaryRect);
 
       if (position !== adjustedPosition) {
         resultRect = getPositionForRect(adjustedPosition, elementRect, referenceRect);

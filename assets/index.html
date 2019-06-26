@@ -27,23 +27,26 @@
         border: 1px solid blue;
         width: 30px;
         height: 20px;
-        margin-top: 500px;
-        margin-left: 1100px;
       }
 
       .container {
         border: 1px solid red;
-        width: 100px;
-        height: 70px;
+        width: 400px;
+        height: 300px;
+        margin-top: 200px;
+        margin-left: 300px;
       }
     </style>
   </head>
   <body>
-    <!--
-    <div class="container"></div>
-    -->
+    <!-- <div class="container"></div> -->
+
+    <div class="space"></div>
+    <div class="space"></div>
+    <div class="space"></div>
 
     <div class="reference"></div>
+
     <div class="element"></div>
 
     <div class="space"></div>
@@ -56,7 +59,7 @@
       var container = document.querySelector('.container');
       var getCoords = window.positionUtils.getCoords;
 
-      var coords = getCoords('right top', element, reference, document, window);
+      var coords = getCoords('bottom left', element, reference, window);
 
       element.style.top = coords.top + 'px';
       element.style.left = coords.left + 'px';
