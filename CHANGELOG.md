@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.0.0
+
+- Change name and signature of position functions
+- Add support for bounds of `window` and `document`
+- Add more tests
+
 ## 4.0.1
 
 - Include scroll position of `container` in auto position calcualtion
