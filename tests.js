@@ -318,7 +318,7 @@ test('coords with adjust parameter', t => {
   let reference;
 
   reference = node({
-    top: 24,
+    top: 25,
     bottom: 34,
     left: -10,
     right: 10,
