@@ -25,8 +25,6 @@
     var top = row;
     var right = column * (columns - 1);
     var bottom = row * (rows - 1);
-    var width = right - left;
-    var height = bottom - top;
 
     return {
       left: left,
