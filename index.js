@@ -143,21 +143,6 @@
     var overflowsLeft = rect.left < containerRect.left;
     var overflowsRight = rect.right > containerRect.right;
 
-    console.log(
-      'top',
-      overflowsTop,
-      containerRect.top - rect.top,
-      ', bottom',
-      containerRect.bottom - rect.bottom,
-      overflowsBottom,
-      ', left',
-      containerRect.left - rect.left,
-      overflowsLeft,
-      ', right',
-      overflowsRight,
-      containerRect.right - rect.right
-    );
-
     if (primary === 'top' && overflowsTop) {
       primary = 'bottom';
     } else if (primary === 'bottom' && overflowsBottom) {
