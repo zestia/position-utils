@@ -13,6 +13,6 @@ Returns where `element` is considered to be positioned inside the viewport, base
 
 #### `getPositionCoords(position, element, reference, container[, adjust])`
 
-Returns the coordinates required to place `element` on the outside edge of `reference` relative to `container`, taking into consideration the desired `position` (e.g. `top left`). If `adjust`, then the desired `position` _may_ be ignored in favour of an adjusted position that will keep `element` visible inside `container`.
+Returns the coordinates required to place `element` on the outside edge of `reference` relative to `container`, taking into consideration the desired `position` (e.g. `top left`). If `adjust` is true, then the desired `position` _may_ be ignored in favour of an adjusted position that will keep `element` visible inside `container`.
 
 <img src="assets/coords.png" width="288" height="288">
