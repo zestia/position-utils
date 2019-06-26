@@ -318,7 +318,7 @@ test('coords with adjust parameter', t => {
   let reference;
 
   reference = node({
-    top: 25,
+    top: 24,
     bottom: 34,
     left: -10,
     right: 10,
@@ -336,44 +336,43 @@ test('coords with adjust parameter', t => {
     'top left, overflowing top'
   );
 
-  // reference = node({
-  //   top: 25,
-  //   bottom: 34,
-  //   left: -10,
-  //   right: 10,
-  //   width: 20,
-  //   height: 10
-  // });
-  //
-  // t.deepEqual(
-  //   getPositionCoords('top left', element, reference, container),
-  //   {
-  //     left: 41,
-  //     top: 0,
-  //     position: 'top right'
-  //   },
-  //   'top left, overflowing right'
-  // );
-  //
-  // reference = node(
-  //   {
-  //     top: 34,
-  //     left: 71,
-  //     width: 20,
-  //     height: 10
-  //   },
-  //   viewport
-  // );
-  //
-  // t.deepEqual(
-  //   getPositionCoords('top left', element, reference, container),
-  //   {
-  //     left: 51,
-  //     top: 44,
-  //     position: 'bottom right'
-  //   },
-  //   'top left, overflowing top right'
-  // );
+  reference = node({
+    top: 25,
+    bottom: 35,
+    left: 51,
+    right: 61,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('top left', element, reference, container, true),
+    {
+      left: 41,
+      top: 0,
+      position: 'top right'
+    },
+    'top left, overflowing right'
+  );
+
+  reference = node({
+    top: 24,
+    bottom: 34,
+    left: 51,
+    right: 61,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('top left', element, reference, container, true),
+    {
+      left: 41,
+      top: 39,
+      position: 'bottom right'
+    },
+    'top left, overflowing top right'
+  );
   //
   // reference = node(
   //   {
