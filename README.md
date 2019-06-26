@@ -38,9 +38,12 @@ getPosition(element, window, 5, 5);
 // Get coords to position element at the bottom left of reference
 getCoords('bottom left', element, reference);
 
-// Get coords to position element at the top left of reference. If it doesn't fit in the document, this will be flipped to bottom left
+// Get coords to position element at the top left of reference. If it doesn't fit in the document, this will be adjusted
 getCoords('top left', element, reference, document);
 
-// Get coords to position element at the bottom left of reference. If it doesn't fit in the viewport, this will be flipped to top left
+// Get coords to position element at the bottom left of reference. If it doesn't fit in the viewport, this will be adjusted
 getCoords('bottom left', element, reference, window);
+
+// Get coords to position element on the right bottom of reference. If it doesn't fit in container, this will be adjusted
+getCoords('right bottom', element, reference, container);
 ```
