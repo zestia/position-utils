@@ -158,19 +158,6 @@
       containerRect.right - rect.right
     );
 
-    if (overflowsTop && containerRect.top - rect.top !== 1) {
-      console.error('ERROR top', containerRect.top - rect.top);
-    }
-    if (overflowsLeft && containerRect.left - rect.left !== 1) {
-      console.error('ERROR left', containerRect.left - rect.left);
-    }
-    if (overflowsRight && containerRect.right - rect.right !== -1) {
-      console.error('ERROR right', containerRect.right - rect.right);
-    }
-    if (overflowsBottom && containerRect.bottom - rect.bottom !== -1) {
-      console.error('ERROR bottom', containerRect.bottom - rect.bottom);
-    }
-
     if (primary === 'top' && overflowsTop) {
       primary = 'bottom';
     } else if (primary === 'bottom' && overflowsBottom) {

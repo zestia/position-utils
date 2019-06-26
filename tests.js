@@ -321,7 +321,7 @@ test('coords with adjust parameter', t => {
     top: 24,
     bottom: 34,
     left: -10,
-    right: 0,
+    right: 10,
     width: 20,
     height: 10
   });
@@ -340,7 +340,7 @@ test('coords with adjust parameter', t => {
     top: 25,
     bottom: 35,
     left: 51,
-    right: 61,
+    right: 71,
     width: 20,
     height: 10
   });
@@ -359,7 +359,7 @@ test('coords with adjust parameter', t => {
     top: 24,
     bottom: 34,
     left: 51,
-    right: 61,
+    right: 71,
     width: 20,
     height: 10
   });
@@ -378,7 +378,7 @@ test('coords with adjust parameter', t => {
     top: 24,
     bottom: 34,
     left: 0,
-    right: 10,
+    right: 20,
     width: 20,
     height: 10
   });
@@ -397,7 +397,7 @@ test('coords with adjust parameter', t => {
     top: 25,
     bottom: 35,
     left: -1,
-    right: 9,
+    right: 19,
     width: 20,
     height: 10
   });
@@ -416,7 +416,7 @@ test('coords with adjust parameter', t => {
     top: 25,
     bottom: 35,
     left: 51,
-    right: 61,
+    right: 71,
     width: 20,
     height: 10
   });
@@ -435,7 +435,7 @@ test('coords with adjust parameter', t => {
     top: 24,
     bottom: 34,
     left: -1,
-    right: 9,
+    right: 19,
     width: 20,
     height: 10
   });
@@ -454,7 +454,7 @@ test('coords with adjust parameter', t => {
     top: 24,
     bottom: 34,
     left: 61,
-    right: 71,
+    right: 81,
     width: 20,
     height: 10
   });
@@ -473,7 +473,7 @@ test('coords with adjust parameter', t => {
     top: 24,
     bottom: 34,
     left: 10,
-    right: 20,
+    right: 30,
     width: 20,
     height: 10
   });
@@ -487,4 +487,270 @@ test('coords with adjust parameter', t => {
     },
     'top right, overflowing top'
   );
+
+  reference = node({
+    top: 25,
+    bottom: 35,
+    left: 9,
+    right: 29,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('top right', element, reference, container, true),
+    {
+      left: 19,
+      top: 0,
+      position: 'top left'
+    },
+    'top right, overflowing left'
+  );
+
+  reference = node({
+    top: 24,
+    bottom: 34,
+    left: 9,
+    right: 29,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('top right', element, reference, container, true),
+    {
+      left: 19,
+      top: 39,
+      position: 'bottom left'
+    },
+    'top right, overflowing top left'
+  );
+
+  reference = node({
+    top: -5,
+    bottom: 15,
+    left: 31,
+    right: 51,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('right top', element, reference, container, true),
+    {
+      left: 1,
+      top: 0,
+      position: 'left top'
+    },
+    'right top, overflowing right'
+  );
+
+  reference = node({
+    top: 36,
+    bottom: 46,
+    left: 30,
+    right: 50,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('right top', element, reference, container, true),
+    {
+      left: 60,
+      top: 21,
+      position: 'right bottom'
+    },
+    'right top, overflowing bottom'
+  );
+
+  reference = node({
+    top: 36,
+    bottom: 46,
+    left: 31,
+    right: 51,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('right top', element, reference, container, true),
+    {
+      left: 1,
+      top: 21,
+      position: 'left bottom'
+    },
+    'right top, overflowing bottom right'
+  );
+
+  reference = node({
+    top: 5,
+    bottom: 15,
+    left: 31,
+    right: 51,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('right middle', element, reference, container, true),
+    {
+      left: 1,
+      top: 0,
+      position: 'left middle'
+    },
+    'right middle, overflowing right'
+  );
+
+  reference = node({
+    top: 4,
+    bottom: 14,
+    left: 31,
+    right: 51,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('right middle', element, reference, container, true),
+    {
+      left: 1,
+      top: -1,
+      position: 'left middle'
+    },
+    'right middle, overflowing top right'
+  );
+
+  reference = node({
+    top: 46,
+    bottom: 56,
+    left: 31,
+    right: 51,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('right middle', element, reference, container, true),
+    {
+      left: 1,
+      top: 41,
+      position: 'left middle'
+    },
+    'right middle, overflowing bottom right'
+  );
+
+  reference = node({
+    top: 15,
+    bottom: 25,
+    left: 31,
+    right: 51,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('right bottom', element, reference, container, true),
+    {
+      left: 1,
+      top: 0,
+      position: 'left bottom'
+    },
+    'right bottom, overflowing right'
+  );
+
+  reference = node({
+    top: 14,
+    bottom: 24,
+    left: 30,
+    right: 50,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('right bottom', element, reference, container, true),
+    {
+      left: 60,
+      top: 19,
+      position: 'right top'
+    },
+    'right bottom, overflowing top'
+  );
+
+  reference = node({
+    top: 14,
+    bottom: 24,
+    left: 31,
+    right: 51,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('right bottom', element, reference, container, true),
+    {
+      left: 1,
+      top: 19,
+      position: 'left top'
+    },
+    'right bottom, overflowing top right'
+  );
+
+  reference = node({
+    top: 26,
+    bottom: 36,
+    left: -10,
+    right: 10,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('bottom left', element, reference, container, true),
+    {
+      left: 0,
+      top: 1,
+      position: 'top left'
+    },
+    'bottom left, overflowing bottom'
+  );
+
+  reference = node({
+    top: 25,
+    bottom: 35,
+    left: 51,
+    right: 71,
+    width: 20,
+    height: 10
+  });
+
+  t.deepEqual(
+    getPositionCoords('bottom left', element, reference, container, true),
+    {
+      left: 41,
+      top: 40,
+      position: 'bottom right'
+    },
+    'bottom left, overflowing right'
+  );
+
+  // reference = node({
+  //   top: 25,
+  //   bottom: 35,
+  //   left: 51,
+  //   right: 71,
+  //   width: 20,
+  //   height: 10
+  // });
+  //
+  // t.deepEqual(
+  //   getPositionCoords('bottom left', element, reference, container, true),
+  //   {
+  //     left: 41,
+  //     top: 40,
+  //     position: 'bottom right'
+  //   },
+  //   'bottom left, overflowing right'
+  // );
 });
