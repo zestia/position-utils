@@ -192,8 +192,6 @@
     var scrollLeft = offsetRect.left * -1;
     var scrollTop = offsetRect.top * -1;
 
-    document.title = 'new';
-
     if (container) {
       var boundaryRect = getNormalisedRect(container);
       var adjustedPosition = getAdjustedPositionForRect(position, positionRect, boundaryRect);
