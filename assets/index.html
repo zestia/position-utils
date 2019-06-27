@@ -35,18 +35,19 @@
         height: 300px;
         margin-top: 200px;
         margin-left: 300px;
+        position: relative;
       }
     </style>
   </head>
   <body>
-    <!-- <div class="container"></div> -->
-
     <div class="space"></div>
     <div class="space"></div>
     <div class="space"></div>
 
-    <div class="reference"></div>
-
+    <div class="container">
+      <div class="space"></div>
+      <div class="reference"></div>
+    </div>
     <div class="element"></div>
 
     <div class="space"></div>
@@ -59,7 +60,7 @@
       var container = document.querySelector('.container');
       var getCoords = window.positionUtils.getCoords;
 
-      var coords = getCoords('bottom left', element, reference, window);
+      var coords = getCoords('top right', element, reference, container);
 
       element.style.top = coords.top + 'px';
       element.style.left = coords.left + 'px';

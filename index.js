@@ -187,24 +187,26 @@
   function getCoords(position, element, reference, container) {
     var elementRect = element.getBoundingClientRect();
     var referenceRect = reference.getBoundingClientRect();
-    var documentRect = getNormalisedRect(reference.ownerDocument);
-    var resultRect = getPositionForRect(position, elementRect, referenceRect);
-    var scrollLeft = documentRect.left * -1;
-    var scrollTop = documentRect.top * -1;
+    var offsetRect = element.offsetParent.getBoundingClientRect();
+    var positionRect = getPositionForRect(position, elementRect, referenceRect);
+    var scrollLeft = offsetRect.left * -1;
+    var scrollTop = offsetRect.top * -1;
+
+    document.title = 'new';
 
     if (container) {
       var boundaryRect = getNormalisedRect(container);
-      var adjustedPosition = getAdjustedPositionForRect(position, resultRect, boundaryRect);
+      var adjustedPosition = getAdjustedPositionForRect(position, positionRect, boundaryRect);
 
       if (position !== adjustedPosition) {
-        resultRect = getPositionForRect(adjustedPosition, elementRect, referenceRect);
+        positionRect = getPositionForRect(adjustedPosition, elementRect, referenceRect);
         position = adjustedPosition;
       }
     }
 
     return {
-      left: resultRect.left + scrollLeft,
-      top: resultRect.top + scrollTop,
+      left: positionRect.left + scrollLeft,
+      top: positionRect.top + scrollTop,
       position: position
     };
   }

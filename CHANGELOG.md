@@ -1,5 +1,9 @@
 # Changelog
 
+# 5.0.1
+
+- Make `getCoords` work for positioning elements inside relatively positioned containers
+
 ## 5.0.0
 
 - Change name and signature of position functions
