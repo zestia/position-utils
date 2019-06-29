@@ -1,6 +1,6 @@
 # Changelog
 
-# 5.0.1
+## 5.0.1
 
 - Make `getCoords` work for positioning elements inside relatively positioned containers
 
