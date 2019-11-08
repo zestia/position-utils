@@ -1,6 +1,6 @@
 {
   "name": "@zestia/position-utils",
-  "version": "5.0.2",
+  "version": "5.0.3",
   "description": "Basic utils for positioning elements",
   "scripts": {
     "test": "ava tests.js",
@@ -16,10 +16,10 @@
   "author": "Zestia",
   "license": "MIT",
   "devDependencies": {
-    "@zestia/eslint-config": "2.0.27",
+    "@zestia/eslint-config": "2.0.30",
     "@zestia/prettier-config": "0.0.5",
     "ava": "2.4.0",
-    "eslint": "6.4.0",
+    "eslint": "6.6.0",
     "prettier": "1.18.2"
   },
   "bugs": {
