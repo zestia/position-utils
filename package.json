@@ -4,7 +4,8 @@
   "description": "Basic utils for positioning elements",
   "scripts": {
     "test": "ava tests.js",
-    "lint:js": "eslint ."
+    "lint:js": "eslint .",
+    "release": "release-it"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,8 @@
     "@zestia/prettier-config": "0.0.5",
     "ava": "2.4.0",
     "eslint": "6.6.0",
-    "prettier": "1.18.2"
+    "prettier": "1.18.2",
+    "release-it": "12.4.3"
   },
   "bugs": {
     "url": "https://github.com/zestia/position-utils/issues"
