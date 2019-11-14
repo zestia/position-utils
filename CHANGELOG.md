@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.4
+
+- Install release-it
+
 ## 5.0.3
 
 - Flip from yarn to npm
