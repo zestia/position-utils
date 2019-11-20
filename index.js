@@ -194,10 +194,18 @@
 
     if (container) {
       var boundaryRect = getNormalisedRect(container);
-      var adjustedPosition = getAdjustedPositionForRect(position, positionRect, boundaryRect);
+      var adjustedPosition = getAdjustedPositionForRect(
+        position,
+        positionRect,
+        boundaryRect
+      );
 
       if (position !== adjustedPosition) {
-        positionRect = getPositionForRect(adjustedPosition, elementRect, referenceRect);
+        positionRect = getPositionForRect(
+          adjustedPosition,
+          elementRect,
+          referenceRect
+        );
         position = adjustedPosition;
       }
     }
