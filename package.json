@@ -18,12 +18,12 @@
   "author": "Zestia",
   "license": "MIT",
   "devDependencies": {
-    "@zestia/eslint-config": "2.0.30",
-    "@zestia/prettier-config": "0.0.5",
-    "ava": "2.4.0",
-    "eslint": "6.6.0",
-    "prettier": "1.18.2",
-    "release-it": "12.4.3"
+    "@zestia/eslint-config": "^2.0.32",
+    "@zestia/prettier-config": "^1.0.0",
+    "ava": "^2.4.0",
+    "eslint": "^6.7.2",
+    "prettier": "^1.19.1",
+    "release-it": "^12.4.3"
   },
   "bugs": {
     "url": "https://github.com/zestia/position-utils/issues"
