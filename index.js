@@ -164,6 +164,7 @@
     var elementRect = element.getBoundingClientRect();
     var containerRect = getNormalisedRect(container);
     var boundaryRect = getBoundaryRect(containerRect, columns, rows);
+
     return getPositionForBoundary(elementRect, boundaryRect);
   }
 
@@ -194,18 +195,10 @@
 
     if (container) {
       var boundaryRect = getNormalisedRect(container);
-      var adjustedPosition = getAdjustedPositionForRect(
-        position,
-        positionRect,
-        boundaryRect
-      );
+      var adjustedPosition = getAdjustedPositionForRect(position, positionRect, boundaryRect);
 
       if (position !== adjustedPosition) {
-        positionRect = getPositionForRect(
-          adjustedPosition,
-          elementRect,
-          referenceRect
-        );
+        positionRect = getPositionForRect(adjustedPosition, elementRect, referenceRect);
         position = adjustedPosition;
       }
     }
