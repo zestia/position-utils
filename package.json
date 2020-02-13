@@ -3,7 +3,7 @@
   "version": "5.0.6",
   "description": "Basic utils for positioning elements",
   "scripts": {
-    "test": "ava",
+    "test": "ava && npm run lint:js",
     "lint:js": "eslint .",
     "prettier": "prettier '**/*.{js,json,md}' --write",
     "release": "release-it"
