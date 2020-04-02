@@ -1,10 +1,14 @@
 # Changelog
 
-# 5.07
+## 5.0.8
 
 - Upgrade dependencies
 
-# 5.0.6
+## 5.07
+
+- Upgrade dependencies
+
+## 5.0.6
 
 - Upgrade dependencies
 
