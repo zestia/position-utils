@@ -27,7 +27,7 @@ class Document {
 global.Window = Window;
 global.Document = Document;
 
-test('getPosition', t => {
+test('getPosition', (t) => {
   const container = new Window({ innerWidth: 300, innerHeight: 150 });
 
   let element;
@@ -60,7 +60,7 @@ test('getPosition', t => {
   t.is(getPosition(element, container, 3, 3), 'bottom right', 'bottom right');
 });
 
-test('getCoords', t => {
+test('getCoords', (t) => {
   const offsetParent = new Node({ top: -5, left: -10 });
   const reference = new Node({ top: 25, left: 30, width: 20, height: 10 });
   const element = new Node({ width: 40, height: 30 }, offsetParent);
@@ -137,7 +137,7 @@ test('getCoords', t => {
   );
 });
 
-test('getCoords with boundary container', t => {
+test('getCoords with boundary container', (t) => {
   const offsetParent = new Node({ top: -5, left: -10 });
   const container = new Node({ top: 0, left: 0, right: 100, bottom: 70 });
   const element = new Node({ width: 40, height: 30 }, offsetParent);

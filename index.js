@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-(function(global, factory) {
+(function (global, factory) {
   if (typeof define === 'function' && define.amd) {
     define('@zestia/position-utils', factory);
   } else if (typeof module === 'object' && module.exports) {
@@ -8,7 +8,7 @@
   } else {
     global.positionUtils = factory();
   }
-})(this, function() {
+})(this, function () {
   'use strict';
 
   function getMiddleOfRect(rect) {
@@ -30,7 +30,7 @@
       left: left,
       top: top,
       right: right,
-      bottom: bottom
+      bottom: bottom,
     };
   }
 
@@ -124,7 +124,7 @@
       top: y,
       left: x,
       right: x + rect.width,
-      bottom: y + rect.height
+      bottom: y + rect.height,
     };
   }
 
@@ -176,7 +176,7 @@
         right: object.innerWidth,
         bottom: object.innerHeight,
         width: object.innerWidth,
-        height: object.innerHeight
+        height: object.innerHeight,
       };
     } else if (object instanceof Document) {
       return object.documentElement.getBoundingClientRect();
@@ -195,10 +195,18 @@
 
     if (container) {
       var boundaryRect = getNormalisedRect(container);
-      var adjustedPosition = getAdjustedPositionForRect(position, positionRect, boundaryRect);
+      var adjustedPosition = getAdjustedPositionForRect(
+        position,
+        positionRect,
+        boundaryRect
+      );
 
       if (position !== adjustedPosition) {
-        positionRect = getPositionForRect(adjustedPosition, elementRect, referenceRect);
+        positionRect = getPositionForRect(
+          adjustedPosition,
+          elementRect,
+          referenceRect
+        );
         position = adjustedPosition;
       }
     }
@@ -206,12 +214,12 @@
     return {
       left: positionRect.left + scrollLeft,
       top: positionRect.top + scrollTop,
-      position: position
+      position: position,
     };
   }
 
   return {
     getPosition: getPosition,
-    getCoords: getCoords
+    getCoords: getCoords,
   };
 });
