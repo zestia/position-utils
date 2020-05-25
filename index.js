@@ -30,7 +30,7 @@
       left: left,
       top: top,
       right: right,
-      bottom: bottom,
+      bottom: bottom
     };
   }
 
@@ -124,7 +124,7 @@
       top: y,
       left: x,
       right: x + rect.width,
-      bottom: y + rect.height,
+      bottom: y + rect.height
     };
   }
 
@@ -176,7 +176,7 @@
         right: object.innerWidth,
         bottom: object.innerHeight,
         width: object.innerWidth,
-        height: object.innerHeight,
+        height: object.innerHeight
       };
     } else if (object instanceof Document) {
       return object.documentElement.getBoundingClientRect();
@@ -214,12 +214,12 @@
     return {
       left: positionRect.left + scrollLeft,
       top: positionRect.top + scrollTop,
-      position: position,
+      position: position
     };
   }
 
   return {
     getPosition: getPosition,
-    getCoords: getCoords,
+    getCoords: getCoords
   };
 });
