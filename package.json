@@ -5,7 +5,7 @@
   "scripts": {
     "test": "ava && npm run lint:js",
     "lint:js": "eslint .",
-    "prettier": "prettier '**/*.{js,json,md}' --write",
+    "prettier": "prettier . --write",
     "release": "release-it"
   },
   "repository": {
