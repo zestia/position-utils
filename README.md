@@ -3,9 +3,11 @@
 Utils for determining the position of an element within another element, and positioning
 elements near other elements. Note that 'auto' positioning is intentionally not part of this library.
 
-<hr>
+## getPosition
 
-## `getPosition(element, container, columns, rows)`
+```javascript
+getPosition(element, container, columns, rows);
+```
 
 Returns where `element` is considered to be positioned inside `container`, based on a bounding box created by splitting the `container` into `columns` and `rows`. Here are some examples:
 
@@ -28,7 +30,11 @@ getPosition(element, document, 1, 2);
 getPosition(element, window, 5, 5);
 ```
 
-## `getCoords(position, element, reference)`
+## getCoords
+
+```javascript
+getCoords(position, element, reference);
+```
 
 Returns the coordinates required to place `element` on the outside edge of `reference`, taking into consideration the desired `position` (e.g. `top left`).
 
