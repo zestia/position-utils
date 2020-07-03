@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.0
+
+- Remove auto positioning
+
 ## 5.0.10
 
 - Upgrade dependencies

@@ -128,38 +128,6 @@
     };
   }
 
-  function getAdjustedPositionForRect(position, rect, boundaryRect) {
-    var parts = position.split(' ');
-    var primary = parts[0];
-    var secondary = parts[1];
-    var overflowsTop = rect.top < boundaryRect.top;
-    var overflowsBottom = rect.bottom > boundaryRect.bottom;
-    var overflowsLeft = rect.left < boundaryRect.left;
-    var overflowsRight = rect.right > boundaryRect.right;
-
-    if (primary === 'top' && overflowsTop) {
-      primary = 'bottom';
-    } else if (primary === 'bottom' && overflowsBottom) {
-      primary = 'top';
-    } else if (primary === 'left' && overflowsLeft) {
-      primary = 'right';
-    } else if (primary === 'right' && overflowsRight) {
-      primary = 'left';
-    }
-
-    if (secondary === 'top' && overflowsBottom) {
-      secondary = 'bottom';
-    } else if (secondary === 'bottom' && overflowsTop) {
-      secondary = 'top';
-    } else if (secondary === 'left' && overflowsRight) {
-      secondary = 'right';
-    } else if (secondary === 'right' && overflowsLeft) {
-      secondary = 'left';
-    }
-
-    return [primary, secondary].join(' ');
-  }
-
   function getPosition(element, container, columns, rows) {
     var elementRect = element.getBoundingClientRect();
     var containerRect = getNormalisedRect(container);
@@ -185,37 +153,17 @@
     }
   }
 
-  function getCoords(position, element, reference, container) {
+  function getCoords(position, element, reference) {
     var elementRect = element.getBoundingClientRect();
     var referenceRect = reference.getBoundingClientRect();
     var offsetRect = element.offsetParent.getBoundingClientRect();
     var positionRect = getPositionForRect(position, elementRect, referenceRect);
     var scrollLeft = offsetRect.left * -1;
     var scrollTop = offsetRect.top * -1;
+    var y = positionRect.top + scrollTop;
+    var x = positionRect.left + scrollLeft;
 
-    if (container) {
-      var boundaryRect = getNormalisedRect(container);
-      var adjustedPosition = getAdjustedPositionForRect(
-        position,
-        positionRect,
-        boundaryRect
-      );
-
-      if (position !== adjustedPosition) {
-        positionRect = getPositionForRect(
-          adjustedPosition,
-          elementRect,
-          referenceRect
-        );
-        position = adjustedPosition;
-      }
-    }
-
-    return {
-      left: positionRect.left + scrollLeft,
-      top: positionRect.top + scrollTop,
-      position: position
-    };
+    return [x, y];
   }
 
   return {

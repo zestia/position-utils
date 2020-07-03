@@ -35,7 +35,9 @@
         height: 300px;
         margin-top: 200px;
         margin-left: 300px;
-        position: relative;
+        top: 100px;
+        /* overflow: scroll;
+        position: relative; */
       }
     </style>
   </head>
@@ -48,6 +50,7 @@
       <div class="space"></div>
       <div class="reference"></div>
     </div>
+
     <div class="element"></div>
 
     <div class="space"></div>
@@ -57,13 +60,12 @@
     <script>
       var element = document.querySelector('.element');
       var reference = document.querySelector('.reference');
-      var container = document.querySelector('.container');
       var getCoords = window.positionUtils.getCoords;
 
-      var coords = getCoords('top right', element, reference, container);
+      var coords = getCoords('top right', element, reference);
 
-      element.style.top = coords.top + 'px';
-      element.style.left = coords.left + 'px';
+      element.style.left = coords[0] + 'px';
+      element.style.top = coords[1] + 'px';
     </script>
   </body>
 </html>
