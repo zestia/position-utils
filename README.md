@@ -1,6 +1,6 @@
 # @zestia/position-utils
 
-Rudimentary utils for determining the position of an element within another element, and positioning
+Utils for determining the position of an element within another element, and positioning
 elements near other elements. Note that 'auto' positioning is intentionally not part of this library.
 
 <hr>
