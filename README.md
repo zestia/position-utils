@@ -37,7 +37,7 @@ Returns the coordinates required to place `element` at `position`, on the outsid
 
 <img src="assets/coords.png" width="288" height="288">
 
-### Example
+### Examples
 
 ```javascript
 // Syntax
