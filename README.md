@@ -5,13 +5,15 @@ elements near other elements. Note that 'auto' positioning is intentionally not 
 
 ## getPosition
 
-```javascript
-getPosition(element, container, columns, rows);
-```
-
 Returns where `element` is considered to be positioned inside `container`, based on a bounding box created by splitting the `container` into `columns` and `rows`.
 
 <img src="assets/position.png" width="860">
+
+### Syntax
+
+```javascript
+getPosition(element, container, columns, rows);
+```
 
 ### Examples
 
@@ -32,15 +34,15 @@ getPosition(element, window, 5, 5);
 
 ## getCoords
 
-```javascript
-getCoords(position, element, reference);
-```
-
 Returns the coordinates required to place `element` at `position`, on the outside edge of `reference`.
 
 <img src="assets/coords.png" width="288" height="288">
 
-<hr />
+### Syntax
+
+```javascript
+getCoords(position, element, reference);
+```
 
 ### Example
 
