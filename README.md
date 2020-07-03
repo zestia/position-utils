@@ -5,13 +5,13 @@ elements near other elements. Note that 'auto' positioning is intentionally not 
 
 <hr>
 
-#### `getPosition(element, container, columns, rows)`
+## `getPosition(element, container, columns, rows)`
 
 Returns where `element` is considered to be positioned inside `container`, based on a bounding box created by splitting the `container` into `columns` and `rows`. Here are some examples:
 
 <img src="assets/position.png" width="860">
 
-#### Examples
+### Examples
 
 ```javascript
 // Get position of element inside container, could be in 1 of 9 possible positions
@@ -28,7 +28,7 @@ getPosition(element, document, 1, 2);
 getPosition(element, window, 5, 5);
 ```
 
-#### `getCoords(position, element, reference)`
+## `getCoords(position, element, reference)`
 
 Returns the coordinates required to place `element` on the outside edge of `reference`, taking into consideration the desired `position` (e.g. `top left`).
 
