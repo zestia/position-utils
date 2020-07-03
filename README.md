@@ -9,7 +9,7 @@ elements near other elements. Note that 'auto' positioning is intentionally not 
 getPosition(element, container, columns, rows);
 ```
 
-Returns where `element` is considered to be positioned inside `container`, based on a bounding box created by splitting the `container` into `columns` and `rows`. Here are some examples:
+Returns where `element` is considered to be positioned inside `container`, based on a bounding box created by splitting the `container` into `columns` and `rows`.
 
 <img src="assets/position.png" width="860">
 
