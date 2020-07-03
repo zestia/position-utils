@@ -9,13 +9,12 @@ Returns where `element` is considered to be positioned inside `container`, based
 
 <img src="assets/position.png" width="860">
 
-### Syntax
+### Examples
 
 ```javascript
+// Syntax
 getPosition(element, container, columns, rows);
 ```
-
-### Examples
 
 ```javascript
 // Get position of element inside container, could be in 1 of 9 possible positions
@@ -38,13 +37,12 @@ Returns the coordinates required to place `element` at `position`, on the outsid
 
 <img src="assets/coords.png" width="288" height="288">
 
-### Syntax
+### Example
 
 ```javascript
+// Syntax
 getCoords(position, element, reference);
 ```
-
-### Example
 
 ```javascript
 // Get coords to position element at the bottom left of reference
