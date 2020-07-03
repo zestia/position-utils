@@ -36,7 +36,7 @@ getPosition(element, window, 5, 5);
 getCoords(position, element, reference);
 ```
 
-Returns the coordinates required to place `element` on the outside edge of `reference`, taking into consideration the desired `position` (e.g. `top left`).
+Returns the coordinates required to place `element` at `position`, on the outside edge of `reference`.
 
 <img src="assets/coords.png" width="288" height="288">
 
