@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.1
+
+- Fix `getPosition` not working for containers with non-zero top/left values
+
 ## 6.0.0
 
 - Remove auto positioning

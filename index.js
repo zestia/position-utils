@@ -21,10 +21,10 @@
   function getBoundaryRect(rect, columns, rows) {
     var column = rect.width / columns;
     var row = rect.height / rows;
-    var left = column;
-    var top = row;
-    var right = column * (columns - 1);
-    var bottom = row * (rows - 1);
+    var left = rect.left + column;
+    var top = rect.top + row;
+    var right = rect.right - column;
+    var bottom = rect.bottom - row;
 
     return {
       left: left,
