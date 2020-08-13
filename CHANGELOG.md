@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.2
+
+- Use existing function to compute middle of rect
+
 ## 6.0.1
 
 - Fix `getPosition` not working for containers with non-zero top/left values

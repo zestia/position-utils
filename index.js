@@ -60,8 +60,9 @@
   }
 
   function getPositionForRect(position, rect, referenceRect) {
-    var middle = referenceRect.top + referenceRect.height / 2 - rect.height / 2;
-    var center = referenceRect.left + referenceRect.width / 2 - rect.width / 2;
+    var point = getMiddleOfRect(referenceRect);
+    var center = point[0] - rect.width / 2;
+    var middle = point[1] - rect.height / 2;
     var top = referenceRect.top - rect.height;
     var left = referenceRect.left - rect.width;
     var bottom = referenceRect.top + referenceRect.height;
