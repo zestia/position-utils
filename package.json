@@ -1,6 +1,6 @@
 {
   "name": "@zestia/position-utils",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "description": "Basic utils for positioning elements",
   "scripts": {
     "test": "ava && npm run lint:js",
