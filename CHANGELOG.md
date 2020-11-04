@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.3
+
+- Upgrade dependencies
+
 ## 6.0.2
 
 - Use existing function to compute middle of rect
