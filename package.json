@@ -20,10 +20,10 @@
   "devDependencies": {
     "@zestia/eslint-config": "^3.0.2",
     "@zestia/prettier-config": "^1.0.4",
-    "ava": "^3.13.0",
-    "eslint": "^7.12.1",
-    "prettier": "^2.1.2",
-    "release-it": "^14.2.1"
+    "ava": "^3.14.0",
+    "eslint": "^7.15.0",
+    "prettier": "^2.2.1",
+    "release-it": "^14.2.2"
   },
   "bugs": {
     "url": "https://github.com/zestia/position-utils/issues"

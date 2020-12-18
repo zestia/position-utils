@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.4
+
+- Upgrade dependencies
+
 ## 6.0.3
 
 - Upgrade dependencies
