@@ -2,9 +2,8 @@ const test = require('ava');
 const { getPosition, getCoords } = require('./index');
 
 class Node {
-  constructor(rect, offsetParent) {
+  constructor(rect) {
     this.rect = rect;
-    this.offsetParent = offsetParent;
   }
 
   getBoundingClientRect() {
@@ -61,7 +60,10 @@ test('#getPosition', (t) => {
 test('getCoords', (t) => {
   const offsetParent = new Node({ top: -5, left: -10 });
   const reference = new Node({ top: 25, left: 30, width: 20, height: 10 });
-  const element = new Node({ width: 40, height: 30 }, offsetParent);
+  const element = new Node({ width: 40, height: 30 });
+  offsetParent.scrollTop = 0;
+  offsetParent.scrollLeft = 0;
+  element.offsetParent = offsetParent;
 
   t.deepEqual(getCoords('top left', element, reference), [40, 0]);
   t.deepEqual(getCoords('top center', element, reference), [30, 0]);

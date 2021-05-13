@@ -51,8 +51,6 @@
   </head>
   <body>
     <div class="space"></div>
-    <div class="space"></div>
-    <div class="space"></div>
 
     <div class="container">
       <div class="space"></div>
@@ -61,8 +59,6 @@
       <div class="space"></div>
     </div>
 
-    <div class="space"></div>
-    <div class="space"></div>
     <div class="space"></div>
 
     <button class="position" type="button">Position</button>
@@ -73,10 +69,15 @@
         var reference = document.querySelector('.reference');
         var getCoords = window.positionUtils.getCoords;
 
-        var coords = getCoords('top left', element, reference);
+        var coords = getCoords('bottom left', element, reference);
+
+        console.log(coords);
+        console.log(element);
 
         element.style.left = coords[0] + 'px';
         element.style.top = coords[1] + 'px';
+
+        console.log(element.style.left);
       }
 
       document.querySelector('.position').addEventListener('click', position);

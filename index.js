@@ -59,76 +59,6 @@
     return position.join(' ');
   }
 
-  function getPositionForRect(position, rect, referenceRect) {
-    var point = getMiddleOfRect(referenceRect);
-    var center = point[0] - rect.width / 2;
-    var middle = point[1] - rect.height / 2;
-    var top = referenceRect.top - rect.height;
-    var left = referenceRect.left - rect.width;
-    var bottom = referenceRect.top + referenceRect.height;
-    var right = referenceRect.left + referenceRect.width;
-    var x;
-    var y;
-
-    switch (position) {
-      case 'top left':
-        x = left + rect.width;
-        y = top;
-        break;
-      case 'top center':
-        x = center;
-        y = top;
-        break;
-      case 'top right':
-        x = right - rect.width;
-        y = top;
-        break;
-      case 'right top':
-        x = right;
-        y = top + rect.height;
-        break;
-      case 'right middle':
-        x = right;
-        y = middle;
-        break;
-      case 'right bottom':
-        x = right;
-        y = bottom - rect.height;
-        break;
-      case 'bottom left':
-        x = left + rect.width;
-        y = bottom;
-        break;
-      case 'bottom center':
-        x = center;
-        y = bottom;
-        break;
-      case 'bottom right':
-        x = right - rect.width;
-        y = bottom;
-        break;
-      case 'left top':
-        x = left;
-        y = top + rect.height;
-        break;
-      case 'left middle':
-        x = left;
-        y = middle;
-        break;
-      case 'left bottom':
-        x = left;
-        y = bottom - rect.height;
-        break;
-    }
-
-    return {
-      top: y,
-      left: x,
-      right: x + rect.width,
-      bottom: y + rect.height
-    };
-  }
-
   function getPosition(element, container, columns, rows) {
     var elementRect = element.getBoundingClientRect();
     var containerRect = getNormalisedRect(container);
@@ -158,11 +88,75 @@
     var elementRect = element.getBoundingClientRect();
     var referenceRect = reference.getBoundingClientRect();
     var offsetRect = element.offsetParent.getBoundingClientRect();
-    var positionRect = getPositionForRect(position, elementRect, referenceRect);
-    var scrollLeft = offsetRect.left * -1;
-    var scrollTop = offsetRect.top * -1;
-    var y = positionRect.top + scrollTop;
-    var x = positionRect.left + scrollLeft;
+    var elementHeight = elementRect.height;
+    var elementWidth = elementRect.width;
+    var point = getMiddleOfRect(referenceRect);
+    var referenceCenter = point[0] - elementWidth / 2;
+    var referenceMiddle = point[1] - elementHeight / 2;
+    var referenceTop = referenceRect.top;
+    var referenceLeft = referenceRect.left;
+    var referenceRight = referenceLeft + referenceRect.width;
+    var referenceBottom = referenceTop + referenceRect.height;
+    var offsetScrollTop = element.offsetParent.scrollTop;
+    var offsetScrollLeft = element.offsetParent.scrollLeft;
+    var offsetTop = offsetRect.top * -1;
+    var offsetLeft = offsetRect.left * -1;
+    var x;
+    var y;
+
+    switch (position) {
+      case 'top left':
+        x = referenceLeft;
+        y = referenceTop - elementHeight;
+        break;
+      case 'top center':
+        x = referenceCenter;
+        y = referenceTop - elementHeight;
+        break;
+      case 'top right':
+        x = referenceRight - elementWidth;
+        y = referenceTop - elementHeight;
+        break;
+      case 'right top':
+        x = referenceRight;
+        y = referenceTop;
+        break;
+      case 'right middle':
+        x = referenceRight;
+        y = referenceMiddle;
+        break;
+      case 'right bottom':
+        x = referenceRight;
+        y = referenceBottom - elementHeight;
+        break;
+      case 'bottom left':
+        x = referenceLeft;
+        y = referenceBottom;
+        break;
+      case 'bottom center':
+        x = referenceCenter;
+        y = referenceBottom;
+        break;
+      case 'bottom right':
+        x = referenceRight - elementWidth;
+        y = referenceBottom;
+        break;
+      case 'left top':
+        x = referenceLeft - elementWidth;
+        y = referenceTop;
+        break;
+      case 'left middle':
+        x = referenceLeft - elementWidth;
+        y = referenceMiddle;
+        break;
+      case 'left bottom':
+        x = referenceLeft - elementWidth;
+        y = referenceBottom - elementHeight;
+        break;
+    }
+
+    x += offsetLeft + offsetScrollLeft;
+    y += offsetTop + offsetScrollTop;
 
     return [x, y];
   }
