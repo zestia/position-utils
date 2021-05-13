@@ -27,7 +27,7 @@ class Document {
 global.Window = Window;
 global.Document = Document;
 
-test('get position of element in container', (t) => {
+test('getPosition', (t) => {
   const container = new Node({
     top: 10,
     left: 20,
