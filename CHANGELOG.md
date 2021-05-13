@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.7
+
+- Fix `getCoords` to account for an element inside a relative parent, which has _been scrolled_.
+
 ## 6.0.6
 
 - Upgrade dependencies

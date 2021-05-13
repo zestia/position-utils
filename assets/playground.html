@@ -68,16 +68,10 @@
         var element = document.querySelector('.element');
         var reference = document.querySelector('.reference');
         var getCoords = window.positionUtils.getCoords;
-
-        var coords = getCoords('bottom left', element, reference);
-
-        console.log(coords);
-        console.log(element);
+        var coords = getCoords('top left', element, reference);
 
         element.style.left = coords[0] + 'px';
         element.style.top = coords[1] + 'px';
-
-        console.log(element.style.left);
       }
 
       document.querySelector('.position').addEventListener('click', position);
