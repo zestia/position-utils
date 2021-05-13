@@ -21,6 +21,7 @@
         width: 240px;
         height: 120px;
         position: absolute;
+        padding: 10px;
       }
 
       .reference {
@@ -33,11 +34,18 @@
         border: 1px solid red;
         width: 400px;
         height: 300px;
+        padding: 10px;
         margin-top: 200px;
         margin-left: 300px;
         top: 100px;
-        /* overflow: scroll;
-        position: relative; */
+        overflow: scroll;
+        position: relative;
+      }
+
+      .position {
+        position: fixed;
+        top: 0;
+        left: 0;
       }
     </style>
   </head>
@@ -49,23 +57,29 @@
     <div class="container">
       <div class="space"></div>
       <div class="reference"></div>
+      <div class="element"></div>
+      <div class="space"></div>
     </div>
 
-    <div class="element"></div>
+    <div class="space"></div>
+    <div class="space"></div>
+    <div class="space"></div>
 
-    <div class="space"></div>
-    <div class="space"></div>
-    <div class="space"></div>
+    <button class="position" type="button">Position</button>
 
     <script>
-      var element = document.querySelector('.element');
-      var reference = document.querySelector('.reference');
-      var getCoords = window.positionUtils.getCoords;
+      function position() {
+        var element = document.querySelector('.element');
+        var reference = document.querySelector('.reference');
+        var getCoords = window.positionUtils.getCoords;
 
-      var coords = getCoords('top right', element, reference);
+        var coords = getCoords('top left', element, reference);
 
-      element.style.left = coords[0] + 'px';
-      element.style.top = coords[1] + 'px';
+        element.style.left = coords[0] + 'px';
+        element.style.top = coords[1] + 'px';
+      }
+
+      document.querySelector('.position').addEventListener('click', position);
     </script>
   </body>
 </html>
