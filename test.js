@@ -4,6 +4,8 @@ const { getPosition, getCoords } = require('./index');
 class Node {
   constructor(rect) {
     this.rect = rect;
+    this.scrollTop = 0;
+    this.scrollLeft = 0;
   }
 
   getBoundingClientRect() {
@@ -19,8 +21,8 @@ class Window {
 }
 
 class Document {
-  constructor(element) {
-    this.documentElement = element;
+  constructor(node) {
+    this.documentElement = node;
   }
 }
 
@@ -104,7 +106,8 @@ test('getPosition', (t) => {
     height: 25
   });
 
-  // All possible positions
+  // All possible positions of element inside container using basic grid
+
   t.is(getPosition(topLeftElement, container, 3, 3), 'top left');
   t.is(getPosition(topCenterElement, container, 3, 3), 'top center');
   t.is(getPosition(topRightElement, container, 3, 3), 'top right');
@@ -115,11 +118,13 @@ test('getPosition', (t) => {
   t.is(getPosition(bottomCenterElement, container, 3, 3), 'bottom center');
   t.is(getPosition(bottomRightElement, container, 3, 3), 'bottom right');
 
-  // Different position expectations
+  // Accounts for a different grid
+
   t.is(getPosition(topRightElement, container, 6, 3), 'top center');
   t.is(getPosition(topRightElement, container, 3, 6), 'middle right');
 
-  // Special arguments where a container is derived
+  // Accounts for special arguments (where a container is derived)
+
   t.is(getPosition(bottomRightElement, window, 3, 3), 'bottom right');
   t.is(getPosition(bottomRightElement, document, 3, 3), 'bottom right');
 });
@@ -138,25 +143,38 @@ test('getCoords', (t) => {
   });
 
   const container = new Node({
-    top: -5,
-    left: -10
+    top: 0,
+    left: 0
   });
+
+  element.offsetParent = container;
+
+  // All possible positions of the element near the reference
+
+  t.deepEqual(getCoords('top left', element, reference), [30, -5]);
+  t.deepEqual(getCoords('top center', element, reference), [20, -5]);
+  t.deepEqual(getCoords('top right', element, reference), [10, -5]);
+  t.deepEqual(getCoords('right top', element, reference), [50, 25]);
+  t.deepEqual(getCoords('right middle', element, reference), [50, 15]);
+  t.deepEqual(getCoords('right bottom', element, reference), [50, 5]);
+  t.deepEqual(getCoords('bottom left', element, reference), [30, 35]);
+  t.deepEqual(getCoords('bottom center', element, reference), [20, 35]);
+  t.deepEqual(getCoords('bottom right', element, reference), [10, 35]);
+  t.deepEqual(getCoords('left top', element, reference), [-10, 25]);
+  t.deepEqual(getCoords('left middle', element, reference), [-10, 15]);
+  t.deepEqual(getCoords('left bottom', element, reference), [-10, 5]);
+
+  // Accounts for the position of the reference's container
+
+  container.rect.top = -5;
+  container.rect.left = -10;
+
+  t.deepEqual(getCoords('bottom right', element, reference), [20, 40]);
+
+  // Accounts for scrolling of the reference's container
 
   container.scrollTop = 4;
   container.scrollLeft = 6;
 
-  element.offsetParent = container;
-
-  t.deepEqual(getCoords('top left', element, reference), [46, 4]);
-  t.deepEqual(getCoords('top center', element, reference), [36, 4]);
-  t.deepEqual(getCoords('top right', element, reference), [26, 4]);
-  t.deepEqual(getCoords('right top', element, reference), [66, 34]);
-  t.deepEqual(getCoords('right middle', element, reference), [66, 24]);
-  t.deepEqual(getCoords('right bottom', element, reference), [66, 14]);
-  t.deepEqual(getCoords('bottom left', element, reference), [46, 44]);
-  t.deepEqual(getCoords('bottom center', element, reference), [36, 44]);
   t.deepEqual(getCoords('bottom right', element, reference), [26, 44]);
-  t.deepEqual(getCoords('left top', element, reference), [6, 34]);
-  t.deepEqual(getCoords('left middle', element, reference), [6, 24]);
-  t.deepEqual(getCoords('left bottom', element, reference), [6, 14]);
 });
