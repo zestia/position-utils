@@ -164,17 +164,23 @@ test('getCoords', (t) => {
   t.deepEqual(getCoords('left middle', element, reference), [-10, 15]);
   t.deepEqual(getCoords('left bottom', element, reference), [-10, 5]);
 
-  // Accounts for the position of the reference's container
+  // Accounts for the position of the offset parent
 
   container.rect.top = -5;
   container.rect.left = -10;
 
   t.deepEqual(getCoords('bottom right', element, reference), [20, 40]);
 
-  // Accounts for scrolling of the reference's container
+  // Accounts for an offset parent has been scrolled
 
   container.scrollTop = 4;
   container.scrollLeft = 6;
 
   t.deepEqual(getCoords('bottom right', element, reference), [26, 44]);
+
+  // Accounts for an offset parent when hidden
+
+  element.offsetParent = null;
+
+  t.deepEqual(getCoords('bottom right', element, reference), [0, 0]);
 });

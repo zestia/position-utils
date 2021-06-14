@@ -85,6 +85,10 @@
   }
 
   function getCoords(position, element, reference) {
+    if (!element.offsetParent) {
+      return [0, 0];
+    }
+
     var elementRect = element.getBoundingClientRect();
     var referenceRect = reference.getBoundingClientRect();
     var offsetRect = element.offsetParent.getBoundingClientRect();
