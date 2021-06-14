@@ -3,6 +3,7 @@
 ## 6.0.8
 
 - Fix `getCoords` to account for an element inside a relative parent, which _is hidden_.
+- Upgrade dependencies
 
 ## 6.0.7
 
