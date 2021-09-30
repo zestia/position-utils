@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.0.0
+
+- Use modules
+
 ## 6.0.8
 
 - Fix `getCoords` to account for an element inside a relative parent, which _is hidden_.

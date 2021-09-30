@@ -1,5 +1,5 @@
-const test = require('ava');
-const { getPosition, getCoords } = require('./index');
+import test from 'ava';
+import { getPosition, getCoords } from './index.js';
 
 class Node {
   constructor(rect) {

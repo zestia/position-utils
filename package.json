@@ -1,9 +1,9 @@
 {
   "name": "@zestia/position-utils",
-  "version": "6.0.8",
+  "version": "7.0.0",
   "description": "Basic utils for positioning elements",
   "scripts": {
-    "test": "ava && npm run lint:js",
+    "test": "npm run lint:js && ava",
     "lint:js": "eslint .",
     "prettier": "prettier . --write",
     "release": "release-it"
@@ -13,17 +13,23 @@
     "url": "https://github.com/zestia/position-utils.git"
   },
   "engines": {
-    "node": ">= 8"
+    "node": ">= 14"
+  },
+  "ava": {
+    "require": [
+      "esm"
+    ]
   },
   "author": "Zestia",
   "license": "MIT",
   "devDependencies": {
-    "@zestia/eslint-config": "^4.0.4",
+    "@zestia/eslint-config": "^4.0.6",
     "@zestia/prettier-config": "^1.0.5",
     "ava": "^3.15.0",
-    "eslint": "^7.28.0",
-    "prettier": "^2.3.1",
-    "release-it": "^14.9.0"
+    "eslint": "^7.32.0",
+    "esm": "^3.2.25",
+    "prettier": "^2.4.1",
+    "release-it": "^14.11.6"
   },
   "bugs": {
     "url": "https://github.com/zestia/position-utils/issues"
