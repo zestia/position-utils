@@ -28,17 +28,17 @@ function getPositionForBoundary(rect, boundaryRect) {
   const [x, y] = point;
   const position = [];
 
-  if (y < boundaryRect.top) {
+  if (y <= boundaryRect.top) {
     position.push('top');
-  } else if (y > boundaryRect.bottom) {
+  } else if (y >= boundaryRect.bottom) {
     position.push('bottom');
   } else {
     position.push('middle');
   }
 
-  if (x < boundaryRect.left) {
+  if (x <= boundaryRect.left) {
     position.push('left');
-  } else if (x > boundaryRect.right) {
+  } else if (x >= boundaryRect.right) {
     position.push('right');
   } else {
     position.push('center');

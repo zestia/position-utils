@@ -54,6 +54,72 @@ module('getPosition', function (hooks) {
 
     assert.equal(getPosition(element, container, 3, 3), 'middle center');
   });
+
+  test('custom grid', function (assert) {
+    assert.expect(9);
+
+    assert.equal(getPosition(element, container, 2, 2), 'top left');
+
+    container.style.justifyContent = 'center';
+
+    assert.equal(getPosition(element, container, 2, 2), 'top left');
+
+    container.style.justifyContent = 'end';
+
+    assert.equal(getPosition(element, container, 2, 2), 'top right');
+
+    container.style.alignItems = 'center';
+
+    assert.equal(getPosition(element, container, 2, 2), 'top right');
+
+    container.style.alignItems = 'flex-end';
+
+    assert.equal(getPosition(element, container, 2, 2), 'bottom right');
+
+    container.style.justifyContent = 'center';
+
+    assert.equal(getPosition(element, container, 2, 2), 'bottom left');
+
+    container.style.justifyContent = 'flex-start';
+
+    assert.equal(getPosition(element, container, 2, 2), 'bottom left');
+
+    container.style.alignItems = 'center';
+
+    assert.equal(getPosition(element, container, 2, 2), 'top left');
+
+    container.style.justifyContent = 'center';
+
+    assert.equal(getPosition(element, container, 2, 2), 'top left');
+  });
+
+  test('window container', function (assert) {
+    assert.expect(2);
+
+    element.style.position = 'absolute';
+    element.style.top = '100%';
+    element.style.right = 0;
+
+    assert.equal(getPosition(element, window, 3, 3), 'bottom right');
+
+    element.style.top = `${document.body.scrollHeight}px`;
+
+    assert.equal(getPosition(element, window, 3, 3), 'bottom right');
+  });
+
+  test('document container', function (assert) {
+    assert.expect(2);
+
+    element.style.position = 'absolute';
+    element.style.top = '100%';
+    element.style.right = 0;
+
+    assert.equal(getPosition(element, document, 3, 3), 'middle right');
+
+    element.style.top = `${document.body.scrollHeight}px`;
+
+    assert.equal(getPosition(element, document, 3, 3), 'bottom right');
+  });
 });
 
 module('getCoords', function (hooks) {
@@ -101,7 +167,6 @@ module('getCoords', function (hooks) {
   test('scrolled parent', function (assert) {
     assert.expect(1);
 
-    container.style.overflow = 'scroll';
     reference.style.marginTop = '400px';
     container.scrollTop = 101;
 

@@ -11,7 +11,7 @@ body {
 }
 
 #qunit {
-  opacity: .2;
+  /* display: none; */
 }
 
 #qunit-fixture {
@@ -23,6 +23,7 @@ body {
   height: 200px;
   background-color: var(--red);
   display: flex;
+  overflow: scroll;
 }
 
 #test-element {
