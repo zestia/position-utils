@@ -22,11 +22,6 @@ getPosition(element, container, 3, 3);
 ```
 
 ```javascript
-// Get position of element inside the document, could be in one of 2 possible locations: top center or bottom center
-getPosition(element, document, 1, 2);
-```
-
-```javascript
 // Get position of element inside the viewport, with edge positions less likely to be considered
 getPosition(element, window, 5, 5);
 ```
