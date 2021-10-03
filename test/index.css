@@ -1,9 +1,13 @@
-/* stylelint-disable selector-max-id */
+/* stylelint-disable selector-max-id, selector-max-type */
 
 :root {
   --red: red;
   --blue: blue;
   --green: green;
+}
+
+body {
+  margin: 0;
 }
 
 #qunit {
