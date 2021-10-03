@@ -5,7 +5,11 @@ module.exports = {
   launch_in_ci: ['Chrome'],
   browser_args: {
     Chrome: {
-      ci: ['--headless', '--remote-debugging-port=9222']
+      ci: [
+        '--headless',
+        '--remote-debugging-port=9222',
+        '--window-size=1000,1000'
+      ]
     }
   }
 };

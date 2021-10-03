@@ -16,6 +16,7 @@ body {
 
 #qunit-fixture {
   position: static;
+  height: 2000px;
 }
 
 #test-container {
