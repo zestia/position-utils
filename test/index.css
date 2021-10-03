@@ -1,0 +1,29 @@
+/* stylelint-disable selector-max-id */
+
+:root {
+  --red: red;
+  --blue: blue;
+  --green: green;
+}
+
+#qunit-fixture {
+  position: static;
+}
+
+#test-container {
+  width: 400px;
+  height: 300px;
+  background-color: var(--red);
+}
+
+#test-element {
+  width: 100px;
+  height: 50px;
+  background-color: var(--blue);
+}
+
+#test-reference {
+  width: 200px;
+  height: 100px;
+  background-color: var(--green);
+}
