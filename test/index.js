@@ -4,37 +4,63 @@ const {
   QUnit: { module, test }
 } = window;
 
+let element;
+let container;
+let reference;
+
 module('getPosition', function (hooks) {
-  let element;
-  let container;
-
-  hooks.beforeEach(function () {
-    element = document.getElementById('test-element');
-    container = document.getElementById('test-container');
-  });
-
-  test('possible positions', function (assert) {
-    assert.expect(1);
-
-    // assert.equal(getPosition(element, container, 3, 3), 'top left');
-  });
-});
-
-module('getCoords', function (hooks) {
-  let element;
-  let reference;
-  let container;
-
   hooks.beforeEach(function () {
     element = document.getElementById('test-element');
     reference = document.getElementById('test-reference');
     container = document.getElementById('test-container');
+
+    reference.style.display = 'none';
   });
 
-  hooks.afterEach(function () {
-    reference.style = '';
-    container.style = '';
-    container.scrollTop = 0;
+  test('possible positions', function (assert) {
+    assert.expect(9);
+
+    assert.equal(getPosition(element, container, 3, 3), 'top left');
+
+    container.style.justifyContent = 'center';
+
+    assert.equal(getPosition(element, container, 3, 3), 'top center');
+
+    container.style.justifyContent = 'end';
+
+    assert.equal(getPosition(element, container, 3, 3), 'top right');
+
+    container.style.alignItems = 'center';
+
+    assert.equal(getPosition(element, container, 3, 3), 'middle right');
+
+    container.style.alignItems = 'flex-end';
+
+    assert.equal(getPosition(element, container, 3, 3), 'bottom right');
+
+    container.style.justifyContent = 'center';
+
+    assert.equal(getPosition(element, container, 3, 3), 'bottom center');
+
+    container.style.justifyContent = 'flex-start';
+
+    assert.equal(getPosition(element, container, 3, 3), 'bottom left');
+
+    container.style.alignItems = 'center';
+
+    assert.equal(getPosition(element, container, 3, 3), 'middle left');
+
+    container.style.justifyContent = 'center';
+
+    assert.equal(getPosition(element, container, 3, 3), 'middle center');
+  });
+});
+
+module('getCoords', function (hooks) {
+  hooks.beforeEach(function () {
+    element = document.getElementById('test-element');
+    reference = document.getElementById('test-reference');
+    container = document.getElementById('test-container');
   });
 
   test('possible positions', function (assert) {
