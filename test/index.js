@@ -45,4 +45,14 @@ module('getCoords', function (hooks) {
     assert.deepEqual(getCoords('left middle', element, reference), [-100, 225]);
     assert.deepEqual(getCoords('left bottom', element, reference), [-100, 250]);
   });
+
+  test('offset parent', function (assert) {
+    assert.expect(1);
+
+    reference.style.position = 'relative';
+    reference.style.top = '5px';
+    reference.style.left = '10px';
+
+    assert.deepEqual(getCoords('bottom right', element, reference), [110, 305]);
+  });
 });
