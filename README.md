@@ -7,7 +7,7 @@ elements near other elements. Note that 'auto' positioning is intentionally not 
 
 Returns where `element` is considered to be positioned inside `container`, based on a bounding box created by splitting the `container` into `columns` and `rows`.
 
-<img src="assets/position.png" width="865" height="205">
+<img src="docs/position.png" width="865" height="205">
 
 ### Examples
 
@@ -35,7 +35,7 @@ getPosition(element, window, 5, 5);
 
 Returns the coordinates required to place `element` at `position`, on the outside edge of `reference`.
 
-<img src="assets/coords.png" width="288" height="288">
+<img src="docs/coords.png" width="288" height="288">
 
 ### Examples
 
