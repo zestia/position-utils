@@ -6,13 +6,17 @@
   --green: green;
 }
 
+#qunit {
+  /* display: none; */
+}
+
 #qunit-fixture {
   position: static;
 }
 
 #test-container {
-  width: 400px;
-  height: 300px;
+  width: 300px;
+  height: 200px;
   background-color: var(--red);
 }
 
