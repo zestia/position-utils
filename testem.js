@@ -8,7 +8,7 @@ module.exports = {
       ci: [
         '--headless',
         '--remote-debugging-port=9222',
-        '--window-size=1000,1000'
+        '--window-size=1440,900'
       ]
     }
   }

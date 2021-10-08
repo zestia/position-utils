@@ -120,6 +120,32 @@ module('getPosition', function (hooks) {
 
     assert.equal(getPosition(element, document, 3, 3), 'bottom right');
   });
+
+  test('boundary accuracy', function (assert) {
+    assert.expect(4);
+
+    container.style.width = '300px';
+    container.style.height = '300px';
+    container.style.position = 'relative';
+
+    element.style.position = 'absolute';
+
+    element.style.left = '50px';
+
+    assert.equal(getPosition(element, container, 3, 3), 'top left');
+
+    element.style.left = '51px';
+
+    assert.equal(getPosition(element, container, 3, 3), 'top center');
+
+    element.style.top = '76px';
+
+    assert.equal(getPosition(element, container, 3, 3), 'middle center');
+
+    element.style.left = '50px';
+
+    assert.equal(getPosition(element, container, 3, 3), 'middle left');
+  });
 });
 
 module('getCoords', function (hooks) {
