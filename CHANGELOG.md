@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.0.1
+
+- Reduce node version requirements
+
 ## 7.0.0
 
 - Use modules

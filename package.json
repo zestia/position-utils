@@ -15,7 +15,7 @@
     "url": "https://github.com/zestia/position-utils.git"
   },
   "engines": {
-    "node": ">= 14"
+    "node": ">= 12"
   },
   "author": "Zestia",
   "license": "MIT",
