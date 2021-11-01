@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.0.2
+
+- Add `.npmignore`
+
 ## 7.0.1
 
 - Reduce node version requirements
