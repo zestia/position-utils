@@ -2,7 +2,7 @@
 
 ## 7.0.2
 
-- Add `.npmignore`
+- Only publish necessary code
 
 ## 7.0.1
 
