@@ -1,4 +1,4 @@
-import { getPosition, getCoords } from '../index.js';
+import { getPosition, getCoords } from '../index.js'; // eslint-disable-line no-restricted-imports
 
 const {
   QUnit: { module, test }

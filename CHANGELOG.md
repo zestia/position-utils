@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.0.5
+
+- Upgrade `@zestia` scoped dependencies
+
 ## 7.0.4
 
 - Re-release of 7.0.4 for testing publishing to GH instead of NPM
