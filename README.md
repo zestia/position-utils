@@ -3,6 +3,19 @@
 Utils for determining the position of an element within another element, and positioning
 elements near other elements. Note that 'auto' positioning is intentionally not part of this library.
 
+## Installation
+
+```
+npm install --save-dev @zestia/position-utils
+```
+
+Add the following to `~/.npmrc` to pull @zestia scoped packages from Github instead of NPM.
+
+```
+@zestia:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=<YOUR_GH_TOKEN>
+```
+
 ## getPosition
 
 Returns where `element` is considered to be positioned inside `container`, based on a bounding box created by splitting the `container` into `columns` and `rows`.
