@@ -1,3 +1,1 @@
-module.exports = {
-  extends: '@zestia/eslint-config'
-};
+module.exports = require('@zestia/eslint-config');
