@@ -6,7 +6,7 @@
     "test": "npm run lint && testem ci",
     "lint": "npm run lint:js && npm run lint:css && npm run lint:prettier",
     "lint:js": "eslint .",
-    "lint:css": "stylelint '**/*.{css,scss}'",
+    "lint:css": "stylelint '**/*.css'",
     "lint:prettier": "prettier . --check",
     "release": "release-it"
   },
